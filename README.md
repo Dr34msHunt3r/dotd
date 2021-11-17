@@ -23,3 +23,4 @@ samples, guidance on mobile development, and a full API reference.
     c) Edit recipe screen accessible from Details screen (contains delete option),
     d) Add recipe screen accessible from home.dart from adding card,
     e) Settings screen accessible from home.dart screen from AppBar.
+"# dotd" 
