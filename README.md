@@ -1,21 +1,21 @@
-# dotd
+# Dish of The Day (tired of making decisions?)
 
-A new Flutter project.
+It's Mobile Application that in the basic version will contain the functionality of managing recipes. In the future, I intend to extend application for the possibility of drawing recipes and assigning them to a schedule to help undecided consumers choose what to eat :)
 
-## Getting Started
+## How do I run the application?
+Requirements: Flutter installed on the device, Android Studio or any other preffered compilator which is able to run Flutter Project
+1) Set up Json Server:
+    -install nodejs latest stable version from https://nodejs.org/en/,
+    -open terminal and install json server with command: npm install json-server -g,        <== -g means global installation for json server
+    -download the project,
+    -open terminal in project folder dotd and run command: json-server --watch db.json.
 
-This project is a starting point for a Flutter application.
+2) Run the project on the emulator:
+    -open project in Adnroid Studio,
+    -turn on device emulator from AVD Manager,
+    -run application by pushing button(green arrow) Run 'main.dart'
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
-
-### Structure Plan
+### Structure Plan (TODO)
 
 1. Main screens:
     a) Home screen with recipeList home.dart,
