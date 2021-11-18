@@ -1,4 +1,5 @@
 import 'package:dotd/cubit/add_recipe_cubit.dart';
+import 'package:dotd/cubit/recipes_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -14,9 +15,17 @@ class AddRecipeScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Add Recipe"),
       ),
-      body: Container(
-        margin: const EdgeInsets.all(20.0),
-        child: _body(context),
+      body: BlocListener<AddRecipeCubit, AddRecipeState>(
+        listener: (context, state) {
+          if(state is RecipeAdded){
+            Navigator.pop(context);
+            return;
+          }
+        },
+        child: Container(
+                margin: const EdgeInsets.all(20.0),
+                child: _body(context),
+              ),
       )
     );
   }
