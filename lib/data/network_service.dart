@@ -17,4 +17,15 @@ class NetworkService {
     }
   }
 
+  Future<Map> addRecipe(Map<String, String> recipeObj) async {
+    try{
+      final response = await http.post(Uri.parse(baseUrl + "/recipes"), body: recipeObj);
+      print(response.body);
+      return jsonDecode(response.body);
+    }catch(e){
+      print(e);
+      return {};
+    }
+  }
+
 }

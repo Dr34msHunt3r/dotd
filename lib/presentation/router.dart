@@ -38,7 +38,10 @@ class AppRouter {
       case ADD_RECIPE_ROUTE:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
-            create: (BuildContext context) => AddRecipeCubit(repository: repository, recipesCubit: recipesCubit),
+            create: (BuildContext context) => AddRecipeCubit(
+                repository: repository,
+                recipesCubit: recipesCubit
+            ),
             child: AddRecipeScreen(),
           ),
         );

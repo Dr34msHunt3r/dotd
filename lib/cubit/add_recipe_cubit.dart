@@ -17,8 +17,7 @@ class AddRecipeCubit extends Cubit<AddRecipeState> {
     if (recipeTitle.isEmpty){
       emit(AddRecipeError(error: "recipe title is empty"));
       return;
-    }
-    if (recipeRecipe.isEmpty){
+    }else if (recipeRecipe.isEmpty){
       emit(AddRecipeError(error: "recipe is empty"));
       return;
     }

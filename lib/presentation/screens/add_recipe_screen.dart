@@ -40,7 +40,8 @@ class AddRecipeScreen extends StatelessWidget {
             final recipeRecipe = _controllerSubtitle.text;
             BlocProvider.of<AddRecipeCubit>(context).addRecipe(recipeTitle, recipeRecipe);
           },
-            child: _addRecipeBtn(context))
+            child: _addRecipeBtn(context)
+        )
       ],
     );
   }
