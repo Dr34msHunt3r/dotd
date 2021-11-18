@@ -6,7 +6,7 @@ It's Mobile Application that in the basic version will contain the functionality
 Requirements: Flutter installed on the device, Android Studio or any other preffered compilator which is able to run Flutter Project  
 1) Set up Json Server:  
     -install nodejs latest stable version from https://nodejs.org/en/,  
-    -open terminal and install json server with command: npm install json-server -g, _____________ <== -g means global installation for json server  
+    -open terminal and install json server with command: npm install json-server -g, _ <== -g means global installation for json server  
     -download the project,
     -open terminal in project folder dotd and run command: json-server --watch db.json.  
 
