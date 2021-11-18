@@ -31,7 +31,7 @@ class RecipesScreen extends StatelessWidget {
           }
           final recipes = (state as RecipesLoaded).recipes;
 
-          return Column(
+          return ListView(
             children: [
               _addRecipe(context),
               Column(
