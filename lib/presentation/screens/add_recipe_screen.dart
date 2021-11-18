@@ -1,7 +1,7 @@
 import 'package:dotd/cubit/add_recipe_cubit.dart';
-import 'package:dotd/cubit/recipes_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class AddRecipeScreen extends StatelessWidget {
    AddRecipeScreen({Key? key}) : super(key: key);
@@ -20,6 +20,10 @@ class AddRecipeScreen extends StatelessWidget {
           if(state is RecipeAdded){
             Navigator.pop(context);
             return;
+          }else if(state is AddRecipeError){
+            Fluttertoast.showToast(
+                msg: state.error
+            );
           }
         },
         child: Container(
