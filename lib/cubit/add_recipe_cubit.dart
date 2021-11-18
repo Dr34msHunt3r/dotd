@@ -26,6 +26,7 @@ class AddRecipeCubit extends Cubit<AddRecipeState> {
       repository.addRecipe(recipeTitle, recipeRecipe).then((recipe) {
         if(recipe != null){
           recipesCubit.addRecipe(recipe);
+          emit(RecipeAdded());
         }
       });
     });
