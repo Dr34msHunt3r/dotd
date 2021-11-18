@@ -23,7 +23,11 @@ class AddRecipeCubit extends Cubit<AddRecipeState> {
     }
     emit(AddingRecipe());
     Timer(const Duration(seconds: 2), () {
-      repository.addRecipe(recipeTitle, recipeRecipe);
+      repository.addRecipe(recipeTitle, recipeRecipe).then((recipe) {
+        if(recipe != null){
+          recipesCubit.addRecipe(recipe);
+        }
+      });
     });
   }
 }

@@ -19,4 +19,13 @@ class RecipesCubit extends Cubit<RecipesState> {
       });
     });
   }
+
+  void addRecipe(Recipe recipe) {
+    final currentState = state;
+    if(currentState is RecipesLoaded){
+      final recipeList = currentState.recipes;
+      recipeList.add(recipe);
+      emit(RecipesLoaded(recipes: recipeList));
+    }
+  }
 }
