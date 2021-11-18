@@ -54,12 +54,19 @@ class AddRecipeScreen extends StatelessWidget {
         color: Colors.blue,
           borderRadius: BorderRadius.circular(10.0)
       ),
-      child: const Center(
-        child: Text(
-          "Add Recipe",
-          style: TextStyle(
-            color: Colors.white,
-          ),
+      child: Center(
+        child: BlocBuilder<AddRecipeCubit, AddRecipeState>(
+          builder: (context, state) {
+          if(state is AddingRecipe){
+            return const CircularProgressIndicator();
+          }
+          return const Text(
+            "Add Recipe",
+            style: TextStyle(
+              color: Colors.white,
+            ),
+          );
+          },
         ),
       ),
 
