@@ -71,7 +71,10 @@ class AddRecipeScreen extends StatelessWidget {
         child: BlocBuilder<AddRecipeCubit, AddRecipeState>(
           builder: (context, state) {
           if(state is AddingRecipe){
-            return const CircularProgressIndicator();
+            return const SizedBox(
+              height: 16.0,
+                width: 16.0,
+                child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white)));
           }
           return const Text(
             "Add Recipe",

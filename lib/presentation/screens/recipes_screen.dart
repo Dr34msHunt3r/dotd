@@ -71,7 +71,7 @@ class RecipesScreen extends StatelessWidget {
   Widget _recipe(Recipe recipe, context) {
     return Card(
         child: InkWell(
-            onTap: () => Navigator.pushNamed(context, DETAILS_RECIPE_ROUTE),
+            onTap: () => Navigator.pushNamed(context, DETAILS_RECIPE_ROUTE, arguments: recipe),
             child: _recipeTile(recipe, context)));
   }
 
