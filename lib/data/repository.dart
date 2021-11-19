@@ -27,4 +27,13 @@ class Repository {
     return Recipe.fromJson(recipeMap);
   }
 
+  Future<bool> deleteRecipe(int id) async{
+    return await networkService.deleteRecipe(id);
+  }
+
+  Future<bool> updateRecipe(int id, Recipe updatedRecipe) async {
+    final putObj = {"title": updatedRecipe.recipeTitle, "recipe": updatedRecipe.recipeRecipe};
+    return await networkService.putRecipe(putObj, id);
+  }
+
 }

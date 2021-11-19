@@ -28,4 +28,20 @@ class RecipesCubit extends Cubit<RecipesState> {
       emit(RecipesLoaded(recipes: recipeList));
     }
   }
+
+  void deleteCubit(Recipe recipe) {
+    final currentState = state;
+    if(currentState is RecipesLoaded){
+      final recipeList = currentState.recipes.where((element) => element.id != recipe.id).toList();
+      emit(RecipesLoaded(recipes: recipeList));
+    }
+  }
+
+  void updateRecipeList() {
+    final currentState = state;
+    if(currentState is RecipesLoaded){
+      emit(RecipesLoaded(recipes: currentState.recipes));
+    }
+
+  }
 }

@@ -29,4 +29,24 @@ class NetworkService {
     }
   }
 
+  Future<bool> deleteRecipe(int id) async{
+    try{
+      await http.delete(Uri.parse(baseUrl + "/recipes/$id"));
+      return true;
+    }catch(e){
+      print(e);
+      return false;
+    }
+  }
+
+  putRecipe(Map<String, String> putObj, int id) async{
+    try{
+      await http.put(Uri.parse(baseUrl + "/recipes/$id"), body: putObj);
+      return true;
+    }catch(e){
+      print(e);
+      return false;
+    }
+  }
+
 }

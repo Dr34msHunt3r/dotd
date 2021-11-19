@@ -1,5 +1,10 @@
+import 'package:dotd/cubit/edit_recipe_cubit.dart';
 import 'package:dotd/data/models/recipe.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import '../router.dart';
 
 class EditRecipeScreen extends StatelessWidget {
   EditRecipeScreen({Key? key, required this.recipe}) : super(key: key);
@@ -11,15 +16,38 @@ class EditRecipeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _controllerTitle.text = recipe.recipeTitle;
-    _controllerRecipe.text = recipe.recipeRecipe;
+    // TODO: find out why can not edit TextField while _controller.text is set
+    // _controllerTitle.text = recipe.recipeTitle;
+    // _controllerRecipe.text = recipe.recipeRecipe;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text("Edit Recipe"),
-      ),
-      body: SafeArea(
-        child: _body(context),
+    return BlocListener<EditRecipeCubit, EditRecipeState>(
+      listener: (context, state) {
+        if (state is RecipeEdited){
+          // TODO: get to know how change this to popUntil
+          Navigator.pop(context);
+          Navigator.pop(context);
+        }else if(state is EditRecipeError){
+          Fluttertoast.showToast(msg: state.error);
+        }
+      },
+      child: Scaffold(
+          appBar: AppBar(
+            title: const Text("Edit Recipe"),
+            actions: [
+              InkWell(
+                onTap: (){
+                  BlocProvider.of<EditRecipeCubit>(context).deleteRecipe(recipe);
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(Icons.delete),
+                ),
+              )
+            ],
+          ),
+          body: SafeArea(
+            child: _body(context),
+          ),
       ),
     );
   }
@@ -33,8 +61,8 @@ class EditRecipeScreen extends StatelessWidget {
         const SizedBox(height: 100.0,),
         TextField(
           controller: _controllerTitle,
-          autocorrect: true, style:
-        const TextStyle(fontSize: 20),
+          autocorrect: true,
+          style: const TextStyle(fontSize: 20),
           decoration: const InputDecoration(labelText: "Enter title"),
         ),
         const SizedBox(height: 25.0,),
@@ -52,7 +80,7 @@ class EditRecipeScreen extends StatelessWidget {
   }
 
   Widget _editRecipeBtn(context){
-    return Material(
+    return Container(
       child: Ink(
         width: MediaQuery.of(context).size.width,
         height: 50.0,
@@ -61,7 +89,10 @@ class EditRecipeScreen extends StatelessWidget {
             borderRadius: BorderRadius.circular(10.0)
         ),
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Recipe updatedRecipe = Recipe(recipeTitle: _controllerTitle.text, recipeRecipe: _controllerRecipe.text);
+            BlocProvider.of<EditRecipeCubit>(context).updateRecipe(recipe, updatedRecipe);
+          },
           child: const Center(
              child: Text(
                 "Save changes",
