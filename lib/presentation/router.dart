@@ -36,7 +36,8 @@ class AppRouter {
         final recipe = settings.arguments as Recipe;
         return MaterialPageRoute(builder: (_) => DetailsRecipeScreen(recipe: recipe,));
       case EDIT_RECIPE_ROUTE:
-        return MaterialPageRoute(builder: (_) => const EditRecipeScreen());
+        final recipe = settings.arguments as Recipe;
+        return MaterialPageRoute(builder: (_) => EditRecipeScreen(recipe: recipe,));
       case ADD_RECIPE_ROUTE:
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
