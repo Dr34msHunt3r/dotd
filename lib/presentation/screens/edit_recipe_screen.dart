@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import '../router.dart';
-
 class EditRecipeScreen extends StatefulWidget {
-  EditRecipeScreen({Key? key, required this.recipe}) : super(key: key);
+  const EditRecipeScreen({Key? key, required this.recipe}) : super(key: key);
 
   final Recipe recipe;
 
