@@ -26,66 +26,73 @@ class AddRecipeScreen extends StatelessWidget {
             );
           }
         },
-        child: Container(
-                margin: const EdgeInsets.all(20.0),
-                child: _body(context),
-              ),
+        child: SafeArea(
+          child: _body(context),
+        ),
       )
     );
   }
 
   Widget _body(context){
-    return Column(
+    return ListView(
+      padding: const EdgeInsets.all(25.0),
       children: [
         TextField(
           controller: _controllerTitle,
-          decoration: const InputDecoration(hintText: "Enter recipe title..."),
+          style: const TextStyle(fontSize: 20),
+          decoration: const InputDecoration(labelText: "Enter title"),
         ),
         const SizedBox(height: 10.0,),
         TextField(
           controller: _controllerSubtitle,
-          decoration: const InputDecoration(hintText: "Enter recipe..."),
+          keyboardType: TextInputType.multiline,
+          maxLines: null,
+          decoration: const InputDecoration(labelText: "Enter recipe"),
         ),
         const SizedBox(height: 15.0,),
-        InkWell(
-          onTap: (){
-            final recipeTitle = _controllerTitle.text;
-            final recipeRecipe = _controllerSubtitle.text;
-            BlocProvider.of<AddRecipeCubit>(context).addRecipe(recipeTitle, recipeRecipe);
-          },
-            child: _addRecipeBtn(context)
-        )
+        _addRecipeBtn(context)
       ],
     );
   }
 
-  Widget _addRecipeBtn(context){
-    return Container(
-      width: MediaQuery.of(context).size.width,
-      height: 50.0,
-      decoration: BoxDecoration(
-        color: Colors.blue,
-          borderRadius: BorderRadius.circular(10.0)
-      ),
-      child: Center(
-        child: BlocBuilder<AddRecipeCubit, AddRecipeState>(
-          builder: (context, state) {
-          if(state is AddingRecipe){
-            return const SizedBox(
-              height: 16.0,
-                width: 16.0,
-                child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white)));
-          }
-          return const Text(
-            "Add Recipe",
-            style: TextStyle(
-              color: Colors.white,
-            ),
-          );
-          },
-        ),
-      ),
+   Widget _addRecipeBtn(context){
+     return Ink(
+       width: MediaQuery.of(context).size.width,
+       height: 50.0,
+       decoration: BoxDecoration(
+           color: Colors.blue,
+           borderRadius: BorderRadius.circular(10.0)
+       ),
+       child: InkWell(
+         onTap: (){
+           final recipeTitle = _controllerTitle.text;
+           final recipeRecipe = _controllerSubtitle.text;
+           BlocProvider.of<AddRecipeCubit>(context).addRecipe(recipeTitle, recipeRecipe);
+         },
+         child: BlocBuilder<AddRecipeCubit, AddRecipeState>(
+           builder: (context, state) {
+             if(state is AddingRecipe){
+               return const Center(
+                 child: SizedBox(
+                   height: 16.0,
+                     width: 16.0,
+                     child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
+                 ),
+               );
+             }
+             return const Center(
+               child: Text(
+                 "Add recipe",
+                 style: TextStyle(
+                   color: Colors.white,
+                 ),
+               ),
+             );
+           },
+         ),
+       ),
+     );
+   }
 
-    );
-  }
+
 }

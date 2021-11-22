@@ -24,22 +24,25 @@ class RecipesScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: BlocBuilder<RecipesCubit, RecipesState>(
-        builder: (context, state) {
-          if (!(state is RecipesLoaded)) {
-            return const Center(child: CircularProgressIndicator());
-          }
-          final recipes = (state as RecipesLoaded).recipes;
+      body: SafeArea(
+        child: BlocBuilder<RecipesCubit, RecipesState>(
+          builder: (context, state) {
+            if (!(state is RecipesLoaded)) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            final recipes = (state as RecipesLoaded).recipes;
 
-          return ListView(
-            children: [
-              _addRecipe(context),
-              Column(
-                children: recipes.map((e) => _recipe(e, context)).toList(),
-              ),
-            ],
-          );
-        },
+            return ListView(
+              padding: const EdgeInsets.all(10.0),
+              children: [
+                _addRecipe(context),
+                Column(
+                  children: recipes.map((e) => _recipe(e, context)).toList(),
+                ),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

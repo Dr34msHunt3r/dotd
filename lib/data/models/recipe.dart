@@ -1,5 +1,3 @@
-import 'package:meta/meta.dart';
-import 'dart:convert';
 class Recipe {
 
   Recipe({
@@ -8,9 +6,9 @@ class Recipe {
     this.id = 0
   });
 
-  final String recipeTitle;
-  final String recipeRecipe;
-  final int id;
+  String recipeTitle;
+  String recipeRecipe;
+  int id;
 
   Recipe.fromJson(Map json) :
       recipeTitle = json["title"],
