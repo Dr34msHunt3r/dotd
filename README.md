@@ -16,13 +16,11 @@ which is able to run Flutter Project
 2) Run the project on the emulator:  
    -open project in Android Studio,  
    -turn on device emulator from AVD Manager,  
-   -run application by pushing button(green arrow) Run 'main.dart'
+   -run application by pushing button(green arrow) Run 'main.dart'  
+## Up to date  
+Very basic version is ready to use. Now you can add recipes, update them, delete and read!  
+  
+### My Plan (TODO)
 
-### Structure Plan (TODO)
-
-1. Main screens:  
-   a) Home screen with recipeList home.dart,  
-   b) Details screen after tap on recipe from the list details.dart,  
-   c) Edit recipe screen accessible from Details screen (contains delete option),  
-   d) Add recipe screen accessible from home.dart from adding card,  
-   e) Settings screen accessible from home.dart screen from AppBar.  
+1. Add a photo of meals to recipe
+2. Add ingridients list (nested data)
