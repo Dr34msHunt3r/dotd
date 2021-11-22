@@ -6,19 +6,28 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import '../router.dart';
 
-class EditRecipeScreen extends StatelessWidget {
+class EditRecipeScreen extends StatefulWidget {
   EditRecipeScreen({Key? key, required this.recipe}) : super(key: key);
-
-  final _controllerTitle = TextEditingController();
-  final _controllerRecipe = TextEditingController();
 
   final Recipe recipe;
 
   @override
+  State<EditRecipeScreen> createState() => _EditRecipeScreenState();
+}
+
+class _EditRecipeScreenState extends State<EditRecipeScreen> {
+  final _controllerTitle = TextEditingController();
+  final _controllerRecipe = TextEditingController();
+
+  @override
+  void initState(){
+    super.initState();
+    _controllerTitle.text = "whatever";
+    _controllerRecipe.text = widget.recipe.recipeRecipe;
+  }
+
+  @override
   Widget build(BuildContext context) {
-    // TODO: find out why can not edit TextField while _controller.text is set
-    // _controllerTitle.text = recipe.recipeTitle;
-    // _controllerRecipe.text = recipe.recipeRecipe;
 
     return BlocListener<EditRecipeCubit, EditRecipeState>(
       listener: (context, state) {
@@ -34,7 +43,7 @@ class EditRecipeScreen extends StatelessWidget {
             actions: [
               InkWell(
                 onTap: (){
-                  BlocProvider.of<EditRecipeCubit>(context).deleteRecipe(recipe);
+                  BlocProvider.of<EditRecipeCubit>(context).deleteRecipe(widget.recipe);
                 },
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),
@@ -87,8 +96,8 @@ class EditRecipeScreen extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          Recipe updatedRecipe = Recipe(recipeTitle: _controllerTitle.text, recipeRecipe: _controllerRecipe.text, id: recipe.id);
-          BlocProvider.of<EditRecipeCubit>(context).updateRecipe(recipe, updatedRecipe);
+          Recipe updatedRecipe = Recipe(recipeTitle: _controllerTitle.text, recipeRecipe: _controllerRecipe.text, id: widget.recipe.id);
+          BlocProvider.of<EditRecipeCubit>(context).updateRecipe(widget.recipe, updatedRecipe);
         },
         child: const Center(
            child: Text(
