@@ -97,13 +97,26 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
           Recipe updatedRecipe = Recipe(recipeTitle: _controllerTitle.text, recipeRecipe: _controllerRecipe.text, id: widget.recipe.id);
           BlocProvider.of<EditRecipeCubit>(context).updateRecipe(widget.recipe, updatedRecipe);
         },
-        child: const Center(
-           child: Text(
-              "Save changes",
-              style: TextStyle(
-              color: Colors.white,
+        child: BlocBuilder<EditRecipeCubit, EditRecipeState>(
+          builder: (context, state) {
+            if(state is RecipeEdited){
+              return const Center(
+                child: SizedBox(
+                    height: 16.0,
+                    width: 16.0,
+                    child: CircularProgressIndicator(valueColor: AlwaysStoppedAnimation<Color>(Colors.white))
+                ),
+              );
+            }
+            return const Center(
+              child: Text(
+                "Save changes",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
               ),
-            ),
+            );
+          },
         ),
       ),
     );
