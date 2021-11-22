@@ -22,5 +22,6 @@ Very basic version is ready to use. Now you can add recipes, update them, delete
   
 ### My Plan (TODO)
 
-1. Add a photo of meals to recipe
-2. Add ingridients list (nested data)
+1. Add a photo of meals to recipe,  
+2. Add ingridients list (nested data),  
+3. Add empty recipeList view.  
