@@ -23,9 +23,7 @@ class EditRecipeScreen extends StatelessWidget {
     return BlocListener<EditRecipeCubit, EditRecipeState>(
       listener: (context, state) {
         if (state is RecipeEdited){
-          // TODO: get to know how change this to popUntil
-          Navigator.pop(context);
-          Navigator.pop(context);
+          Navigator.of(context).popUntil((route) => route.isFirst);
         }else if(state is EditRecipeError){
           Fluttertoast.showToast(msg: state.error);
         }
