@@ -39,12 +39,15 @@ class AddRecipeScreen extends StatelessWidget {
       children: [
         TextField(
           controller: _controllerTitle,
-          decoration: const InputDecoration(hintText: "Enter recipe title..."),
+          style: const TextStyle(fontSize: 20),
+          decoration: const InputDecoration(labelText: "Enter title"),
         ),
         const SizedBox(height: 10.0,),
         TextField(
           controller: _controllerSubtitle,
-          decoration: const InputDecoration(hintText: "Enter recipe..."),
+          keyboardType: TextInputType.multiline,
+          maxLines: null,
+          decoration: const InputDecoration(labelText: "Enter recipe"),
         ),
         const SizedBox(height: 15.0,),
         _addRecipeBtn(context)
