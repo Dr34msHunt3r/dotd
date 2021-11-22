@@ -78,27 +78,25 @@ class EditRecipeScreen extends StatelessWidget {
   }
 
   Widget _editRecipeBtn(context){
-    return Container(
-      child: Ink(
-        width: MediaQuery.of(context).size.width,
-        height: 50.0,
-        decoration: BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.circular(10.0)
-        ),
-        child: InkWell(
-          onTap: () {
-            Recipe updatedRecipe = Recipe(recipeTitle: _controllerTitle.text, recipeRecipe: _controllerRecipe.text);
-            BlocProvider.of<EditRecipeCubit>(context).updateRecipe(recipe, updatedRecipe);
-          },
-          child: const Center(
-             child: Text(
-                "Save changes",
-                style: TextStyle(
-                color: Colors.white,
-                ),
+    return Ink(
+      width: MediaQuery.of(context).size.width,
+      height: 50.0,
+      decoration: BoxDecoration(
+          color: Colors.blue,
+          borderRadius: BorderRadius.circular(10.0)
+      ),
+      child: InkWell(
+        onTap: () {
+          Recipe updatedRecipe = Recipe(recipeTitle: _controllerTitle.text, recipeRecipe: _controllerRecipe.text, id: recipe.id);
+          BlocProvider.of<EditRecipeCubit>(context).updateRecipe(recipe, updatedRecipe);
+        },
+        child: const Center(
+           child: Text(
+              "Save changes",
+              style: TextStyle(
+              color: Colors.white,
               ),
-          ),
+            ),
         ),
       ),
     );

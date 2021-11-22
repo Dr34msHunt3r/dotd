@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:bloc/bloc.dart';
 import 'package:dotd/cubit/recipes_cubit.dart';
 import 'package:dotd/data/models/recipe.dart';
@@ -32,8 +34,8 @@ class EditRecipeCubit extends Cubit<EditRecipeState> {
 
     repository.updateRecipe(recipe.id, updatedRecipe).then((isEdited) {
       if(isEdited) {
-        recipe = Recipe(recipeRecipe: updatedRecipe.recipeRecipe, recipeTitle: updatedRecipe.recipeTitle, id: recipe.id);
-        // TODO: fix state of the RecipeList() for editing recipe
+        recipe.recipeTitle = updatedRecipe.recipeTitle;
+        recipe.recipeRecipe = updatedRecipe.recipeRecipe;
         recipesCubit.updateRecipeList();
         emit(RecipeEdited());
       }
