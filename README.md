@@ -6,7 +6,7 @@ recipes and assigning them to a schedule to help undecided consumers choose what
 
 ## How do I run the application?
 Requirements: Flutter installed on the device, Android Studio or any other preffered compilator
-which is able to run Flutter Project  
+which is able to run Flutter Project
 1) Set up Json Server:  
    -install nodejs latest stable version from https://nodejs.org/en/,  
    -open terminal and install json server with command: npm install json-server -g (-g means global installation for json server),  
@@ -17,6 +17,6 @@ which is able to run Flutter Project
    -open project in Android Studio,  
    -turn on device emulator from AVD Manager,  
    -run application by pushing button(green arrow) Run 'main.dart'
-  
-## What's new?  
+
+## What's new?
 Added custom icon for Android and iOS
