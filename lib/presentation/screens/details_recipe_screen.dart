@@ -30,15 +30,20 @@ class DetailsRecipeScreen extends StatelessWidget {
   }
 
   Widget _body(context){
-    return ListView(
-      padding: const EdgeInsets.all(25.0),
+    return Column(
       children: [
-        const SizedBox(height: 100.0,),
-        const Text("Place for future image here :)", style: TextStyle(fontSize: 20),),
-        const SizedBox(height: 100.0,),
-        const Text("Recipe:", style: TextStyle(fontSize: 20),),
-        const SizedBox(height: 10.0,),
-        Text(recipe.recipeRecipe, style: const TextStyle(fontSize: 16),)
+        Image(image: AssetImage('assets/default/recipe_default_image.png')),
+
+        Expanded(
+          child: ListView(
+            padding: const EdgeInsets.all(25.0),
+            children: [
+              const Text("Recipe:", style: TextStyle(fontSize: 20),),
+              const SizedBox(height: 10.0,),
+              Text(recipe.recipeRecipe, style: const TextStyle(fontSize: 16),)
+            ],
+          ),
+        ),
       ],
     );
   }

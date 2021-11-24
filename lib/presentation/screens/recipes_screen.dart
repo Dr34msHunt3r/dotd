@@ -49,6 +49,9 @@ class RecipesScreen extends StatelessWidget {
 
   Widget _addRecipe(context) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
       child: InkWell(
         onTap: () => Navigator.pushNamed(context, ADD_RECIPE_ROUTE),
         child: SizedBox(
@@ -73,19 +76,38 @@ class RecipesScreen extends StatelessWidget {
 
   Widget _recipe(Recipe recipe, context) {
     return Card(
+        shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+        ),
         child: InkWell(
             onTap: () => Navigator.pushNamed(context, DETAILS_RECIPE_ROUTE, arguments: recipe),
             child: _recipeTile(recipe, context)));
   }
 
   Widget _recipeTile(Recipe recipe, context) {
-    return SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: 100,
-        child: Center(
-            child: ListTile(
-          title: Text(recipe.recipeTitle),
-          subtitle: Text(recipe.recipeRecipe),
-        )));
+    return Row(
+      children: [
+        SizedBox(
+          width: 100,
+            height: 100,
+            // child: Ink.image(
+            //   image: AssetImage('assets/default/recipe_default_image.png'),
+            //   height: 100,
+            //   fit: BoxFit.cover,
+            // ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.0), topLeft: Radius.circular(15.0)),
+                child: Image(image: AssetImage('assets/default/recipe_default_image.png')))
+        ),
+        SizedBox(
+            width: 280,
+            height: 100,
+            child: Center(
+                child: ListTile(
+                  title: Text(recipe.recipeTitle),
+                  subtitle: Text(recipe.recipeRecipe),
+            ))),
+      ],
+    );
   }
 }
