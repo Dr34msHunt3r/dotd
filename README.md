@@ -15,8 +15,8 @@ which is able to run Flutter Project
 
 2) Run the project on the emulator:  
    -open project in Android Studio,  
-   -turn on device emulator from AVD Manager,  
-   -run application by pushing button(green arrow) Run 'main.dart'
-
-## What's new?
-Added custom icon for Android and iOS
+   -turn on device emulator from AVD Manager,
+   -run application by pushing button(green arrow) Run 'main.dart'  
+     
+## What's new?  
+   Added custom icon for Android and iOS
