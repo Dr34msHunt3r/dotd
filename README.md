@@ -17,11 +17,6 @@ which is able to run Flutter Project
    -open project in Android Studio,  
    -turn on device emulator from AVD Manager,  
    -run application by pushing button(green arrow) Run 'main.dart'  
-## Up to date  
-Very basic version is ready to use. Now you can add recipes, update them, delete and read!  
-  
-### My Plan (TODO)
-
-1. Add a photo of meals to recipe,  
-2. Add ingridients list (nested data),  
-3. Add empty recipeList view.  
+     
+## What's new?  
+   Added custom icon for Android and iOS
