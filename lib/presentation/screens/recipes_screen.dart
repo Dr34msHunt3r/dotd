@@ -27,10 +27,22 @@ class RecipesScreen extends StatelessWidget {
       body: SafeArea(
         child: BlocBuilder<RecipesCubit, RecipesState>(
           builder: (context, state) {
-            if (!(state is RecipesLoaded)) {
+            if (!(state is RecipesLoaded || state is RecipesEmpty)) {
               return const Center(child: CircularProgressIndicator());
             }
-            final recipes = (state as RecipesLoaded).recipes;
+            var recipes = [];
+            if (state is RecipesLoaded){
+              recipes = (state as RecipesLoaded).recipes;
+            } else if (state is RecipesEmpty){
+              recipes = (state as RecipesEmpty).recipes;
+              return ListView(
+                padding: const EdgeInsets.all(10.0),
+                children: [
+                  _addRecipe(context),
+                  Image(image: AssetImage('assets/default/empty_list.png')),
+                ],
+              );
+            }
 
             return ListView(
               padding: const EdgeInsets.all(10.0),
@@ -60,12 +72,12 @@ class RecipesScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(25.0),
               child: Column(
-                children: const [
-                  Icon(Icons.add),
+                children: [
+                  Icon(Icons.add, color: Colors.blue),
                   Center(
                       child: Text(
                     "Add recipe",
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 16, color: Colors.blue),
                   )),
                 ],
               ),
@@ -90,11 +102,6 @@ class RecipesScreen extends StatelessWidget {
         SizedBox(
           width: 100,
             height: 100,
-            // child: Ink.image(
-            //   image: AssetImage('assets/default/recipe_default_image.png'),
-            //   height: 100,
-            //   fit: BoxFit.cover,
-            // ),
             child: ClipRRect(
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.0), topLeft: Radius.circular(15.0)),
                 child: Image(image: AssetImage('assets/default/recipe_default_image.png')))

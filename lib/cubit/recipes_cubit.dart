@@ -15,14 +15,19 @@ class RecipesCubit extends Cubit<RecipesState> {
   void fetchRecipes() {
     Timer(const Duration(seconds: 1), (){
       repository.fetchRecipes().then((recipes) {
-        emit(RecipesLoaded(recipes: recipes));
+        if( recipes.isEmpty ){
+          emit(RecipesEmpty(recipes: recipes));
+          print("Recipes empty");
+        } else {
+          emit(RecipesLoaded(recipes: recipes));
+        }
       });
     });
   }
 
   void addRecipe(Recipe recipe) {
     final currentState = state;
-    if(currentState is RecipesLoaded){
+    if(currentState is RecipesLoaded || currentState is RecipesEmpty){
       final recipeList = currentState.recipes;
       recipeList.add(recipe);
       emit(RecipesLoaded(recipes: recipeList));
@@ -33,7 +38,14 @@ class RecipesCubit extends Cubit<RecipesState> {
     final currentState = state;
     if(currentState is RecipesLoaded){
       final recipeList = currentState.recipes.where((element) => element.id != recipe.id).toList();
-      emit(RecipesLoaded(recipes: recipeList));
+      if (recipeList.isEmpty){
+        print("list empty after delete");
+        emit(RecipesEmpty(recipes: recipeList));
+      }else{
+        print("list not empty after delete");
+        emit(RecipesLoaded(recipes: recipeList));
+      }
+
     }
   }
 
