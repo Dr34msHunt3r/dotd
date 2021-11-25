@@ -104,7 +104,7 @@ class RecipesScreen extends StatelessWidget {
             height: 100,
             child: ClipRRect(
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.0), topLeft: Radius.circular(15.0)),
-                child: Image(image: AssetImage('assets/default/recipe_default_image.png')))
+                child: Image(image: AssetImage(recipe.imagePath)))
         ),
         SizedBox(
             width: 280,

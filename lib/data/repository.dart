@@ -14,7 +14,11 @@ class Repository {
   }
 
   Future<Recipe> addRecipe(String recipeTitle, String recipeRecipe) async {
-    final recipeObj = {"title": recipeTitle, "recipe": recipeRecipe};
+    final recipeObj = {"title": recipeTitle,
+      "recipe": recipeRecipe,
+      "imagePath": "assets/default/recipe_default_image.png",
+      "favourite": false.toString()
+    };
 
     final recipeMap = await networkService.addRecipe(recipeObj);
     if(recipeObj == null) {
