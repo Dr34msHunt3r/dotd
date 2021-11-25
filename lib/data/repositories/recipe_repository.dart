@@ -2,10 +2,10 @@ import 'package:dotd/data/network_services/recipe_network_service.dart';
 
 import '../models/recipe.dart';
 
-class Repository {
-  Repository({required this.networkService});
+class RecipeRepository {
+  RecipeRepository({required this.networkService});
 
-  final NetworkService networkService;
+  final RecipeNetworkService networkService;
 
 
   Future<List<Recipe>> fetchRecipes() async {

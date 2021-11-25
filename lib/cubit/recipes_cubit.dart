@@ -8,13 +8,13 @@ import 'package:meta/meta.dart';
 part 'recipes_state.dart';
 
 class RecipesCubit extends Cubit<RecipesState> {
-  RecipesCubit({required this.repository}) : super(RecipesInitial());
+  RecipesCubit({required this.recipe_repository}) : super(RecipesInitial());
 
-  final Repository repository;
+  final RecipeRepository recipe_repository;
 
   void fetchRecipes() {
     Timer(const Duration(seconds: 1), (){
-      repository.fetchRecipes().then((recipes) {
+      recipe_repository.fetchRecipes().then((recipes) {
         if( recipes.isEmpty ){
           emit(RecipesEmpty(recipes: recipes));
           print("Recipes empty");

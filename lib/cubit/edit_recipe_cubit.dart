@@ -11,7 +11,7 @@ part 'edit_recipe_state.dart';
 class EditRecipeCubit extends Cubit<EditRecipeState> {
   EditRecipeCubit({required this.repository, required this.recipesCubit}) : super(EditRecipeInitial());
 
-  final Repository repository;
+  final RecipeRepository repository;
   final RecipesCubit recipesCubit;
 
   void deleteRecipe(Recipe recipe) {

@@ -10,7 +10,7 @@ part 'add_recipe_state.dart';
 class AddRecipeCubit extends Cubit<AddRecipeState> {
   AddRecipeCubit({required this.recipesCubit, required this.repository}) : super(AddRecipeInitial());
 
-  final Repository repository;
+  final RecipeRepository repository;
   final RecipesCubit recipesCubit;
 
   void addRecipe(String recipeTitle, String recipeRecipe) {

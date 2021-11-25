@@ -1,9 +1,12 @@
 import 'package:dotd/constants/strings.dart';
 import 'package:dotd/cubit/add_recipe_cubit.dart';
 import 'package:dotd/cubit/edit_recipe_cubit.dart';
+import 'package:dotd/cubit/ingredients_cubit.dart';
 import 'package:dotd/cubit/recipes_cubit.dart';
 import 'package:dotd/data/models/recipe.dart';
+import 'package:dotd/data/network_services/ingredient_network_service.dart';
 import 'package:dotd/data/network_services/recipe_network_service.dart';
+import 'package:dotd/data/repositories/ingredient_repository.dart';
 import 'package:dotd/data/repositories/recipe_repository.dart';
 import 'package:dotd/presentation/screens/add_recipe_screen.dart';
 import 'package:dotd/presentation/screens/details_recipe_screen.dart';
@@ -17,21 +20,29 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class AppRouter {
 
   late RecipesCubit recipesCubit;
-  late Repository repository;
+  late RecipeRepository recipe_repository;
+  late IngredientsCubit ingredientsCubit;
+  late IngredientRepository ingredient_repository;
 
   AppRouter(){
-    repository = Repository(networkService: NetworkService());
-    recipesCubit = RecipesCubit(repository: repository);
+    recipe_repository = RecipeRepository(networkService: RecipeNetworkService());
+    recipesCubit = RecipesCubit(recipe_repository: recipe_repository);
+    ingredient_repository = IngredientRepository(networkService: IngredientNetworkService());
+    ingredientsCubit = IngredientsCubit(ingredient_repository: ingredient_repository);
   }
 
   Route generateRoute(RouteSettings settings){
     switch(settings.name){
       case "/":
         return MaterialPageRoute(
-          builder: (_) => BlocProvider.value(
-            value: recipesCubit,
-            child: const RecipesScreen(),
-          ),
+            builder: (BuildContext context) {
+              return MultiBlocProvider(providers: [
+                BlocProvider.value(value: recipesCubit),
+                BlocProvider.value(value: ingredientsCubit),
+                ], 
+                child: const RecipesScreen()
+              );
+        }
         );
       case DETAILS_RECIPE_ROUTE:
         final recipe = settings.arguments as Recipe;
@@ -41,7 +52,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (BuildContext context) => EditRecipeCubit(
-                repository: repository,
+                repository: recipe_repository,
                 recipesCubit: recipesCubit,
             ),
             child: EditRecipeScreen(recipe: recipe,),
@@ -51,7 +62,7 @@ class AppRouter {
         return MaterialPageRoute(
           builder: (_) => BlocProvider(
             create: (BuildContext context) => AddRecipeCubit(
-                repository: repository,
+                repository: recipe_repository,
                 recipesCubit: recipesCubit
             ),
             child: AddRecipeScreen(),

@@ -1,4 +1,5 @@
 import 'package:dotd/constants/strings.dart';
+import 'package:dotd/cubit/ingredients_cubit.dart';
 import 'package:dotd/cubit/recipes_cubit.dart';
 import 'package:dotd/data/models/recipe.dart';
 import 'package:flutter/material.dart';
@@ -10,6 +11,7 @@ class RecipesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<RecipesCubit>(context).fetchRecipes();
+    BlocProvider.of<IngredientsCubit>(context).fetchIngredients();
 
     return Scaffold(
       appBar: AppBar(
