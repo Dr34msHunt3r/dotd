@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:dotd/cubit/recipes_cubit.dart';
-import 'package:dotd/data/repository.dart';
+import 'package:dotd/data/repositories/recipe_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'add_recipe_state.dart';

@@ -1,6 +1,6 @@
-import 'package:dotd/data/network_service.dart';
+import 'package:dotd/data/network_services/recipe_network_service.dart';
 
-import 'models/recipe.dart';
+import '../models/recipe.dart';
 
 class Repository {
   Repository({required this.networkService});
