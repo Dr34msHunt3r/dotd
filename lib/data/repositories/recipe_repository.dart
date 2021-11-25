@@ -36,7 +36,11 @@ class Repository {
   }
 
   Future<bool> updateRecipe(int id, Recipe updatedRecipe) async {
-    final putObj = {"title": updatedRecipe.recipeTitle, "recipe": updatedRecipe.recipeRecipe};
+    final putObj = {"title": updatedRecipe.recipeTitle,
+      "recipe": updatedRecipe.recipeRecipe,
+      "imagePath": "assets/default/recipe_default_image.png",
+      "favourite": false.toString()
+    };
     return await networkService.putRecipe(putObj, id);
   }
 
