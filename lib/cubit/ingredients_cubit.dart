@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:dotd/data/models/ingredient.dart';
+import 'package:dotd/data/models/ingredients.dart';
 import 'package:dotd/data/repositories/ingredient_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -12,9 +12,9 @@ class IngredientsCubit extends Cubit<IngredientsState> {
 
   final IngredientRepository ingredient_repository;
 
-  void fetchIngredients() {
+  void fetchIngredients(recipeId) {
     Timer(const Duration(seconds: 1), (){
-      ingredient_repository.fetchIngredients().then((ingredients) {
+      ingredient_repository.fetchIngredients(recipeId).then((ingredients) {
         emit(IngredientsLoaded(ingredients: ingredients));
       });
     });

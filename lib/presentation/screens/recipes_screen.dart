@@ -1,7 +1,9 @@
 import 'package:dotd/constants/strings.dart';
 import 'package:dotd/cubit/ingredients_cubit.dart';
 import 'package:dotd/cubit/recipes_cubit.dart';
+import 'package:dotd/data/models/ingredients.dart';
 import 'package:dotd/data/models/recipe.dart';
+import 'package:dotd/data/models/screen_arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -11,7 +13,6 @@ class RecipesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<RecipesCubit>(context).fetchRecipes();
-    BlocProvider.of<IngredientsCubit>(context).fetchIngredients();
 
     return Scaffold(
       appBar: AppBar(
@@ -28,15 +29,15 @@ class RecipesScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: BlocBuilder<RecipesCubit, RecipesState>(
-          builder: (context, state) {
-            if (!(state is RecipesLoaded || state is RecipesEmpty)) {
+          builder: (context, RecipesState) {
+            if (!(RecipesState is RecipesLoaded || RecipesState is RecipesEmpty)) {
               return const Center(child: CircularProgressIndicator());
             }
             var recipes = [];
-            if (state is RecipesLoaded){
-              recipes = (state as RecipesLoaded).recipes;
-            } else if (state is RecipesEmpty){
-              recipes = (state as RecipesEmpty).recipes;
+            if (RecipesState is RecipesLoaded){
+              recipes = (RecipesState as RecipesLoaded).recipes;
+            } else if (RecipesState is RecipesEmpty){
+              recipes = (RecipesState as RecipesEmpty).recipes;
               return ListView(
                 padding: const EdgeInsets.all(10.0),
                 children: [
@@ -89,13 +90,26 @@ class RecipesScreen extends StatelessWidget {
   }
 
   Widget _recipe(Recipe recipe, context) {
-    return Card(
-        shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(15.0),
-        ),
-        child: InkWell(
-            onTap: () => Navigator.pushNamed(context, DETAILS_RECIPE_ROUTE, arguments: recipe),
-            child: _recipeTile(recipe, context)));
+    // BlocProvider.of<IngredientsCubit>(context).fetchIngredients(recipe.id);
+    // print(recipe.id);
+    // return BlocBuilder<IngredientsCubit, IngredientsState>(
+    //   builder: (context, IngredientsState) {
+    //     List<Ingredient> ingredients = [];
+    //     if (IngredientsState is IngredientsLoaded){
+    //       ingredients = (IngredientsState as IngredientsLoaded).ingredients;
+    //     }
+
+         return Card(
+            shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            ),
+            child: InkWell(
+                // onTap: () => Navigator.pushNamed(context, DETAILS_RECIPE_ROUTE, arguments:  ScreenArguments(recipe: recipe, ingredient: ingredients)),
+                onTap: () => Navigator.pushNamed(context, DETAILS_RECIPE_ROUTE, arguments: recipe),
+
+                child: _recipeTile(recipe, context)));
+    //   },
+    // );
   }
 
   Widget _recipeTile(Recipe recipe, context) {
@@ -115,7 +129,9 @@ class RecipesScreen extends StatelessWidget {
                 child: ListTile(
                   title: Text(recipe.recipeTitle),
                   subtitle: Text(recipe.recipeRecipe),
-            ))),
+                )
+            )
+        ),
       ],
     );
   }

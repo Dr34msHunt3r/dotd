@@ -3,6 +3,8 @@ import 'package:dotd/cubit/add_recipe_cubit.dart';
 import 'package:dotd/cubit/edit_recipe_cubit.dart';
 import 'package:dotd/cubit/ingredients_cubit.dart';
 import 'package:dotd/cubit/recipes_cubit.dart';
+import 'package:dotd/data/models/ingredients.dart';
+import 'package:dotd/data/models/screen_arguments.dart';
 import 'package:dotd/data/models/recipe.dart';
 import 'package:dotd/data/network_services/ingredient_network_service.dart';
 import 'package:dotd/data/network_services/recipe_network_service.dart';
@@ -38,15 +40,21 @@ class AppRouter {
             builder: (BuildContext context) {
               return MultiBlocProvider(providers: [
                 BlocProvider.value(value: recipesCubit),
-                BlocProvider.value(value: ingredientsCubit),
-                ], 
+                // BlocProvider.value(value: ingredientsCubit),
+                ],
                 child: const RecipesScreen()
               );
-        }
+            }
         );
       case DETAILS_RECIPE_ROUTE:
-        final recipe = settings.arguments as Recipe;
-        return MaterialPageRoute(builder: (_) => DetailsRecipeScreen(recipe: recipe,));
+      // final argument = settings.arguments as ScreenArguments;
+      final recipe = settings.arguments as Recipe;
+        return MaterialPageRoute(builder: (_) => BlocProvider.value(
+          value: ingredientsCubit,
+          // child: DetailsRecipeScreen(recipe: argument.recipe, ingredients: argument.ingredient,),
+          child: DetailsRecipeScreen(recipe: recipe),
+        )
+        );
       case EDIT_RECIPE_ROUTE:
         final recipe = settings.arguments as Recipe;
         return MaterialPageRoute(
