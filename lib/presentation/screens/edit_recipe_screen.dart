@@ -1,4 +1,4 @@
-import 'package:dotd/cubit/edit_recipe_cubit.dart';
+import 'package:dotd/cubit/recipe_cubits/edit_recipe_cubit.dart';
 import 'package:dotd/data/models/recipe.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -1,6 +1,6 @@
 import 'package:dotd/constants/strings.dart';
-import 'package:dotd/cubit/ingredients_cubit.dart';
-import 'package:dotd/cubit/recipes_cubit.dart';
+import 'package:dotd/cubit/ingredients_cubits/ingredients_cubit.dart';
+import 'package:dotd/cubit/recipe_cubits/recipes_cubit.dart';
 import 'package:dotd/data/models/ingredients.dart';
 import 'package:dotd/data/models/recipe.dart';
 import 'package:dotd/data/models/screen_arguments.dart';
