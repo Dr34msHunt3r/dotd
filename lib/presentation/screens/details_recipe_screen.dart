@@ -35,7 +35,7 @@ class DetailsRecipeScreen extends StatelessWidget {
   }
 
   Widget _body(context, ingredients) {
-    List<Ingredient> ingredientsList = ingredients.where((i) => i.recipeId == recipe.id).toList();
+    List<Ingredient> ingredientsList = ingredients.where((i) => int.parse(i.recipeId) == recipe.id).toList();
     return ListView(
       children: [
         Image(image: AssetImage('assets/default/recipe_default_image.png')),

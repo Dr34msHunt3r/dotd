@@ -7,11 +7,11 @@ class Ingredient {
   });
 
   int id;
-  int recipeId;
+  String recipeId;
   String name;
 
   Ingredient.fromJson(Map json) :
       id = json["id"] as int,
-      recipeId = json["recipeId"] as int,
+      recipeId = json["recipeId"],
       name = json["name"];
 }
