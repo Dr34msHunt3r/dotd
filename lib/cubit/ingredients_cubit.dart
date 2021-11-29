@@ -12,9 +12,9 @@ class IngredientsCubit extends Cubit<IngredientsState> {
 
   final IngredientRepository ingredient_repository;
 
-  void fetchIngredients(recipeId) {
+  void fetchIngredients() {
     Timer(const Duration(seconds: 1), (){
-      ingredient_repository.fetchIngredients(recipeId).then((ingredients) {
+      ingredient_repository.fetchIngredients().then((ingredients) {
         emit(IngredientsLoaded(ingredients: ingredients));
       });
     });

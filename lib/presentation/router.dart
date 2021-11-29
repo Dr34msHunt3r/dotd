@@ -40,19 +40,19 @@ class AppRouter {
             builder: (BuildContext context) {
               return MultiBlocProvider(providers: [
                 BlocProvider.value(value: recipesCubit),
-                // BlocProvider.value(value: ingredientsCubit),
+                BlocProvider.value(value: ingredientsCubit),
                 ],
                 child: const RecipesScreen()
               );
             }
         );
       case DETAILS_RECIPE_ROUTE:
-      // final argument = settings.arguments as ScreenArguments;
-      final recipe = settings.arguments as Recipe;
+      final argument = settings.arguments as ScreenArguments;
+      // final recipe = settings.arguments as Recipe;
         return MaterialPageRoute(builder: (_) => BlocProvider.value(
           value: ingredientsCubit,
-          // child: DetailsRecipeScreen(recipe: argument.recipe, ingredients: argument.ingredient,),
-          child: DetailsRecipeScreen(recipe: recipe),
+          child: DetailsRecipeScreen(recipe: argument.recipe, ingredients: argument.ingredient,),
+          // child: DetailsRecipeScreen(recipe: recipe),
         )
         );
       case EDIT_RECIPE_ROUTE:

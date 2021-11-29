@@ -7,8 +7,8 @@ class IngredientRepository {
 
   final IngredientNetworkService networkService;
 
-  Future<List<Ingredient>> fetchIngredients(recipeId) async {
-    final ingredientsRaw = await networkService.fetchIngredients(recipeId);
+  Future<List<Ingredient>> fetchIngredients() async {
+    final ingredientsRaw = await networkService.fetchIngredients();
     return ingredientsRaw.map((e) => Ingredient.fromJson(e)).toList();
   }
 

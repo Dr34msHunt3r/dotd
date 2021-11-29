@@ -13,6 +13,7 @@ class RecipesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<RecipesCubit>(context).fetchRecipes();
+    BlocProvider.of<IngredientsCubit>(context).fetchIngredients();
 
     return Scaffold(
       appBar: AppBar(
@@ -90,26 +91,24 @@ class RecipesScreen extends StatelessWidget {
   }
 
   Widget _recipe(Recipe recipe, context) {
-    // BlocProvider.of<IngredientsCubit>(context).fetchIngredients(recipe.id);
-    // print(recipe.id);
-    // return BlocBuilder<IngredientsCubit, IngredientsState>(
-    //   builder: (context, IngredientsState) {
-    //     List<Ingredient> ingredients = [];
-    //     if (IngredientsState is IngredientsLoaded){
-    //       ingredients = (IngredientsState as IngredientsLoaded).ingredients;
-    //     }
+    return BlocBuilder<IngredientsCubit, IngredientsState>(
+      builder: (context, IngredientsState) {
+        List<Ingredient> ingredients = [];
+        if (IngredientsState is IngredientsLoaded){
+          ingredients = (IngredientsState as IngredientsLoaded).ingredients;
+        }
 
          return Card(
             shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
             ),
             child: InkWell(
-                // onTap: () => Navigator.pushNamed(context, DETAILS_RECIPE_ROUTE, arguments:  ScreenArguments(recipe: recipe, ingredient: ingredients)),
-                onTap: () => Navigator.pushNamed(context, DETAILS_RECIPE_ROUTE, arguments: recipe),
+                onTap: () => Navigator.pushNamed(context, DETAILS_RECIPE_ROUTE, arguments:  ScreenArguments(recipe: recipe, ingredient: ingredients)),
+                // onTap: () => Navigator.pushNamed(context, DETAILS_RECIPE_ROUTE, arguments: recipe),
 
                 child: _recipeTile(recipe, context)));
-    //   },
-    // );
+      },
+    );
   }
 
   Widget _recipeTile(Recipe recipe, context) {
