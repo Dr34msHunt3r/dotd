@@ -6,7 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class AddRecipeScreen extends StatelessWidget {
-   AddRecipeScreen({Key? key}) : super(key: key);
+  AddRecipeScreen({Key? key}) : super(key: key);
 
   final _controllerRecipeTitle = TextEditingController();
   final _controllerRecipeSubtitle = TextEditingController();
@@ -15,39 +15,43 @@ class AddRecipeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Add Recipe"),
-      ),
-      body: BlocListener<AddIngredientCubit, AddIngredientState>(
-        listener: (context, state) {
-          if(state is IngredientAdded) {
-            Navigator.pop(context);
-            return;
-          }
-        },
-        child: BlocListener<AddRecipeCubit, AddRecipeState>(
-        listener: (context, state) {
-          if(state is RecipeAdded){
-            print("RecipeAdded");
-            Recipe recipe = (state as RecipeAdded).recipe;
-            final name = _controllerIngredientName.text;
-            BlocProvider.of<AddIngredientCubit>(context).addIngredient(
-                name, recipe.id.toString());
-          }else if(state is AddRecipeError){
-            Fluttertoast.showToast(
-                msg: state.error
-            );
-          }
-        },
-        child: SafeArea(
-          child: _body(context),
+        appBar: AppBar(
+          title: const Text("Add Recipe"),
         ),
-      ),
-)
+        body: MultiBlocListener(
+          listeners: [
+            BlocListener<AddIngredientCubit, AddIngredientState>(
+              listener: (context, state) {
+                if (state is IngredientAdded) {
+                  Navigator.pop(context);
+                  return;
+                }
+              },
+            ),
+            BlocListener<AddRecipeCubit, AddRecipeState>(
+              listener: (context, state) {
+                if (state is RecipeAdded) {
+                  print("RecipeAdded");
+                  Recipe recipe = (state as RecipeAdded).recipe;
+                  final name = _controllerIngredientName.text;
+                  BlocProvider.of<AddIngredientCubit>(context).addIngredient(
+                      name, recipe.id.toString());
+                } else if (state is AddRecipeError) {
+                  Fluttertoast.showToast(
+                      msg: state.error
+                  );
+                }
+              },
+            ),
+          ],
+          child: SafeArea(
+            child: _body(context),
+          ),
+        )
     );
   }
 
-  Widget _body(context){
+  Widget _body(context) {
     return ListView(
       padding: const EdgeInsets.all(25.0),
       children: [
@@ -74,54 +78,55 @@ class AddRecipeScreen extends StatelessWidget {
     );
   }
 
-   Widget _addRecipeBtn(context){
-     return Ink(
-       width: MediaQuery.of(context).size.width,
-       height: 50.0,
-       decoration: BoxDecoration(
-           color: Colors.blue,
-           borderRadius: BorderRadius.circular(10.0)
-       ),
-       child: InkWell(
-         onTap: (){
-           final recipeTitle = _controllerRecipeTitle.text;
-           final recipeRecipe = _controllerRecipeSubtitle.text;
-           BlocProvider.of<AddRecipeCubit>(context).addRecipe(recipeTitle, recipeRecipe);
-         },
-           child: BlocBuilder<AddRecipeCubit, AddRecipeState>(
-            builder: (context, AddRecipeState) {
-
-                 return BlocBuilder<AddIngredientCubit, AddIngredientState>(
-                   builder: (context, AddIngredientState) {
-
-                     if (AddRecipeState is AddingRecipe || AddIngredientState is AddingIngredient) {
-
-                       return const Center(
-                         child: SizedBox(
-                             height: 16.0,
-                             width: 16.0,
-                             child: CircularProgressIndicator(
-                                 valueColor: AlwaysStoppedAnimation<Color>(
-                                     Colors.white))
-                         ),
-                       );
-
-                     }
-                     return const Center(
-                       child: Text(
-                         "Add recipe",
-                         style: TextStyle(
-                           color: Colors.white,
-                         ),
-                       ),
-                     );
-                   },
+  Widget _addRecipeBtn(context) {
+    return Ink(
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
+      height: 50.0,
+      decoration: BoxDecoration(
+          color: Colors.blue,
+          borderRadius: BorderRadius.circular(10.0)
+      ),
+      child: InkWell(
+        onTap: () {
+          final recipeTitle = _controllerRecipeTitle.text;
+          final recipeRecipe = _controllerRecipeSubtitle.text;
+          BlocProvider.of<AddRecipeCubit>(context).addRecipe(
+              recipeTitle, recipeRecipe);
+        },
+        child: BlocBuilder<AddRecipeCubit, AddRecipeState>(
+          builder: (context, AddRecipeState) {
+            return BlocBuilder<AddIngredientCubit, AddIngredientState>(
+              builder: (context, AddIngredientState) {
+                if (AddRecipeState is AddingRecipe ||
+                    AddIngredientState is AddingIngredient) {
+                  return const Center(
+                    child: SizedBox(
+                        height: 16.0,
+                        width: 16.0,
+                        child: CircularProgressIndicator(
+                            valueColor: AlwaysStoppedAnimation<Color>(
+                                Colors.white))
+                    ),
                   );
-             },
+                }
+                return const Center(
+                  child: Text(
+                    "Add recipe",
+                    style: TextStyle(
+                      color: Colors.white,
+                    ),
+                  ),
+                );
+              },
+            );
+          },
         ),
-       ),
-     );
-   }
+      ),
+    );
+  }
 
 
 }
