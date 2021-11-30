@@ -2,7 +2,7 @@ class Ingredient {
 
   Ingredient({
     this.id =0,
-    required this.recipeId,
+    this.recipeId="",
     required this.name
   });
 

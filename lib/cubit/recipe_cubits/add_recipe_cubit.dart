@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:dotd/cubit/recipe_cubits/recipes_cubit.dart';
+import 'package:dotd/data/models/recipe.dart';
 import 'package:dotd/data/repositories/recipe_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -26,7 +27,7 @@ class AddRecipeCubit extends Cubit<AddRecipeState> {
       repository.addRecipe(recipeTitle, recipeRecipe).then((recipe) {
         if(recipe != null){
           recipesCubit.addRecipe(recipe);
-          emit(RecipeAdded());
+          emit(RecipeAdded(recipe: recipe));
         }
       });
     });

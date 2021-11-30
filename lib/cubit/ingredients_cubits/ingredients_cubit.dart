@@ -19,4 +19,13 @@ class IngredientsCubit extends Cubit<IngredientsState> {
       });
     });
   }
+
+  void addIngredient(Ingredient ingredient, String recipeId) {
+    final currentState = state;
+    if(currentState is IngredientsLoaded){
+      final ingredientList = currentState.ingredients;
+      ingredientList.add(ingredient);
+      emit(IngredientsLoaded(ingredients: ingredientList));
+    }
+  }
 }

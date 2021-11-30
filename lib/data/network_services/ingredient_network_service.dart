@@ -19,8 +19,9 @@ class IngredientNetworkService {
   }
 
   Future<Map> addIngredient(Map<String, String> ingredientObj, recipeId) async {
+    int id = int.parse(recipeId);
     try{
-      final response = await http.post(Uri.parse(baseUrl + "/recipes/$recipeId/ingredients"), body: ingredientObj);
+      final response = await http.post(Uri.parse(baseUrl + "/recipes/$id/ingredients"), body: ingredientObj);
       print(response.body);
       return jsonDecode(response.body);
     }catch(e){
