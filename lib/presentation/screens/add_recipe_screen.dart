@@ -5,12 +5,30 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-class AddRecipeScreen extends StatelessWidget {
+class AddRecipeScreen extends StatefulWidget {
   AddRecipeScreen({Key? key}) : super(key: key);
 
+  @override
+  State<AddRecipeScreen> createState() => _AddRecipeScreenState();
+
+
+}
+
+class _AddRecipeScreenState extends State<AddRecipeScreen> {
   final _controllerRecipeTitle = TextEditingController();
+
   final _controllerRecipeSubtitle = TextEditingController();
+
   final _controllerIngredientName = TextEditingController();
+
+  late int _count;
+  late List<TextEditingController> _controller;
+  @override
+  void initState(){
+    super.initState();
+    _count = 0;
+    _controller = [];
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +49,11 @@ class AddRecipeScreen extends StatelessWidget {
             BlocListener<AddRecipeCubit, AddRecipeState>(
               listener: (context, state) {
                 if (state is RecipeAdded) {
+                  // TODO: Prepare cubit,state, network service and repository for ingredients list
+                  List<String> ingredients = [];
+                  _controller.forEach((element) {ingredients.add(element.text);});
+                  print(ingredients);
+
                   print("RecipeAdded");
                   Recipe recipe = (state as RecipeAdded).recipe;
                   final name = _controllerIngredientName.text;
@@ -72,8 +95,35 @@ class AddRecipeScreen extends StatelessWidget {
           controller: _controllerIngredientName,
           decoration: const InputDecoration(labelText: "Enter ingredient"),
         ),
-        const SizedBox(height: 15.0,),
-        _addRecipeBtn(context)
+        const SizedBox(height: 10.0,),
+        ListView.builder(
+          shrinkWrap: true,
+            itemCount: _count,
+            itemBuilder: (context, index){
+            return TextField(
+              controller: _controller[index],
+              decoration: InputDecoration(labelText: "Enter ingredient no. ${(index+1).toString()}"),
+            );
+            }),
+        TextButton(
+          style: TextButton.styleFrom(
+            textStyle: const TextStyle(fontSize: 20),
+          ),
+          onPressed: () {
+            setState(() {
+              _count++;
+              _controller.add(TextEditingController());
+            });
+          },
+          child: Column(
+            children: [
+              const Text('Add Text Field'),
+              const SizedBox(height: 15.0,),
+              _addRecipeBtn(context)
+            ],
+          ),
+        ),
+
       ],
     );
   }
@@ -127,6 +177,4 @@ class AddRecipeScreen extends StatelessWidget {
       ),
     );
   }
-
-
 }
