@@ -3,21 +3,21 @@ class Recipe {
   Recipe({
   required this.recipeTitle,
   required this.recipeRecipe,
-    this.imagePath = "assets/default/recipe_default_image.png",
+    this.imageUrl = "assets/default/recipe_default_image.png",
     this.favourite = "false",
-    this.id = 0
+    this.id = ""
   });
 
   String recipeTitle;
   String recipeRecipe;
-  String imagePath;
+  String imageUrl;
   String favourite;
-  int id;
+  String id;
 
   Recipe.fromJson(Map json) :
       recipeTitle = json["title"],
       recipeRecipe = json["recipe"],
-      imagePath = json["imagePath"],
+      imageUrl = json["imageUrl"],
       favourite = json["favourite"],
-      id = json["id"] as int;
+      id = json["id"];
 }

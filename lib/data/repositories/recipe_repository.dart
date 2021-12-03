@@ -16,7 +16,7 @@ class RecipeRepository {
   Future<Recipe> addRecipe(String recipeTitle, String recipeRecipe) async {
     final recipeObj = {"title": recipeTitle,
       "recipe": recipeRecipe,
-      "imagePath": "assets/default/recipe_default_image.png",
+      "imageUrl": "assets/default/recipe_default_image.png",
       "favourite": false.toString()
     };
 
@@ -31,15 +31,16 @@ class RecipeRepository {
     return Recipe.fromJson(recipeMap);
   }
 
-  Future<bool> deleteRecipe(int id) async{
+  Future<bool> deleteRecipe(String id) async{
     return await networkService.deleteRecipe(id);
   }
 
-  Future<bool> updateRecipe(int id, Recipe updatedRecipe) async {
+  Future<bool> updateRecipe(String id, Recipe updatedRecipe) async {
     final putObj = {"title": updatedRecipe.recipeTitle,
       "recipe": updatedRecipe.recipeRecipe,
-      "imagePath": "assets/default/recipe_default_image.png",
-      "favourite": false.toString()
+      "imageUrl": "assets/default/recipe_default_image.png",
+      "favourite": false.toString(),
+      "id": id
     };
     return await networkService.putRecipe(putObj, id);
   }

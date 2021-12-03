@@ -1,14 +1,14 @@
 part of 'add_ingredient_cubit.dart';
 
 @immutable
-abstract class AddIngredientState {}
+abstract class AddIngredientsState {}
 
-class AddIngredientInitial extends AddIngredientState {}
-class AddIngredientError extends AddIngredientState {
+class AddIngredientsInitial extends AddIngredientsState {}
+class AddIngredientsError extends AddIngredientsState {
   final String error;
 
-  AddIngredientError({required this.error});
+  AddIngredientsError({required this.error});
 }
 
-class AddingIngredient extends AddIngredientState {}
-class IngredientAdded extends AddIngredientState {}
+class AddingIngredients extends AddIngredientsState {}
+class IngredientsAdded extends AddIngredientsState {}
