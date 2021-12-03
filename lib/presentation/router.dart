@@ -1,5 +1,6 @@
 import 'package:dotd/constants/strings.dart';
 import 'package:dotd/cubit/ingredients_cubits/add_ingredient_cubit.dart';
+import 'package:dotd/cubit/ingredients_cubits/edit_ingredients_cubit.dart';
 import 'package:dotd/cubit/recipe_cubits/add_recipe_cubit.dart';
 import 'package:dotd/cubit/recipe_cubits/edit_recipe_cubit.dart';
 import 'package:dotd/cubit/ingredients_cubits/ingredients_cubit.dart';
@@ -55,14 +56,24 @@ class AppRouter {
         )
         );
       case EDIT_RECIPE_ROUTE:
-        final recipe = settings.arguments as Recipe;
+        final argument = settings.arguments as ScreenArguments;
         return MaterialPageRoute(
-          builder: (_) => BlocProvider(
-            create: (BuildContext context) => EditRecipeCubit(
-                repository: recipe_repository,
-                recipesCubit: recipesCubit,
-            ),
-            child: EditRecipeScreen(recipe: recipe,),
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(
+                create: (BuildContext context) => EditRecipeCubit(
+                  repository: recipe_repository,
+                  recipesCubit: recipesCubit,
+                ),
+              ),
+              BlocProvider(
+                create: (BuildContext context) => EditIngredientsCubit(
+                  repository: ingredient_repository,
+                  ingredientsCubit: ingredientsCubit,
+                ),
+              ),
+            ],
+            child: EditRecipeScreen(recipe: argument.recipe, ingredients: argument.ingredient,),
           ),
         );
        case ADD_RECIPE_ROUTE:

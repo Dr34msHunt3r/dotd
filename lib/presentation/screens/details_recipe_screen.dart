@@ -1,6 +1,7 @@
 import 'package:dotd/constants/strings.dart';
 import 'package:dotd/data/models/ingredients.dart';
 import 'package:dotd/data/models/recipe.dart';
+import 'package:dotd/data/models/screen_arguments.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -21,7 +22,7 @@ class DetailsRecipeScreen extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Navigator.pushNamed(
-                      context, EDIT_RECIPE_ROUTE, arguments: recipe);
+                      context, EDIT_RECIPE_ROUTE,  arguments:  ScreenArguments(recipe: recipe, ingredient: ingredients));
                 },
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),

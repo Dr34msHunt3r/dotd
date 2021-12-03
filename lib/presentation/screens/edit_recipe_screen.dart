@@ -1,13 +1,16 @@
 import 'package:dotd/cubit/recipe_cubits/edit_recipe_cubit.dart';
+import 'package:dotd/data/models/ingredients.dart';
 import 'package:dotd/data/models/recipe.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class EditRecipeScreen extends StatefulWidget {
-  const EditRecipeScreen({Key? key, required this.recipe}) : super(key: key);
+  const EditRecipeScreen({Key? key, required this.recipe, required this.ingredients}) : super(key: key);
 
   final Recipe recipe;
+
+  final List<Ingredient> ingredients;
 
   @override
   State<EditRecipeScreen> createState() => _EditRecipeScreenState();
