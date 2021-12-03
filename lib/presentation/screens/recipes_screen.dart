@@ -95,7 +95,7 @@ class RecipesScreen extends StatelessWidget {
       builder: (context, IngredientsState) {
         List<Ingredient> ingredients = [];
         if (IngredientsState is IngredientsLoaded){
-          ingredients = (IngredientsState as IngredientsLoaded).ingredients;
+          ingredients = (IngredientsState as IngredientsLoaded).ingredients.where((i) => i.recipeId == recipe.id).toList();
         }
 
          return Card(
@@ -104,7 +104,6 @@ class RecipesScreen extends StatelessWidget {
             ),
             child: InkWell(
                 onTap: () => Navigator.pushNamed(context, DETAILS_RECIPE_ROUTE, arguments:  ScreenArguments(recipe: recipe, ingredient: ingredients)),
-                // onTap: () => Navigator.pushNamed(context, DETAILS_RECIPE_ROUTE, arguments: recipe),
 
                 child: _recipeTile(recipe, context)));
       },

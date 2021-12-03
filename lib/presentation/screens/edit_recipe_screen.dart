@@ -20,11 +20,23 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
   final _controllerTitle = TextEditingController();
   final _controllerRecipe = TextEditingController();
 
+  late int _count;
+  late List<TextEditingController> _controller;
+  late int _index;
+
   @override
   void initState(){
     super.initState();
     _controllerTitle.text = widget.recipe.recipeTitle;
     _controllerRecipe.text = widget.recipe.recipeRecipe;
+    if(widget.ingredients.isEmpty){
+      _count = 0;
+      _controller = [];
+    }else{
+      _count = widget.ingredients.length;
+      _index = widget.ingredients.length-1;
+    }
+
   }
 
   @override
@@ -67,6 +79,8 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
         const SizedBox(height: 100.0,),
         const Text("Edit your future image here :)   📝️️", style: TextStyle(fontSize: 20),),
         const SizedBox(height: 100.0,),
+        Text("Recipe:"),
+        const SizedBox(height: 25.0,),
         TextField(
           controller: _controllerTitle,
           autocorrect: true,
@@ -81,9 +95,44 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
           maxLines: null,
           decoration: const InputDecoration(labelText: "Enter recipe"),
         ),
-        const SizedBox(height: 100.0,),
-        _editRecipeBtn(context)
+        const SizedBox(height: 25.0,),
+        Text("Ingredients:"),
+        ListView.builder(
+            shrinkWrap: true,
+            itemCount: _count,
+            itemBuilder: (context, index){
+              return TextField(
+                // controller: _controller[_count],
+                decoration: InputDecoration(labelText: "Enter ingredient no. ${(_count).toString()}"),
+              );
+            }),
+        TextButton(
+          style: TextButton.styleFrom(
+            textStyle: const TextStyle(fontSize: 20),
+          ),
+          onPressed: () {
+            setState(() {
+              _count++;
+              // _controller.add(TextEditingController());
+            });
+          },
+          child: Column(
+            children: [
+              const Text('Add Ingredient'),
+              const SizedBox(height: 15.0,),
+              _editRecipeBtn(context)
+            ],
+          ),
+        ),
       ],
+    );
+  }
+
+  Widget _ingredientsList(context){
+    return TextField(
+      autocorrect: true,
+      style: const TextStyle(fontSize: 20),
+      decoration: const InputDecoration(labelText: "Enter ingredient"),
     );
   }
 
