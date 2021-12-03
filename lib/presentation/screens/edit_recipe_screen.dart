@@ -20,7 +20,7 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
   @override
   void initState(){
     super.initState();
-    _controllerTitle.text = widget.recipe.recipeRecipe;
+    _controllerTitle.text = widget.recipe.recipeTitle;
     _controllerRecipe.text = widget.recipe.recipeRecipe;
   }
 

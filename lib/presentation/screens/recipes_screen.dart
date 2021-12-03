@@ -126,8 +126,16 @@ class RecipesScreen extends StatelessWidget {
             height: 100,
             child: Center(
                 child: ListTile(
-                  title: Text(recipe.recipeTitle),
-                  subtitle: Text(recipe.recipeRecipe),
+                  title: Text(
+                    recipe.recipeTitle,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                  subtitle: Text(
+                      recipe.recipeRecipe,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                  ),
                 )
             )
         ),
