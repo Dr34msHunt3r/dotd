@@ -20,8 +20,6 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
 
   final _controllerRecipeSubtitle = TextEditingController();
 
-  final _controllerIngredientName = TextEditingController();
-
   late int _count;
   late List<TextEditingController> _controller;
   @override
@@ -89,11 +87,6 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
           keyboardType: TextInputType.multiline,
           maxLines: null,
           decoration: const InputDecoration(labelText: "Enter recipe"),
-        ),
-        const SizedBox(height: 10.0,),
-        TextField(
-          controller: _controllerIngredientName,
-          decoration: const InputDecoration(labelText: "Enter ingredient"),
         ),
         const SizedBox(height: 10.0,),
         ListView.builder(
