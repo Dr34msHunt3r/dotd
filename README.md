@@ -8,7 +8,7 @@ recipes and assigning them to a schedule to help undecided consumers choose what
 ## How do I run the application?
 Requirements: Flutter installed on the device, Android Studio or any other preffered compilator  
 which is able to run Flutter Project  
-1) Set up Json Server:  
+1) Set up Json Server: (OUT OF DATE! project can run only with custom server)  
    -install nodejs latest stable version from https://nodejs.org/en/,  
    -open terminal and install json server with command: npm install json-server -g (-g means global installation for json server),  
    -download the project,  
@@ -21,4 +21,5 @@ which is able to run Flutter Project
      
 ## What's new?  
    New Icon App  
-   Feel free to add new recipes, update them, delete them, read them. Now you can also add ingredients collection together with new recipe!    
+   Feel free to add new recipes, update them, delete them, read them. Now you can also add ingredients collection together with new recipe!  
+   Ingredients collection which you added with Recipe is available now to read in details screen  
