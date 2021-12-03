@@ -20,4 +20,5 @@ which is able to run Flutter Project
    -run application by pushing button(green arrow) Run 'main.dart'  
      
 ## What's new?  
+   New Icon App  
    Feel free to add new recipes, update them, delete them, read them. Now you can also add ingredients collection together with new recipe!    
