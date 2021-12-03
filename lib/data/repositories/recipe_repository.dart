@@ -39,7 +39,8 @@ class RecipeRepository {
     final putObj = {"title": updatedRecipe.recipeTitle,
       "recipe": updatedRecipe.recipeRecipe,
       "imageUrl": "assets/default/recipe_default_image.png",
-      "favourite": false.toString()
+      "favourite": false.toString(),
+      "id": id
     };
     return await networkService.putRecipe(putObj, id);
   }

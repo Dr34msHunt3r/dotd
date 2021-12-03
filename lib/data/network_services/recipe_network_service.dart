@@ -41,6 +41,7 @@ class RecipeNetworkService {
   }
 
   putRecipe(Map<String, String> putObj, String id) async{
+    print(putObj);
     try{
       await http.put(Uri.parse(baseUrl + "/recipes/put:id"), body: putObj);
       return true;
