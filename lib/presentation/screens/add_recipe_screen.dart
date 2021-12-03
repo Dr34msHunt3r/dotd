@@ -53,10 +53,8 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                   List<Ingredient> ingredients = [];
                   _controller.forEach((element) {ingredients.add(Ingredient(recipeId: recipe.id, name: element.text, ));});
 
-                  print("RecipeAdded");
-
                   BlocProvider.of<AddIngredientCubit>(context).addIngredient(
-                      ingredients, recipe.id);
+                      ingredients);
                 } else if (state is AddRecipeError) {
                   Fluttertoast.showToast(
                       msg: state.error
@@ -110,7 +108,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
           },
           child: Column(
             children: [
-              const Text('Add Text Field'),
+              const Text('Add Ingredient'),
               const SizedBox(height: 15.0,),
               _addRecipeBtn(context)
             ],

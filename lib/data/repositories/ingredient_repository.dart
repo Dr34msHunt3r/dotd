@@ -14,18 +14,16 @@ class IngredientRepository {
     return ingredientsRaw.map((e) => Ingredient.fromJson(e)).toList();
   }
 
-  Future<List<Ingredient>> addIngredients(List <Ingredient> ingredients, String recipeId) async {
-    final IngredientsList ingredientsList = IngredientsList(ingredients);
+  Future<List<Ingredient>> addIngredients(List <Ingredient> ingredients) async {
+    // final IngredientsList ingredientsList = IngredientsList(ingredients);
     final ingredientsObj = jsonEncode(ingredients);
-    // final ingredientsObj = ingredients.map((e) => {"name":e.name, "recipeId": e.recipeId});
     print(ingredientsObj);
-    await networkService.addIngredient(ingredientsObj, recipeId);
+    final ingredientsMap = await networkService.addIngredient(ingredientsObj);
     if(ingredientsObj == null) {
       return [];
     }
 
-    return [];
-      // ingredientsMap.map((e) => Ingredient.fromJson(e)).toList();
+    return ingredientsMap.map((e) => Ingredient.fromJson(e)).toList();
   }
 
 

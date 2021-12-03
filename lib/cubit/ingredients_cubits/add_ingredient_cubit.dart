@@ -15,7 +15,7 @@ class AddIngredientCubit extends Cubit<AddIngredientsState> {
   final IngredientRepository repository;
   final IngredientsCubit ingredientsCubit;
 
-  void addIngredient(List<Ingredient> ingredients, String recipeId) {
+  void addIngredient(List<Ingredient> ingredients) {
     // TODO: that's feature that will be available when ingredients will be really required
     // if (name.isEmpty){
     //   emit(AddIngredientError(error: "ingredients are missing"));
@@ -24,9 +24,9 @@ class AddIngredientCubit extends Cubit<AddIngredientsState> {
 
     emit(AddingIngredients());
     Timer(const Duration(seconds: 2), () {
-      repository.addIngredients(ingredients, recipeId).then((ingredients) {
+      repository.addIngredients(ingredients).then((ingredients) {
         if(ingredients != null){
-          ingredientsCubit.addIngredient(ingredients, recipeId);
+          ingredientsCubit.addIngredient(ingredients);
           emit(IngredientsAdded());
         }
       });

@@ -20,7 +20,7 @@ class IngredientsCubit extends Cubit<IngredientsState> {
     });
   }
 
-  void addIngredient(List<Ingredient> ingredients, String recipeId) {
+  void addIngredient(List<Ingredient> ingredients) {
     final currentState = state;
     if(currentState is IngredientsLoaded){
       var ingredientList = currentState.ingredients;

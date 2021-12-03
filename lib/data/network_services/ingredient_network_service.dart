@@ -18,14 +18,13 @@ class IngredientNetworkService {
     }
   }
 
-  Future<Map> addIngredient(String ingredientsObj, recipeId) async {
-    print(ingredientsObj);
+  Future<List<dynamic>> addIngredient(String ingredientsObj) async {
     try{
-      await http.post(Uri.parse(baseUrl + "/ingredients/addcollection"), body: {"ingredients": ingredientsObj});
-      return {};
+      final response = await http.post(Uri.parse(baseUrl + "/ingredients/addcollection"), body: {"ingredients": ingredientsObj});
+      return jsonDecode(response.body) as List;
     }catch(e){
       print(e);
-      return {};
+      return [];
     }
   }
 
