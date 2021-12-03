@@ -1,5 +1,6 @@
 import 'package:dotd/cubit/ingredients_cubits/add_ingredient_cubit.dart';
 import 'package:dotd/cubit/recipe_cubits/add_recipe_cubit.dart';
+import 'package:dotd/data/models/ingredients.dart';
 import 'package:dotd/data/models/recipe.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -38,9 +39,9 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         ),
         body: MultiBlocListener(
           listeners: [
-            BlocListener<AddIngredientCubit, AddIngredientState>(
+            BlocListener<AddIngredientCubit, AddIngredientsState>(
               listener: (context, state) {
-                if (state is IngredientAdded) {
+                if (state is IngredientsAdded) {
                   Navigator.pop(context);
                   return;
                 }
@@ -49,16 +50,15 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
             BlocListener<AddRecipeCubit, AddRecipeState>(
               listener: (context, state) {
                 if (state is RecipeAdded) {
+                  Recipe recipe = (state as RecipeAdded).recipe;
                   // TODO: Prepare cubit,state, network service and repository for ingredients list
-                  List<String> ingredients = [];
-                  _controller.forEach((element) {ingredients.add(element.text);});
-                  print(ingredients);
+                  List<Ingredient> ingredients = [];
+                  _controller.forEach((element) {ingredients.add(Ingredient(recipeId: recipe.id, name: element.text, ));});
 
                   print("RecipeAdded");
-                  Recipe recipe = (state as RecipeAdded).recipe;
-                  final name = _controllerIngredientName.text;
+
                   BlocProvider.of<AddIngredientCubit>(context).addIngredient(
-                      name, recipe.id.toString());
+                      ingredients, recipe.id);
                 } else if (state is AddRecipeError) {
                   Fluttertoast.showToast(
                       msg: state.error
@@ -148,10 +148,10 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         },
         child: BlocBuilder<AddRecipeCubit, AddRecipeState>(
           builder: (context, AddRecipeState) {
-            return BlocBuilder<AddIngredientCubit, AddIngredientState>(
+            return BlocBuilder<AddIngredientCubit, AddIngredientsState>(
               builder: (context, AddIngredientState) {
                 if (AddRecipeState is AddingRecipe ||
-                    AddIngredientState is AddingIngredient) {
+                    AddIngredientState is AddingIngredients) {
                   return const Center(
                     child: SizedBox(
                         height: 16.0,

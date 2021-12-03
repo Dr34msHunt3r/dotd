@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:dotd/data/models/ingredients.dart';
 import 'package:dotd/data/repositories/ingredient_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -8,25 +9,25 @@ import 'ingredients_cubit.dart';
 
 part 'add_ingredient_state.dart';
 
-class AddIngredientCubit extends Cubit<AddIngredientState> {
-  AddIngredientCubit({required this.ingredientsCubit, required this.repository}) : super(AddIngredientInitial());
+class AddIngredientCubit extends Cubit<AddIngredientsState> {
+  AddIngredientCubit({required this.ingredientsCubit, required this.repository}) : super(AddIngredientsInitial());
 
   final IngredientRepository repository;
   final IngredientsCubit ingredientsCubit;
 
-  void addIngredient(String name, String recipeId) {
+  void addIngredient(List<Ingredient> ingredients, String recipeId) {
     // TODO: that's feature that will be available when ingredients will be really required
     // if (name.isEmpty){
     //   emit(AddIngredientError(error: "ingredients are missing"));
     //   return;
     // }
 
-    emit(AddingIngredient());
+    emit(AddingIngredients());
     Timer(const Duration(seconds: 2), () {
-      repository.addIngredient(name, recipeId).then((ingredient) {
-        if(ingredient != null){
-          ingredientsCubit.addIngredient(ingredient, recipeId);
-          emit(IngredientAdded());
+      repository.addIngredients(ingredients, recipeId).then((ingredients) {
+        if(ingredients != null){
+          ingredientsCubit.addIngredient(ingredients, recipeId);
+          emit(IngredientsAdded());
         }
       });
     });

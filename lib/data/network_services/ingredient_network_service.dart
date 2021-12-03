@@ -9,7 +9,7 @@ class IngredientNetworkService {
 
   Future<List<dynamic>> fetchIngredients() async {
     try{
-      final response = await http.get(Uri.parse(baseUrl + "/ingredients"));
+      final response = await http.get(Uri.parse(baseUrl + "/ingredients/get"));
       print(response.body);
       return jsonDecode(response.body) as List;
     }catch(e){
@@ -18,12 +18,11 @@ class IngredientNetworkService {
     }
   }
 
-  Future<Map> addIngredient(Map<String, String> ingredientObj, recipeId) async {
-    int id = int.parse(recipeId);
+  Future<Map> addIngredient(String ingredientsObj, recipeId) async {
+    print(ingredientsObj);
     try{
-      final response = await http.post(Uri.parse(baseUrl + "/recipes/$id/ingredients"), body: ingredientObj);
-      print(response.body);
-      return jsonDecode(response.body);
+      await http.post(Uri.parse(baseUrl + "/ingredients/addcollection"), body: ingredientsObj);
+      return {};
     }catch(e){
       print(e);
       return {};

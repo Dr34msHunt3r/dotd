@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dotd/data/network_services/ingredient_network_service.dart';
 
 import '../models/ingredients.dart';
@@ -12,19 +14,18 @@ class IngredientRepository {
     return ingredientsRaw.map((e) => Ingredient.fromJson(e)).toList();
   }
 
-  Future<Ingredient> addIngredient(String name, String recipeId) async {
-    final ingredientObj = {
-      "name": name
-    };
-
-    final ingredientMap = await networkService.addIngredient(ingredientObj, recipeId);
-    if(ingredientObj == null) {
-      return Ingredient(
-        name: "Ups, something went wrong! :("
-      );
+  Future<List<Ingredient>> addIngredients(List <Ingredient> ingredients, String recipeId) async {
+    final IngredientsList ingredientsList = IngredientsList(ingredients);
+    final ingredientsObj = jsonEncode(ingredients);
+    // final ingredientsObj = ingredients.map((e) => {"name":e.name, "recipeId": e.recipeId});
+    print(ingredientsObj);
+    await networkService.addIngredient(ingredientsObj, recipeId);
+    if(ingredientsObj == null) {
+      return [];
     }
 
-    return Ingredient.fromJson(ingredientMap);
+    return [];
+      // ingredientsMap.map((e) => Ingredient.fromJson(e)).toList();
   }
 
 
