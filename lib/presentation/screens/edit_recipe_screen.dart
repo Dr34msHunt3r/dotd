@@ -21,8 +21,7 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
   final _controllerRecipe = TextEditingController();
 
   late int _count;
-  late List<TextEditingController> _controller;
-  late int _index;
+  List<TextEditingController> _controller = [];
 
   @override
   void initState(){
@@ -34,7 +33,10 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
       _controller = [];
     }else{
       _count = widget.ingredients.length;
-      _index = widget.ingredients.length-1;
+      for(var i=0; i<_count; i++){
+        _controller.add(TextEditingController());
+        _controller[i].text = widget.ingredients[i].name;
+      }
     }
 
   }
@@ -80,7 +82,6 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
         const Text("Edit your future image here :)   📝️️", style: TextStyle(fontSize: 20),),
         const SizedBox(height: 100.0,),
         Text("Recipe:"),
-        const SizedBox(height: 25.0,),
         TextField(
           controller: _controllerTitle,
           autocorrect: true,
@@ -102,8 +103,8 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
             itemCount: _count,
             itemBuilder: (context, index){
               return TextField(
-                // controller: _controller[_count],
-                decoration: InputDecoration(labelText: "Enter ingredient no. ${(_count).toString()}"),
+                controller: _controller[index],
+                decoration: InputDecoration(labelText: "Enter ingredient no. ${(index+1).toString()}"),
               );
             }),
         TextButton(
@@ -113,7 +114,7 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
           onPressed: () {
             setState(() {
               _count++;
-              // _controller.add(TextEditingController());
+              _controller.add(TextEditingController());
             });
           },
           child: Column(
