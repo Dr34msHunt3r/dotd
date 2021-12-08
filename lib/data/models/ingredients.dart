@@ -17,7 +17,8 @@ class Ingredient {
 
   Map toJson() => {
     'recipeId' : recipeId,
-    'name' : name
+    'name' : name,
+    'id' : id
   };
 }
 

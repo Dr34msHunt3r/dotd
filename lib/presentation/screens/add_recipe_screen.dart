@@ -49,7 +49,6 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
               listener: (context, state) {
                 if (state is RecipeAdded) {
                   Recipe recipe = (state as RecipeAdded).recipe;
-                  // TODO: Prepare cubit,state, network service and repository for ingredients list
                   List<Ingredient> ingredients = [];
                   _controller.forEach((element) {ingredients.add(Ingredient(recipeId: recipe.id, name: element.text, ));});
 

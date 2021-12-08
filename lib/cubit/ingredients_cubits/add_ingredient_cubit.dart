@@ -16,11 +16,7 @@ class AddIngredientCubit extends Cubit<AddIngredientsState> {
   final IngredientsCubit ingredientsCubit;
 
   void addIngredient(List<Ingredient> ingredients) {
-    // TODO: that's feature that will be available when ingredients will be really required
-    // if (name.isEmpty){
-    //   emit(AddIngredientError(error: "ingredients are missing"));
-    //   return;
-    // }
+    // TODO: add error for empty fields
 
     emit(AddingIngredients());
     Timer(const Duration(seconds: 2), () {

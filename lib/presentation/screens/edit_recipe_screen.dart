@@ -1,3 +1,4 @@
+import 'package:dotd/cubit/ingredients_cubits/edit_ingredients_cubit.dart';
 import 'package:dotd/cubit/recipe_cubits/edit_recipe_cubit.dart';
 import 'package:dotd/data/models/ingredients.dart';
 import 'package:dotd/data/models/recipe.dart';
@@ -33,7 +34,7 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
       _controller = [];
     }else{
       _count = widget.ingredients.length;
-      for(var i=0; i<_count; i++){
+      for(var i=0; i < _count; i++){
         _controller.add(TextEditingController());
         _controller[i].text = widget.ingredients[i].name;
       }
@@ -98,15 +99,7 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
         ),
         const SizedBox(height: 25.0,),
         Text("Ingredients:"),
-        ListView.builder(
-            shrinkWrap: true,
-            itemCount: _count,
-            itemBuilder: (context, index){
-              return TextField(
-                controller: _controller[index],
-                decoration: InputDecoration(labelText: "Enter ingredient no. ${(index+1).toString()}"),
-              );
-            }),
+        _ingredientsList(context),
         TextButton(
           style: TextButton.styleFrom(
             textStyle: const TextStyle(fontSize: 20),
@@ -130,11 +123,15 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
   }
 
   Widget _ingredientsList(context){
-    return TextField(
-      autocorrect: true,
-      style: const TextStyle(fontSize: 20),
-      decoration: const InputDecoration(labelText: "Enter ingredient"),
-    );
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: _count,
+        itemBuilder: (context, index){
+          return TextField(
+            controller: _controller[index],
+            decoration: InputDecoration(labelText: "Enter ingredient no. ${(index+1).toString()}"),
+          );
+        });
   }
 
   Widget _editRecipeBtn(context){
@@ -148,7 +145,10 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
       child: InkWell(
         onTap: () {
           Recipe updatedRecipe = Recipe(recipeTitle: _controllerTitle.text, recipeRecipe: _controllerRecipe.text, id: widget.recipe.id);
+          List<Ingredient> updatedIngredients = [];
+          _controller.forEach((element) {updatedIngredients.add(Ingredient(recipeId: widget.recipe.id, name: element.text, ));});
           BlocProvider.of<EditRecipeCubit>(context).updateRecipe(widget.recipe, updatedRecipe);
+          BlocProvider.of<EditIngredientsCubit>(context).updateIngredients(widget.ingredients, updatedIngredients, widget.recipe.id);
         },
         child: BlocBuilder<EditRecipeCubit, EditRecipeState>(
           builder: (context, state) {
@@ -174,4 +174,6 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
       ),
     );
   }
+
+
 }

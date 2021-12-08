@@ -15,14 +15,22 @@ class IngredientRepository {
   }
 
   Future<List<Ingredient>> addIngredients(List <Ingredient> ingredients) async {
-    // final IngredientsList ingredientsList = IngredientsList(ingredients);
     final ingredientsObj = jsonEncode(ingredients);
-    print(ingredientsObj);
-    final ingredientsMap = await networkService.addIngredient(ingredientsObj);
     if(ingredientsObj == null) {
       return [];
     }
+    final ingredientsMap = await networkService.addIngredient(ingredientsObj);
 
+    return ingredientsMap.map((e) => Ingredient.fromJson(e)).toList();
+  }
+
+  Future<List<Ingredient>> updateIngredients(List<Ingredient> ingredients, String recipeId) async {
+    final putRecipeId = jsonEncode(recipeId);
+    final putList = jsonEncode(ingredients);
+    if(putList == null){
+      return [];
+    }
+    final ingredientsMap = await networkService.updateIngredients(putList, putRecipeId);
     return ingredientsMap.map((e) => Ingredient.fromJson(e)).toList();
   }
 

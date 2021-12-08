@@ -4,3 +4,9 @@ part of 'edit_ingredients_cubit.dart';
 abstract class EditIngredientsState {}
 
 class EditIngredientsInitial extends EditIngredientsState {}
+class EditIngredientsError extends EditIngredientsState {
+  final String error;
+
+  EditIngredientsError({required this.error});
+}
+class IngredientsEdited extends EditIngredientsState {}

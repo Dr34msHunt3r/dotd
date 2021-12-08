@@ -38,13 +38,13 @@ class IngredientNetworkService {
     }
   }
 
-  putIngredient(Map<String, String> putIngredientObj, int id) async{
+  Future<List<dynamic>> updateIngredients(String putList, String recipeId) async {
     try{
-      await http.put(Uri.parse(baseUrl + "/ingredients/$id"), body: putIngredientObj);
-      return true;
+      final response = await http.put(Uri.parse(baseUrl + "/ingredients/putcollection"), body: {"ingredients": putList, "recipeId": recipeId});
+      return jsonDecode(response.body) as List;
     }catch(e){
       print(e);
-      return false;
+      return [];
     }
   }
 
