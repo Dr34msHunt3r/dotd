@@ -112,6 +112,7 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
           },
           child: Column(
             children: [
+              SizedBox(height: 25,),
               const Text('Add Ingredient'),
               const SizedBox(height: 15.0,),
               _editRecipeBtn(context)
@@ -127,9 +128,27 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
         shrinkWrap: true,
         itemCount: _count,
         itemBuilder: (context, index){
-          return TextField(
-            controller: _controller[index],
-            decoration: InputDecoration(labelText: "Enter ingredient no. ${(index+1).toString()}"),
+          return Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _controller[index],
+                  decoration: InputDecoration(labelText: "Enter ingredient no. ${(index+1).toString()}"),
+                ),
+              ),
+              InkWell(
+                onTap: (){
+                  setState(() {
+                    _controller.removeAt(index);
+                    _count--;
+                  });
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(Icons.delete),
+                ),
+              )
+            ],
           );
         });
   }
