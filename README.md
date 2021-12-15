@@ -1,27 +1,29 @@
-# Dish of The Day (tired of making decisions?)
+# DEMO  
+# Dish of The Day (tired of making decisions?)  
 
-It's Mobile Application that in the basic version will contain the functionality of 
-managing recipes. In the future, I intend to extend application for the possibility of drawing 
-recipes and assigning them to a schedule to help undecided consumers choose what to eat :)
+It's Mobile Application that in the basic version will contain the functionality of  
+managing recipes. In the future, I intend to extend application for the possibility of drawing  
+recipes and assigning them to a schedule to help undecided consumers choose what to eat :)  
 
 ## How do I run the application?
-Requirements: Flutter installed on the device, Android Studio or any other preffered compilator 
-which is able to run Flutter Project
+Requirements: Flutter 2.8.0 installed, Android Studio or any other preferred compilator  
+which is able to run Flutter Project  
 1) Set up Json Server:  
-   -install nodejs latest stable version from https://nodejs.org/en/,  
-   -open terminal and install json server with command: npm install json-server -g (-g means global installation for json server),  
-   -download the project,  
-   -open terminal in project folder dotd and run command: json-server --watch db.json.
-
+   follow instructions https://github.com/Dr34msHunt3r/dotd_js_server  
+  
 2) Run the project on the emulator:  
    -open project in Android Studio,  
    -turn on device emulator from AVD Manager,  
    -run application by pushing button(green arrow) Run 'main.dart'  
-## Up to date  
-Very basic version is ready to use. Now you can add recipes, update them, delete and read!  
-  
-### My Plan (TODO)
-
-1. Add a photo of meals to recipe,  
-2. Add ingridients list (nested data),  
-3. Add empty recipeList view.  
+     
+## What's new?  
+   New Icon App  
+   Feel free to add new recipes, update them, delete them, read them. Now you can also add ingredients collection together with new recipe!  
+   Ingredients collection which you added with Recipe is available now to read in details screen  
+   Ingredients collection can be edited for each recipe  
+   Add new text field for incoming ingredients in add and edit recipe screen  
+   Delete unnecessary ingredient from the text fields list by pushing delete button  
+   User is not forced to delete empty fields for ingredients while in add/edit mode, empty fields just won't be added to the ingredients collection  
+   Ingredients fields are not required  
+   Recipe title and body is required, if empty it will show toast with error message  
+   

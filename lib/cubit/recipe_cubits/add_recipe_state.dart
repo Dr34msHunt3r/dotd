@@ -11,4 +11,8 @@ class AddRecipeError extends AddRecipeState {
 }
 
 class AddingRecipe extends AddRecipeState {}
-class RecipeAdded extends AddRecipeState {}
+class RecipeAdded extends AddRecipeState {
+  final Recipe recipe;
+
+  RecipeAdded({required this.recipe});
+}

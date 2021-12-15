@@ -1,8 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:dotd/cubit/recipes_cubit.dart';
-import 'package:dotd/data/repository.dart';
+import 'package:dotd/cubit/recipe_cubits/recipes_cubit.dart';
+import 'package:dotd/data/models/recipe.dart';
+import 'package:dotd/data/repositories/recipe_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'add_recipe_state.dart';
@@ -10,7 +11,7 @@ part 'add_recipe_state.dart';
 class AddRecipeCubit extends Cubit<AddRecipeState> {
   AddRecipeCubit({required this.recipesCubit, required this.repository}) : super(AddRecipeInitial());
 
-  final Repository repository;
+  final RecipeRepository repository;
   final RecipesCubit recipesCubit;
 
   void addRecipe(String recipeTitle, String recipeRecipe) {
@@ -26,7 +27,7 @@ class AddRecipeCubit extends Cubit<AddRecipeState> {
       repository.addRecipe(recipeTitle, recipeRecipe).then((recipe) {
         if(recipe != null){
           recipesCubit.addRecipe(recipe);
-          emit(RecipeAdded());
+          emit(RecipeAdded(recipe: recipe));
         }
       });
     });

@@ -1,6 +1,9 @@
 import 'package:dotd/constants/strings.dart';
-import 'package:dotd/cubit/recipes_cubit.dart';
+import 'package:dotd/cubit/ingredients_cubits/ingredients_cubit.dart';
+import 'package:dotd/cubit/recipe_cubits/recipes_cubit.dart';
+import 'package:dotd/data/models/ingredients.dart';
 import 'package:dotd/data/models/recipe.dart';
+import 'package:dotd/data/models/screen_arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,6 +13,7 @@ class RecipesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<RecipesCubit>(context).fetchRecipes();
+    BlocProvider.of<IngredientsCubit>(context).fetchIngredients();
 
     return Scaffold(
       appBar: AppBar(
@@ -26,11 +30,23 @@ class RecipesScreen extends StatelessWidget {
       ),
       body: SafeArea(
         child: BlocBuilder<RecipesCubit, RecipesState>(
-          builder: (context, state) {
-            if (!(state is RecipesLoaded)) {
+          builder: (context, RecipesState) {
+            if (!(RecipesState is RecipesLoaded || RecipesState is RecipesEmpty)) {
               return const Center(child: CircularProgressIndicator());
             }
-            final recipes = (state as RecipesLoaded).recipes;
+            var recipes = [];
+            if (RecipesState is RecipesLoaded){
+              recipes = (RecipesState as RecipesLoaded).recipes;
+            } else if (RecipesState is RecipesEmpty){
+              recipes = (RecipesState as RecipesEmpty).recipes;
+              return ListView(
+                padding: const EdgeInsets.all(10.0),
+                children: [
+                  _addRecipe(context),
+                  Image(image: AssetImage('assets/default/empty_list.png')),
+                ],
+              );
+            }
 
             return ListView(
               padding: const EdgeInsets.all(10.0),
@@ -49,6 +65,9 @@ class RecipesScreen extends StatelessWidget {
 
   Widget _addRecipe(context) {
     return Card(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15.0),
+      ),
       child: InkWell(
         onTap: () => Navigator.pushNamed(context, ADD_RECIPE_ROUTE),
         child: SizedBox(
@@ -57,12 +76,12 @@ class RecipesScreen extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(25.0),
               child: Column(
-                children: const [
-                  Icon(Icons.add),
+                children: [
+                  Icon(Icons.add, color: Colors.blue),
                   Center(
                       child: Text(
                     "Add recipe",
-                    style: TextStyle(fontSize: 16),
+                    style: TextStyle(fontSize: 16, color: Colors.blue),
                   )),
                 ],
               ),
@@ -72,20 +91,54 @@ class RecipesScreen extends StatelessWidget {
   }
 
   Widget _recipe(Recipe recipe, context) {
-    return Card(
-        child: InkWell(
-            onTap: () => Navigator.pushNamed(context, DETAILS_RECIPE_ROUTE, arguments: recipe),
-            child: _recipeTile(recipe, context)));
+    return BlocBuilder<IngredientsCubit, IngredientsState>(
+      builder: (context, IngredientsState) {
+        List<Ingredient> ingredients = [];
+        if (IngredientsState is IngredientsLoaded){
+          ingredients = (IngredientsState as IngredientsLoaded).ingredients.where((i) => i.recipeId == recipe.id).toList();
+        }
+
+         return Card(
+            shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(15.0),
+            ),
+            child: InkWell(
+                onTap: () => Navigator.pushNamed(context, DETAILS_RECIPE_ROUTE, arguments:  ScreenArguments(recipe: recipe, ingredient: ingredients)),
+
+                child: _recipeTile(recipe, context)));
+      },
+    );
   }
 
   Widget _recipeTile(Recipe recipe, context) {
-    return SizedBox(
-        width: MediaQuery.of(context).size.width,
-        height: 100,
-        child: Center(
-            child: ListTile(
-          title: Text(recipe.recipeTitle),
-          subtitle: Text(recipe.recipeRecipe),
-        )));
+    return Row(
+      children: [
+        SizedBox(
+          width: 100,
+            height: 100,
+            child: ClipRRect(
+              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.0), topLeft: Radius.circular(15.0)),
+                child: Image(image: AssetImage(recipe.imageUrl)))
+        ),
+        SizedBox(
+            width: 280,
+            height: 100,
+            child: Center(
+                child: ListTile(
+                  title: Text(
+                    recipe.recipeTitle,
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                  subtitle: Text(
+                      recipe.recipeRecipe,
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 3,
+                  ),
+                )
+            )
+        ),
+      ],
+    );
   }
 }

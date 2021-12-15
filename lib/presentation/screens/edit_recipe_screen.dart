@@ -1,13 +1,17 @@
-import 'package:dotd/cubit/edit_recipe_cubit.dart';
+import 'package:dotd/cubit/ingredients_cubits/edit_ingredients_cubit.dart';
+import 'package:dotd/cubit/recipe_cubits/edit_recipe_cubit.dart';
+import 'package:dotd/data/models/ingredients.dart';
 import 'package:dotd/data/models/recipe.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class EditRecipeScreen extends StatefulWidget {
-  const EditRecipeScreen({Key? key, required this.recipe}) : super(key: key);
+  const EditRecipeScreen({Key? key, required this.recipe, required this.ingredients}) : super(key: key);
 
   final Recipe recipe;
+
+  final List<Ingredient> ingredients;
 
   @override
   State<EditRecipeScreen> createState() => _EditRecipeScreenState();
@@ -17,11 +21,25 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
   final _controllerTitle = TextEditingController();
   final _controllerRecipe = TextEditingController();
 
+  late int _count;
+  List<TextEditingController> _controller = [];
+
   @override
   void initState(){
     super.initState();
-    _controllerTitle.text = widget.recipe.recipeRecipe;
+    _controllerTitle.text = widget.recipe.recipeTitle;
     _controllerRecipe.text = widget.recipe.recipeRecipe;
+    if(widget.ingredients.isEmpty){
+      _count = 0;
+      _controller = [];
+    }else{
+      _count = widget.ingredients.length;
+      for(var i=0; i < _count; i++){
+        _controller.add(TextEditingController());
+        _controller[i].text = widget.ingredients[i].name;
+      }
+    }
+
   }
 
   @override
@@ -64,6 +82,7 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
         const SizedBox(height: 100.0,),
         const Text("Edit your future image here :)   📝️️", style: TextStyle(fontSize: 20),),
         const SizedBox(height: 100.0,),
+        Text("Recipe:"),
         TextField(
           controller: _controllerTitle,
           autocorrect: true,
@@ -78,10 +97,60 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
           maxLines: null,
           decoration: const InputDecoration(labelText: "Enter recipe"),
         ),
-        const SizedBox(height: 100.0,),
-        _editRecipeBtn(context)
+        const SizedBox(height: 25.0,),
+        Text("Ingredients:"),
+        _ingredientsList(context),
+        TextButton(
+          style: TextButton.styleFrom(
+            textStyle: const TextStyle(fontSize: 20),
+          ),
+          onPressed: () {
+            setState(() {
+              _count++;
+              _controller.add(TextEditingController());
+            });
+          },
+          child: Column(
+            children: [
+              SizedBox(height: 25,),
+              const Text('Add Ingredient'),
+              const SizedBox(height: 15.0,),
+              _editRecipeBtn(context)
+            ],
+          ),
+        ),
       ],
     );
+  }
+
+  Widget _ingredientsList(context){
+    return ListView.builder(
+        shrinkWrap: true,
+        itemCount: _count,
+        itemBuilder: (context, index){
+          return Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: _controller[index],
+                  decoration: InputDecoration(labelText: "Enter ingredient no. ${(index+1).toString()}"),
+                ),
+              ),
+              InkWell(
+                onTap: (){
+                  setState(() {
+                    _controller.removeAt(index);
+                    _count--;
+                  });
+                },
+                child: const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Icon(Icons.delete),
+                ),
+              )
+            ],
+          );
+        });
   }
 
   Widget _editRecipeBtn(context){
@@ -95,7 +164,10 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
       child: InkWell(
         onTap: () {
           Recipe updatedRecipe = Recipe(recipeTitle: _controllerTitle.text, recipeRecipe: _controllerRecipe.text, id: widget.recipe.id);
+          List<Ingredient> updatedIngredients = [];
+          _controller.forEach((element) {if(element.text !="") updatedIngredients.add(Ingredient(recipeId: widget.recipe.id, name: element.text, ));});
           BlocProvider.of<EditRecipeCubit>(context).updateRecipe(widget.recipe, updatedRecipe);
+          BlocProvider.of<EditIngredientsCubit>(context).updateIngredients(widget.ingredients, updatedIngredients, widget.recipe.id);
         },
         child: BlocBuilder<EditRecipeCubit, EditRecipeState>(
           builder: (context, state) {
@@ -121,4 +193,6 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
       ),
     );
   }
+
+
 }

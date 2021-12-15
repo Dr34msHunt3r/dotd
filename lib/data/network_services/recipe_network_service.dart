@@ -2,14 +2,14 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 
-class NetworkService {
+class RecipeNetworkService {
 
   final baseUrl = "http://10.0.2.2:3000";
   // final baseUrl = "http://192.168.1.8:3000";
 
   Future<List<dynamic>> fetchRecipes() async {
     try{
-      final response = await http.get(Uri.parse(baseUrl + "/recipes"));
+      final response = await http.get(Uri.parse(baseUrl + "/recipes/get"));
       print(response.body);
       return jsonDecode(response.body) as List;
     }catch(e){
@@ -20,7 +20,7 @@ class NetworkService {
 
   Future<Map> addRecipe(Map<String, String> recipeObj) async {
     try{
-      final response = await http.post(Uri.parse(baseUrl + "/recipes"), body: recipeObj);
+      final response = await http.post(Uri.parse(baseUrl + "/recipes/add"), body: recipeObj);
       print(response.body);
       return jsonDecode(response.body);
     }catch(e){
@@ -29,9 +29,10 @@ class NetworkService {
     }
   }
 
-  Future<bool> deleteRecipe(int id) async{
+  Future<bool> deleteRecipe(String id) async{
+    final jsonid = {"id": id};
     try{
-      await http.delete(Uri.parse(baseUrl + "/recipes/$id"));
+      await http.delete(Uri.parse(baseUrl + "/recipes/delete:id"), body: jsonid);
       return true;
     }catch(e){
       print(e);
@@ -39,9 +40,10 @@ class NetworkService {
     }
   }
 
-  putRecipe(Map<String, String> putObj, int id) async{
+  putRecipe(Map<String, String> putObj, String id) async{
+    print(putObj);
     try{
-      await http.put(Uri.parse(baseUrl + "/recipes/$id"), body: putObj);
+      await http.put(Uri.parse(baseUrl + "/recipes/put:id"), body: putObj);
       return true;
     }catch(e){
       print(e);
