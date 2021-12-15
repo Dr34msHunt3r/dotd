@@ -50,7 +50,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
                 if (state is RecipeAdded) {
                   Recipe recipe = (state as RecipeAdded).recipe;
                   List<Ingredient> ingredients = [];
-                  _controller.forEach((element) {ingredients.add(Ingredient(recipeId: recipe.id, name: element.text, ));});
+                  _controller.forEach((element) {if(element.text != "") ingredients.add(Ingredient(recipeId: recipe.id, name: element.text, ));});
 
                   BlocProvider.of<AddIngredientCubit>(context).addIngredient(
                       ingredients);
@@ -90,10 +90,28 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
           shrinkWrap: true,
             itemCount: _count,
             itemBuilder: (context, index){
-            return TextField(
-              controller: _controller[index],
-              decoration: InputDecoration(labelText: "Enter ingredient no. ${(index+1).toString()}"),
-            );
+              return Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      controller: _controller[index],
+                      decoration: InputDecoration(labelText: "Enter ingredient no. ${(index+1).toString()}"),
+                    ),
+                  ),
+                  InkWell(
+                    onTap: (){
+                      setState(() {
+                        _controller.removeAt(index);
+                        _count--;
+                      });
+                    },
+                    child: const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Icon(Icons.delete),
+                    ),
+                  )
+                ],
+              );
             }),
         TextButton(
           style: TextButton.styleFrom(
