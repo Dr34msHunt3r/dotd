@@ -33,18 +33,14 @@ class IngredientsCubit extends Cubit<IngredientsState> {
     final currentState = state;
     if(currentState is IngredientsLoaded){
       final oldIngredients = currentState.ingredients;
-      var oldIngredientsCounter = oldIngredients.length;
-      var ingredientsCounter = ingredients.length;
-      for(var i=0; i <= oldIngredientsCounter-1; i++){
+      for(var i=0; i < oldIngredients.length; i++){
         if(oldIngredients[i].recipeId == recipeId){
           oldIngredients.removeAt(i);
-          oldIngredientsCounter--;
           i--;
         }
-        for(var i=0; i <= ingredientsCounter-1; i++) {
+        for(var i=0; i < ingredients.length; i++) {
           if (ingredients[i].id == '') {
             ingredients.removeAt(i);
-            ingredientsCounter--;
             i--;
           }
         }

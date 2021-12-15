@@ -165,7 +165,7 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
         onTap: () {
           Recipe updatedRecipe = Recipe(recipeTitle: _controllerTitle.text, recipeRecipe: _controllerRecipe.text, id: widget.recipe.id);
           List<Ingredient> updatedIngredients = [];
-          _controller.forEach((element) {updatedIngredients.add(Ingredient(recipeId: widget.recipe.id, name: element.text, ));});
+          _controller.forEach((element) {if(element.text !="") updatedIngredients.add(Ingredient(recipeId: widget.recipe.id, name: element.text, ));});
           BlocProvider.of<EditRecipeCubit>(context).updateRecipe(widget.recipe, updatedRecipe);
           BlocProvider.of<EditIngredientsCubit>(context).updateIngredients(widget.ingredients, updatedIngredients, widget.recipe.id);
         },
