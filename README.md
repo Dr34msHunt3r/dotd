@@ -6,13 +6,10 @@ managing recipes. In the future, I intend to extend application for the possibil
 recipes and assigning them to a schedule to help undecided consumers choose what to eat :)  
 
 ## How do I run the application?
-Requirements: Flutter installed on the device, Android Studio or any other preffered compilator  
+Requirements: Flutter 2.8.0 installed, Android Studio or any other preferred compilator  
 which is able to run Flutter Project  
-1) Set up Json Server: (OUT OF DATE! project can run only with custom server)  
-   -install nodejs latest stable version from https://nodejs.org/en/,  
-   -open terminal and install json server with command: npm install json-server -g (-g means global installation for json server),  
-   -download the project,  
-   -open terminal in project folder dotd and run command: json-server --watch db.json.  
+1) Set up Json Server:  
+   follow instructions https://github.com/Dr34msHunt3r/dotd_js_server  
   
 2) Run the project on the emulator:  
    -open project in Android Studio,  
@@ -23,3 +20,10 @@ which is able to run Flutter Project
    New Icon App  
    Feel free to add new recipes, update them, delete them, read them. Now you can also add ingredients collection together with new recipe!  
    Ingredients collection which you added with Recipe is available now to read in details screen  
+   Ingredients collection can be edited for each recipe  
+   Add new text field for incoming ingredients in add and edit recipe screen  
+   Delete unnecessary ingredient from the text fields list by pushing delete button  
+   User is not forced to delete empty fields for ingredients while in add/edit mode, empty fields just won't be added to the ingredients collection  
+   Ingredients fields are not required
+   Recipe title and body is required, if empty it will show toast with error message  
+   
