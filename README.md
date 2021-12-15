@@ -24,6 +24,6 @@ which is able to run Flutter Project
    Add new text field for incoming ingredients in add and edit recipe screen  
    Delete unnecessary ingredient from the text fields list by pushing delete button  
    User is not forced to delete empty fields for ingredients while in add/edit mode, empty fields just won't be added to the ingredients collection  
-   Ingredients fields are not required
+   Ingredients fields are not required  
    Recipe title and body is required, if empty it will show toast with error message  
    
