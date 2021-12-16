@@ -18,7 +18,7 @@ class RecipeNetworkService {
     }
   }
 
-  Future<Map<String, dynamic>> addRecipe(Map<String, String> recipeObj) async {
+  Future<Map<String, dynamic>> addRecipe(Map<String, dynamic> recipeObj) async {
     try{
       final response = await http.post(Uri.parse(baseUrl + "/recipes/add"), body: recipeObj);
       print(response.body);
@@ -40,7 +40,7 @@ class RecipeNetworkService {
     }
   }
 
-  putRecipe(Map<String, String> putObj, String id) async{
+  putRecipe(Map<String, dynamic> putObj, String id) async{
     print(putObj);
     try{
       await http.put(Uri.parse(baseUrl + "/recipes/put:id"), body: putObj);

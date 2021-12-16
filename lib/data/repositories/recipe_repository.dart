@@ -14,11 +14,13 @@ class RecipeRepository {
   }
 
   Future<Recipe> addRecipe(String recipeTitle, String recipeRecipe) async {
-    final recipeObj = {"recipeTitle": recipeTitle,
-      "recipeRecipe": recipeRecipe,
-      "imageUrl": "assets/default/recipe_default_image.png",
-      "favourite": false.toString()
-    };
+    final recipeObj = Recipe(
+        favourite: "false",
+        id: "",
+        recipeTitle: recipeTitle,
+        recipeRecipe: recipeRecipe,
+        imageUrl: "assets/default/recipe_default_image.png"
+    ).toJson();
 
     final recipeMap = await networkService.addRecipe(recipeObj);
     if(recipeObj == null) {
@@ -40,12 +42,13 @@ class RecipeRepository {
   }
 
   Future<bool> updateRecipe(String id, Recipe updatedRecipe) async {
-    final putObj = {"recipeTitle": updatedRecipe.recipeTitle,
-      "recipeRecipe": updatedRecipe.recipeRecipe,
-      "imageUrl": "assets/default/recipe_default_image.png",
-      "favourite": false.toString(),
-      "id": id
-    };
+    final putObj = Recipe(
+        favourite: "false",
+        id: id,
+        recipeTitle: updatedRecipe.recipeTitle,
+        recipeRecipe: updatedRecipe.recipeRecipe,
+        imageUrl: "assets/default/recipe_default_image.png"
+    ).toJson();
     return await networkService.putRecipe(putObj, id);
   }
 
