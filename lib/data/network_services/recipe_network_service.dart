@@ -18,7 +18,7 @@ class RecipeNetworkService {
     }
   }
 
-  Future<Map> addRecipe(Map<String, String> recipeObj) async {
+  Future<Map<String, dynamic>> addRecipe(Map<String, String> recipeObj) async {
     try{
       final response = await http.post(Uri.parse(baseUrl + "/recipes/add"), body: recipeObj);
       print(response.body);

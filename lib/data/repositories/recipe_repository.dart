@@ -1,6 +1,6 @@
 import 'package:dotd/data/network_services/recipe_network_service.dart';
 
-import '../models/recipe.dart';
+import '../models/recipe_model.dart';
 
 class RecipeRepository {
   RecipeRepository({required this.networkService});
@@ -14,8 +14,8 @@ class RecipeRepository {
   }
 
   Future<Recipe> addRecipe(String recipeTitle, String recipeRecipe) async {
-    final recipeObj = {"title": recipeTitle,
-      "recipe": recipeRecipe,
+    final recipeObj = {"recipeTitle": recipeTitle,
+      "recipeRecipe": recipeRecipe,
       "imageUrl": "assets/default/recipe_default_image.png",
       "favourite": false.toString()
     };
@@ -25,6 +25,10 @@ class RecipeRepository {
       return Recipe(
         recipeTitle: "Ups!",
         recipeRecipe: "Something gone wrong :(",
+        favourite: "false",
+        imageUrl: "assets/default/recipe_default_image.png",
+        id: "",
+
       );
     }
 
@@ -36,8 +40,8 @@ class RecipeRepository {
   }
 
   Future<bool> updateRecipe(String id, Recipe updatedRecipe) async {
-    final putObj = {"title": updatedRecipe.recipeTitle,
-      "recipe": updatedRecipe.recipeRecipe,
+    final putObj = {"recipeTitle": updatedRecipe.recipeTitle,
+      "recipeRecipe": updatedRecipe.recipeRecipe,
       "imageUrl": "assets/default/recipe_default_image.png",
       "favourite": false.toString(),
       "id": id

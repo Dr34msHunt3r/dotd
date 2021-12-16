@@ -1,7 +1,7 @@
 import 'package:dotd/cubit/ingredients_cubits/edit_ingredients_cubit.dart';
 import 'package:dotd/cubit/recipe_cubits/edit_recipe_cubit.dart';
-import 'package:dotd/data/models/ingredients.dart';
-import 'package:dotd/data/models/recipe.dart';
+import 'package:dotd/data/models/ingredients_model.dart';
+import 'package:dotd/data/models/recipe_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -163,7 +163,7 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
       ),
       child: InkWell(
         onTap: () {
-          Recipe updatedRecipe = Recipe(recipeTitle: _controllerTitle.text, recipeRecipe: _controllerRecipe.text, id: widget.recipe.id);
+          Recipe updatedRecipe = Recipe(recipeTitle: _controllerTitle.text, recipeRecipe: _controllerRecipe.text, id: widget.recipe.id, imageUrl: widget.recipe.imageUrl, favourite: widget.recipe.favourite);
           List<Ingredient> updatedIngredients = [];
           _controller.forEach((element) {if(element.text !="") updatedIngredients.add(Ingredient(recipeId: widget.recipe.id, name: element.text, ));});
           BlocProvider.of<EditRecipeCubit>(context).updateRecipe(widget.recipe, updatedRecipe);

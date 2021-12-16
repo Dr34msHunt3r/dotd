@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:dotd/data/models/ingredients.dart';
+import 'package:dotd/data/models/ingredients_model.dart';
 import 'package:dotd/data/repositories/ingredient_repository.dart';
 import 'package:meta/meta.dart';
 

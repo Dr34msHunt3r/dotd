@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dotd/data/network_services/ingredient_network_service.dart';
 
-import '../models/ingredients.dart';
+import '../models/ingredients_model.dart';
 
 class IngredientRepository {
   IngredientRepository({required this.networkService});

@@ -1,5 +1,5 @@
-import 'package:dotd/data/models/recipe.dart';
-import 'package:dotd/data/models/ingredients.dart';
+import 'package:dotd/data/models/recipe_model.dart';
+import 'package:dotd/data/models/ingredients_model.dart';
 
 class ScreenArguments {
   final Recipe recipe;
