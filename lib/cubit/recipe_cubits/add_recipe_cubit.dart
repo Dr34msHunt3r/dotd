@@ -14,17 +14,17 @@ class AddRecipeCubit extends Cubit<AddRecipeState> {
   final RecipeRepository repository;
   final RecipesCubit recipesCubit;
 
-  void addRecipe(String recipeTitle, String recipeRecipe) {
-    if (recipeTitle.isEmpty){
+  void addRecipe(Recipe recipe) {
+    if (recipe.recipeTitle.isEmpty){
       emit(AddRecipeError(error: "recipe title is empty"));
       return;
-    }else if (recipeRecipe.isEmpty){
+    }else if (recipe.recipeRecipe.isEmpty){
       emit(AddRecipeError(error: "recipe is empty"));
       return;
     }
     emit(AddingRecipe());
     Timer(const Duration(seconds: 2), () {
-      repository.addRecipe(recipeTitle, recipeRecipe).then((recipe) {
+      repository.addRecipe(recipe).then((recipe) {
         if(recipe != null){
           recipesCubit.addRecipe(recipe);
           emit(RecipeAdded(recipe: recipe));

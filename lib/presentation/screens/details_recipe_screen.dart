@@ -1,16 +1,13 @@
 import 'package:dotd/constants/strings.dart';
-import 'package:dotd/data/models/ingredients_model.dart';
 import 'package:dotd/data/models/recipe_model.dart';
 import 'package:dotd/data/models/screen_arguments.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DetailsRecipeScreen extends StatelessWidget {
-  const DetailsRecipeScreen({Key? key, required this.recipe, required this.ingredients}) : super(key: key);
+  const DetailsRecipeScreen({Key? key, required this.recipe}) : super(key: key);
 
   final Recipe recipe;
-
-  final List<Ingredient> ingredients;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +19,7 @@ class DetailsRecipeScreen extends StatelessWidget {
               InkWell(
                 onTap: () {
                   Navigator.pushNamed(
-                      context, EDIT_RECIPE_ROUTE,  arguments:  ScreenArguments(recipe: recipe, ingredient: ingredients));
+                      context, EDIT_RECIPE_ROUTE,  arguments:  ScreenArguments(recipe: recipe));
                 },
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),
@@ -31,12 +28,11 @@ class DetailsRecipeScreen extends StatelessWidget {
               )
             ],
           ),
-          body: SafeArea(child: _body(context, ingredients)),
+          body: SafeArea(child: _body(context)),
         );
   }
 
-  Widget _body(context, ingredients) {
-    List<Ingredient> ingredientsList = ingredients;
+  Widget _body(context) {
     return ListView(
       children: [
         Image(image: AssetImage('assets/default/recipe_default_image.png')),
@@ -54,7 +50,7 @@ class DetailsRecipeScreen extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children:
-                ingredientsList.map((e) => _ingredientsList(e, context))
+                recipe.ingredients.map((e) => _ingredientsList(e, context))
                     .toList(),
               )
             ],

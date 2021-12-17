@@ -10,6 +10,7 @@ class Recipe {
   required this.recipeRecipe,
   required this.imageUrl,
   required this.favourite,
+  required this.ingredients,
   required this.id
   });
 
@@ -17,11 +18,26 @@ class Recipe {
   String recipeRecipe;
   String imageUrl;
   String favourite;
+  List<Ingredient> ingredients;
   String id;
 
   factory Recipe.fromJson(Map<String,dynamic> json) =>
       _$RecipeFromJson(json);
   Map<String,dynamic> toJson() => _$RecipeToJson(this);
+}
+
+@JsonSerializable()
+class Ingredient {
+
+  Ingredient({
+    required this.name
+  });
+
+  String name;
+
+  factory Ingredient.fromJson(Map<String,dynamic> json) =>
+      _$IngredientFromJson(json);
+  Map<String,dynamic> toJson() => _$IngredientToJson(this);
 }
 
 String getImageUrl(String? imageUrl){

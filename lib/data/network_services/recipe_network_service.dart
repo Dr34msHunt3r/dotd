@@ -18,10 +18,9 @@ class RecipeNetworkService {
     }
   }
 
-  Future<Map<String, dynamic>> addRecipe(Map<String, dynamic> recipeObj) async {
+  Future<Map<String, dynamic>> addRecipe(String recipeObj) async {
     try{
-      final response = await http.post(Uri.parse(baseUrl + "/recipes/add"), body: recipeObj);
-      print(response.body);
+      final response = await http.post(Uri.parse(baseUrl + "/recipes/add"), body: {"recipe": recipeObj});
       return jsonDecode(response.body);
     }catch(e){
       print(e);
@@ -30,9 +29,8 @@ class RecipeNetworkService {
   }
 
   Future<bool> deleteRecipe(String id) async{
-    final jsonid = {"id": id};
     try{
-      await http.delete(Uri.parse(baseUrl + "/recipes/delete:id"), body: jsonid);
+      await http.delete(Uri.parse(baseUrl + "/recipes/delete:id"), body: {"id": id});
       return true;
     }catch(e){
       print(e);
@@ -40,10 +38,9 @@ class RecipeNetworkService {
     }
   }
 
-  putRecipe(Map<String, dynamic> putObj, String id) async{
-    print(putObj);
+  Future<bool> putRecipe(String putObj) async{
     try{
-      await http.put(Uri.parse(baseUrl + "/recipes/put:id"), body: putObj);
+      await http.put(Uri.parse(baseUrl + "/recipes/put:id"), body: {"recipe": putObj});
       return true;
     }catch(e){
       print(e);

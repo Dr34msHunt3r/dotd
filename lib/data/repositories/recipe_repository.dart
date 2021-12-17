@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dotd/data/network_services/recipe_network_service.dart';
 
 import '../models/recipe_model.dart';
@@ -13,24 +15,18 @@ class RecipeRepository {
     return recipesRaw.map((e) => Recipe.fromJson(e)).toList();
   }
 
-  Future<Recipe> addRecipe(String recipeTitle, String recipeRecipe) async {
-    final recipeObj = Recipe(
-        favourite: "false",
-        id: "",
-        recipeTitle: recipeTitle,
-        recipeRecipe: recipeRecipe,
-        imageUrl: "assets/default/recipe_default_image.png"
-    ).toJson();
+  Future<Recipe> addRecipe(Recipe recipe) async {
+    final recipeObj = jsonEncode(recipe.toJson());
 
     final recipeMap = await networkService.addRecipe(recipeObj);
-    if(recipeObj == null) {
+    if(recipeObj == null || recipeMap == null) {
       return Recipe(
         recipeTitle: "Ups!",
         recipeRecipe: "Something gone wrong :(",
         favourite: "false",
         imageUrl: "assets/default/recipe_default_image.png",
         id: "",
-
+        ingredients: [],
       );
     }
 
@@ -41,15 +37,9 @@ class RecipeRepository {
     return await networkService.deleteRecipe(id);
   }
 
-  Future<bool> updateRecipe(String id, Recipe updatedRecipe) async {
-    final putObj = Recipe(
-        favourite: "false",
-        id: id,
-        recipeTitle: updatedRecipe.recipeTitle,
-        recipeRecipe: updatedRecipe.recipeRecipe,
-        imageUrl: "assets/default/recipe_default_image.png"
-    ).toJson();
-    return await networkService.putRecipe(putObj, id);
+  Future<bool> updateRecipe( Recipe updatedRecipe) async {
+    final putObj = jsonEncode(updatedRecipe.toJson());
+    return await networkService.putRecipe(putObj);
   }
 
 }
