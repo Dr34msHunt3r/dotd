@@ -15,9 +15,9 @@ which is able to run Flutter Project
    -open project in Android Studio,  
    -turn on device emulator from AVD Manager,  
    -run application by pushing button(green arrow) Run 'main.dart'  
-     
-## What's new?  
-   New Icon App  
+   
+## What there is?  
+   Custom Icon App  
    Feel free to add new recipes, update them, delete them, read them. Now you can also add ingredients collection together with new recipe!  
    Ingredients collection which you added with Recipe is available now to read in details screen  
    Ingredients collection can be edited for each recipe  
@@ -26,4 +26,9 @@ which is able to run Flutter Project
    User is not forced to delete empty fields for ingredients while in add/edit mode, empty fields just won't be added to the ingredients collection  
    Ingredients fields are not required  
    Recipe title and body is required, if empty it will show toast with error message  
+  
+## What's new?  
+   Data model has been changed from two to one, now recipes contains list of ingredients  
+   Json serialization  
+   Dio instead of http  
    
