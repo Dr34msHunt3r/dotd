@@ -17,6 +17,8 @@ class RecipeRepository {
 
   Future<Recipe> addRecipe(Recipe recipe) async {
     final recipeObj = jsonEncode(recipe.toJson());
+    // final recipeObj = recipe.toJson();
+
 
     final recipeMap = await networkService.addRecipe(recipeObj);
     if(recipeObj == null || recipeMap == null) {
