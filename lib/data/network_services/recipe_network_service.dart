@@ -1,20 +1,18 @@
-import 'dart:convert';
-
-import 'package:dotd/data/network_services/http_service.dart';
-import 'package:http/http.dart' as https;
+import 'package:dio/dio.dart';
 
 class RecipeNetworkService {
 
-  final HttpService http = HttpService();
+  var dio = Dio();
+
   final baseUrl = "http://10.0.2.2:3000";
 
   Future<List<dynamic>> fetchRecipes() async {
     try{
-      final response = await http.getRequest("/recipes/get");
+      final response = await dio.get(baseUrl+"/recipes/get");
       if(response.statusCode ==200){}else{
         print(response.statusCode);
       }
-      return jsonDecode(response.data) as List;
+      return response.data;
     }catch(e){
       print(e);
       return [];
@@ -23,8 +21,8 @@ class RecipeNetworkService {
 
   Future<Map<String, dynamic>> addRecipe(String recipeObj) async {
     try{
-      final response = await https.post(Uri.parse(baseUrl + "/recipes/add"), body: {"recipe":recipeObj});
-      return jsonDecode(response.body);
+      final response = await dio.post(baseUrl + "/recipes/add", data: {"recipe":recipeObj});
+      return response.data;
     }catch(e){
       print(e);
       return {};
@@ -33,7 +31,7 @@ class RecipeNetworkService {
 
   Future<bool> deleteRecipe(String id) async{
     try{
-      await https.delete(Uri.parse(baseUrl + "/recipes/delete:id"), body: {"id": id});
+      await dio.delete(baseUrl + "/recipes/delete:id", data: {"id": id});
       return true;
     }catch(e){
       print(e);
@@ -43,7 +41,7 @@ class RecipeNetworkService {
 
   Future<bool> putRecipe(String putObj) async{
     try{
-      await https.put(Uri.parse(baseUrl + "/recipes/put:id"), body: {"recipe": putObj});
+      await dio.put(baseUrl + "/recipes/put:id", data: {"recipe": putObj});
       return true;
     }catch(e){
       print(e);
