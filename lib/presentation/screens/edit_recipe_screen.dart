@@ -1,17 +1,13 @@
-import 'package:dotd/cubit/ingredients_cubits/edit_ingredients_cubit.dart';
 import 'package:dotd/cubit/recipe_cubits/edit_recipe_cubit.dart';
-import 'package:dotd/data/models/ingredients.dart';
-import 'package:dotd/data/models/recipe.dart';
+import 'package:dotd/data/models/recipe_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class EditRecipeScreen extends StatefulWidget {
-  const EditRecipeScreen({Key? key, required this.recipe, required this.ingredients}) : super(key: key);
+  const EditRecipeScreen({Key? key, required this.recipe}) : super(key: key);
 
   final Recipe recipe;
-
-  final List<Ingredient> ingredients;
 
   @override
   State<EditRecipeScreen> createState() => _EditRecipeScreenState();
@@ -29,14 +25,14 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
     super.initState();
     _controllerTitle.text = widget.recipe.recipeTitle;
     _controllerRecipe.text = widget.recipe.recipeRecipe;
-    if(widget.ingredients.isEmpty){
+    if(widget.recipe.ingredients.isEmpty){
       _count = 0;
       _controller = [];
     }else{
-      _count = widget.ingredients.length;
+      _count = widget.recipe.ingredients.length;
       for(var i=0; i < _count; i++){
         _controller.add(TextEditingController());
-        _controller[i].text = widget.ingredients[i].name;
+        _controller[i].text = widget.recipe.ingredients[i].name;
       }
     }
 
@@ -163,11 +159,17 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
       ),
       child: InkWell(
         onTap: () {
-          Recipe updatedRecipe = Recipe(recipeTitle: _controllerTitle.text, recipeRecipe: _controllerRecipe.text, id: widget.recipe.id);
           List<Ingredient> updatedIngredients = [];
-          _controller.forEach((element) {if(element.text !="") updatedIngredients.add(Ingredient(recipeId: widget.recipe.id, name: element.text, ));});
+          _controller.forEach((element) {if(element.text !="") updatedIngredients.add(Ingredient(name: element.text));});
+          final Recipe updatedRecipe = Recipe(
+              recipeTitle: _controllerTitle.text,
+              recipeRecipe: _controllerRecipe.text,
+              imageUrl: widget.recipe.imageUrl,
+              favourite: widget.recipe.favourite,
+              ingredients: updatedIngredients,
+              id: widget.recipe.id
+          );
           BlocProvider.of<EditRecipeCubit>(context).updateRecipe(widget.recipe, updatedRecipe);
-          BlocProvider.of<EditIngredientsCubit>(context).updateIngredients(widget.ingredients, updatedIngredients, widget.recipe.id);
         },
         child: BlocBuilder<EditRecipeCubit, EditRecipeState>(
           builder: (context, state) {

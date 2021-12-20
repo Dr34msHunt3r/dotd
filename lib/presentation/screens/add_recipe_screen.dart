@@ -1,7 +1,5 @@
-import 'package:dotd/cubit/ingredients_cubits/add_ingredient_cubit.dart';
 import 'package:dotd/cubit/recipe_cubits/add_recipe_cubit.dart';
-import 'package:dotd/data/models/ingredients.dart';
-import 'package:dotd/data/models/recipe.dart';
+import 'package:dotd/data/models/recipe_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -37,23 +35,11 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         ),
         body: MultiBlocListener(
           listeners: [
-            BlocListener<AddIngredientCubit, AddIngredientsState>(
-              listener: (context, state) {
-                if (state is IngredientsAdded) {
-                  Navigator.pop(context);
-                  return;
-                }
-              },
-            ),
             BlocListener<AddRecipeCubit, AddRecipeState>(
               listener: (context, state) {
                 if (state is RecipeAdded) {
-                  Recipe recipe = (state as RecipeAdded).recipe;
-                  List<Ingredient> ingredients = [];
-                  _controller.forEach((element) {if(element.text != "") ingredients.add(Ingredient(recipeId: recipe.id, name: element.text, ));});
-
-                  BlocProvider.of<AddIngredientCubit>(context).addIngredient(
-                      ingredients);
+                  Navigator.pop(context);
+                  return;
                 } else if (state is AddRecipeError) {
                   Fluttertoast.showToast(
                       msg: state.error
@@ -149,36 +135,39 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
       ),
       child: InkWell(
         onTap: () {
-          final recipeTitle = _controllerRecipeTitle.text;
-          final recipeRecipe = _controllerRecipeSubtitle.text;
-          BlocProvider.of<AddRecipeCubit>(context).addRecipe(
-              recipeTitle, recipeRecipe);
+          final List<Ingredient> newIngredients = [];
+          _controller.forEach((element) {if(element.text !="") newIngredients.add(Ingredient(name: element.text));});
+          final Recipe newRecipe = Recipe(
+              recipeTitle: _controllerRecipeTitle.text,
+              recipeRecipe: _controllerRecipeSubtitle.text,
+              imageUrl: "assets/default/recipe_default_image.png",
+              favourite: "false",
+              ingredients: newIngredients,
+              id: ""
+          );
+          BlocProvider.of<AddRecipeCubit>(context).addRecipe(newRecipe);
         },
         child: BlocBuilder<AddRecipeCubit, AddRecipeState>(
           builder: (context, AddRecipeState) {
-            return BlocBuilder<AddIngredientCubit, AddIngredientsState>(
-              builder: (context, AddIngredientState) {
-                if (AddRecipeState is AddingRecipe ||
-                    AddIngredientState is AddingIngredients) {
-                  return const Center(
-                    child: SizedBox(
-                        height: 16.0,
-                        width: 16.0,
-                        child: CircularProgressIndicator(
-                            valueColor: AlwaysStoppedAnimation<Color>(
-                                Colors.white))
-                    ),
-                  );
-                }
-                return const Center(
-                  child: Text(
-                    "Add recipe",
-                    style: TextStyle(
-                      color: Colors.white,
-                    ),
-                  ),
-                );
-              },
+            if (AddRecipeState is AddingRecipe) {
+              return const Center(
+                child: SizedBox(
+                    height: 16.0,
+                    width: 16.0,
+                    child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(
+                            Colors.white)
+                    )
+                ),
+              );
+            }
+            return const Center(
+              child: Text(
+                "Add recipe",
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
             );
           },
         ),

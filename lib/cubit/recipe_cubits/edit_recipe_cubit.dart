@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:dotd/cubit/recipe_cubits/recipes_cubit.dart';
-import 'package:dotd/data/models/recipe.dart';
+import 'package:dotd/data/models/recipe_model.dart';
 import 'package:dotd/data/repositories/recipe_repository.dart';
 import 'package:meta/meta.dart';
 
@@ -32,10 +32,13 @@ class EditRecipeCubit extends Cubit<EditRecipeState> {
       return;
     }
 
-    repository.updateRecipe(recipe.id, updatedRecipe).then((isEdited) {
+    repository.updateRecipe(updatedRecipe).then((isEdited) {
       if(isEdited) {
         recipe.recipeTitle = updatedRecipe.recipeTitle;
         recipe.recipeRecipe = updatedRecipe.recipeRecipe;
+        recipe.favourite = updatedRecipe.favourite;
+        recipe.imageUrl = updatedRecipe.imageUrl;
+        recipe.ingredients = updatedRecipe.ingredients;
         recipesCubit.updateRecipeList();
         emit(RecipeEdited());
       }
