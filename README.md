@@ -12,9 +12,11 @@ which is able to run Flutter Project
    follow instructions https://github.com/Dr34msHunt3r/dotd_js_server  
   
 2) Run the project on the emulator:  
-   -open project in Android Studio,  
-   -turn on device emulator from AVD Manager,  
-   -run application by pushing button(green arrow) Run 'main.dart'  
+   -open terminal in project root folder and run command  
+   for rest API source  
+   flutter run --flavor app1 -t lib/main_app1.dart  
+   for Moor source  
+   flutter run --flavor app2 -t lib/main_app2.dart  
    
 ## What there is?  
    Custom Icon App  
@@ -26,9 +28,10 @@ which is able to run Flutter Project
    User is not forced to delete empty fields for ingredients while in add/edit mode, empty fields just won't be added to the ingredients collection  
    Ingredients fields are not required  
    Recipe title and body is required, if empty it will show toast with error message  
-  
-## What's new?  
    Data model has been changed from two to one, now recipes contains list of ingredients  
    Json serialization  
    Dio instead of http  
+  
+## What's new?  
+   Flavors app1 and app2  
    

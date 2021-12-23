@@ -4,17 +4,22 @@ import 'package:dotd/data/models/recipe_model.dart';
 import 'package:dotd/data/models/screen_arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:dotd/app_config.dart';
 
 class RecipesScreen extends StatelessWidget {
   const RecipesScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
+    var config = AppConfig.of(context);
     BlocProvider.of<RecipesCubit>(context).fetchRecipes();
+    return _buildApp(config, context);
+  }
 
+  Widget _buildApp(AppConfig config,BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Recipes"),
+        title: Text(config.appDisplayName),
         actions: [
           InkWell(
             onTap: () => Navigator.pushNamed(context, SETTINGS_APP_ROUTE),
