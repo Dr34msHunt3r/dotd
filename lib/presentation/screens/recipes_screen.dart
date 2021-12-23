@@ -11,8 +11,8 @@ class RecipesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context){
-    var config = AppConfig.of(context);
-    BlocProvider.of<RecipesCubit>(context).fetchRecipes();
+    final config = AppConfig.of(context);
+    BlocProvider.of<RecipesCubit>(context).fetchRecipes(config);
     return _buildApp(config, context);
   }
 
