@@ -1,5 +1,5 @@
 import 'package:dotd/constants/strings.dart';
-import 'package:dotd/data/models/recipe_model.dart';
+import 'package:dotd/data/models/recipe_model/recipe_model.dart';
 import 'package:dotd/data/models/screen_arguments.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';

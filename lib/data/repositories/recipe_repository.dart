@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:dotd/data/network_services/recipe_network_service.dart';
 
-import '../models/recipe_model.dart';
+import '../models/recipe_model/recipe_model.dart';
 
 class RecipeRepository {
   RecipeRepository({required this.networkService});
