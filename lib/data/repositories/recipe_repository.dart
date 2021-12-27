@@ -1,35 +1,31 @@
 import 'dart:convert';
-
-import 'package:dotd/app_config.dart';
 import 'package:dotd/data/network_services/recipe_drift_database/recipe_drift_database.dart';
 import 'package:dotd/data/network_services/recipe_network_service.dart';
+import 'package:dotd/flavor_config.dart';
 import 'package:drift/drift.dart';
 
 import '../models/recipe_model/recipe_model.dart';
 
 class RecipeRepository {
-  RecipeRepository({required this.networkService});
+  RecipeRepository({ required this.appDatabase, required this.networkService});
 
   final RecipeNetworkService networkService;
+  final AppDatabase appDatabase;
 
 
-  Future<List<Recipe>> fetchRecipes(AppConfig config) async {
-    final config = 'MOOR';
-    if(config == 'MOOR'){
-      final database = AppDatabase();
-      final recipeList = database.getAllRecipes();
+  Future<List<Recipe>> fetchRecipes() async {
+    if(FlavorConfig.instance.values.source == 'MOOR'){
+      final recipeList = appDatabase.getAllRecipes();
       print(recipeList);
       return [];
     }else{
       final recipesRaw = await networkService.fetchRecipes();
       return recipesRaw.map((e) => Recipe.fromJson(e)).toList();
     }
-
   }
 
   Future<Recipe> addRecipe(Recipe recipe) async {
-    final config = 'MOOR';
-    if(config == 'MOOR'){
+    if(FlavorConfig.instance.values.source == 'MOOR'){
       final database = AppDatabase();
       database.insertRecipe(RecipesMoorCompanion(
         recipeTitle: Value(recipe.recipeTitle),
@@ -60,11 +56,6 @@ class RecipeRepository {
       }
       return Recipe.fromJson(recipeMap);
     }
-
-
-
-
-
   }
 
   Future<bool> deleteRecipe(String id) async{

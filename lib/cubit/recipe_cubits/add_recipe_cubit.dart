@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:dotd/app_config.dart';
 import 'package:dotd/cubit/recipe_cubits/recipes_cubit.dart';
 import 'package:dotd/data/models/recipe_model/recipe_model.dart';
 import 'package:dotd/data/repositories/recipe_repository.dart';

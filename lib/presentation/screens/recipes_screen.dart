@@ -2,24 +2,23 @@ import 'package:dotd/constants/strings.dart';
 import 'package:dotd/cubit/recipe_cubits/recipes_cubit.dart';
 import 'package:dotd/data/models/recipe_model/recipe_model.dart';
 import 'package:dotd/data/models/screen_arguments.dart';
+import 'package:dotd/flavor_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:dotd/app_config.dart';
 
 class RecipesScreen extends StatelessWidget {
   const RecipesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context){
-    final config = AppConfig.of(context);
-    BlocProvider.of<RecipesCubit>(context).fetchRecipes(config);
-    return _buildApp(config, context);
+    BlocProvider.of<RecipesCubit>(context).fetchRecipes();
+    return _buildApp(context);
   }
 
-  Widget _buildApp(AppConfig config,BuildContext context) {
+  Widget _buildApp(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(config.appDisplayName),
+        title: Text("Recipes from ${FlavorConfig.instance.appDisplayName.split('.').last}"),
         actions: [
           InkWell(
             onTap: () => Navigator.pushNamed(context, SETTINGS_APP_ROUTE),

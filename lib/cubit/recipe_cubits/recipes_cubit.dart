@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:dotd/app_config.dart';
 import 'package:dotd/data/models/recipe_model/recipe_model.dart';
 import 'package:dotd/data/repositories/recipe_repository.dart';
 import 'package:meta/meta.dart';
@@ -13,9 +12,9 @@ class RecipesCubit extends Cubit<RecipesState> {
 
   final RecipeRepository recipe_repository;
 
-  void fetchRecipes(AppConfig config) {
+  void fetchRecipes() {
     Timer(const Duration(seconds: 1), (){
-      recipe_repository.fetchRecipes(config).then((recipes) {
+      recipe_repository.fetchRecipes().then((recipes) {
         if( recipes.isEmpty ){
           emit(RecipesEmpty(recipes: recipes));
           print("Recipes empty");

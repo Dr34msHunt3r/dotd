@@ -3,6 +3,7 @@ import 'package:dotd/cubit/recipe_cubits/add_recipe_cubit.dart';
 import 'package:dotd/cubit/recipe_cubits/edit_recipe_cubit.dart';
 import 'package:dotd/cubit/recipe_cubits/recipes_cubit.dart';
 import 'package:dotd/data/models/screen_arguments.dart';
+import 'package:dotd/data/network_services/recipe_drift_database/recipe_drift_database.dart';
 import 'package:dotd/data/network_services/recipe_network_service.dart';
 import 'package:dotd/data/repositories/recipe_repository.dart';
 import 'package:dotd/presentation/screens/add_recipe_screen.dart';
@@ -19,7 +20,7 @@ class AppRouter {
   late RecipeRepository recipe_repository;
 
   AppRouter(){
-    recipe_repository = RecipeRepository(networkService: RecipeNetworkService());
+    recipe_repository = RecipeRepository(networkService: RecipeNetworkService(), appDatabase: AppDatabase());
     recipesCubit = RecipesCubit(recipe_repository: recipe_repository);
   }
 
