@@ -302,11 +302,241 @@ class $RecipesMoorTable extends RecipesMoor
   }
 }
 
+class IngredientMoor extends DataClass implements Insertable<IngredientMoor> {
+  final String id;
+  final String recipeMoorId;
+  final String name;
+  IngredientMoor(
+      {required this.id, required this.recipeMoorId, required this.name});
+  factory IngredientMoor.fromData(Map<String, dynamic> data, {String? prefix}) {
+    final effectivePrefix = prefix ?? '';
+    return IngredientMoor(
+      id: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
+      recipeMoorId: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}recipe_moor_id'])!,
+      name: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}name'])!,
+    );
+  }
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<String>(id);
+    map['recipe_moor_id'] = Variable<String>(recipeMoorId);
+    map['name'] = Variable<String>(name);
+    return map;
+  }
+
+  IngredientsMoorCompanion toCompanion(bool nullToAbsent) {
+    return IngredientsMoorCompanion(
+      id: Value(id),
+      recipeMoorId: Value(recipeMoorId),
+      name: Value(name),
+    );
+  }
+
+  factory IngredientMoor.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return IngredientMoor(
+      id: serializer.fromJson<String>(json['id']),
+      recipeMoorId: serializer.fromJson<String>(json['recipeMoorId']),
+      name: serializer.fromJson<String>(json['name']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<String>(id),
+      'recipeMoorId': serializer.toJson<String>(recipeMoorId),
+      'name': serializer.toJson<String>(name),
+    };
+  }
+
+  IngredientMoor copyWith({String? id, String? recipeMoorId, String? name}) =>
+      IngredientMoor(
+        id: id ?? this.id,
+        recipeMoorId: recipeMoorId ?? this.recipeMoorId,
+        name: name ?? this.name,
+      );
+  @override
+  String toString() {
+    return (StringBuffer('IngredientMoor(')
+          ..write('id: $id, ')
+          ..write('recipeMoorId: $recipeMoorId, ')
+          ..write('name: $name')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, recipeMoorId, name);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is IngredientMoor &&
+          other.id == this.id &&
+          other.recipeMoorId == this.recipeMoorId &&
+          other.name == this.name);
+}
+
+class IngredientsMoorCompanion extends UpdateCompanion<IngredientMoor> {
+  final Value<String> id;
+  final Value<String> recipeMoorId;
+  final Value<String> name;
+  const IngredientsMoorCompanion({
+    this.id = const Value.absent(),
+    this.recipeMoorId = const Value.absent(),
+    this.name = const Value.absent(),
+  });
+  IngredientsMoorCompanion.insert({
+    this.id = const Value.absent(),
+    required String recipeMoorId,
+    required String name,
+  })  : recipeMoorId = Value(recipeMoorId),
+        name = Value(name);
+  static Insertable<IngredientMoor> custom({
+    Expression<String>? id,
+    Expression<String>? recipeMoorId,
+    Expression<String>? name,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (recipeMoorId != null) 'recipe_moor_id': recipeMoorId,
+      if (name != null) 'name': name,
+    });
+  }
+
+  IngredientsMoorCompanion copyWith(
+      {Value<String>? id, Value<String>? recipeMoorId, Value<String>? name}) {
+    return IngredientsMoorCompanion(
+      id: id ?? this.id,
+      recipeMoorId: recipeMoorId ?? this.recipeMoorId,
+      name: name ?? this.name,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<String>(id.value);
+    }
+    if (recipeMoorId.present) {
+      map['recipe_moor_id'] = Variable<String>(recipeMoorId.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('IngredientsMoorCompanion(')
+          ..write('id: $id, ')
+          ..write('recipeMoorId: $recipeMoorId, ')
+          ..write('name: $name')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $IngredientsMoorTable extends IngredientsMoor
+    with TableInfo<$IngredientsMoorTable, IngredientMoor> {
+  final GeneratedDatabase _db;
+  final String? _alias;
+  $IngredientsMoorTable(this._db, [this._alias]);
+  final VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<String?> id = GeneratedColumn<String?>(
+      'id', aliasedName, false,
+      type: const StringType(),
+      requiredDuringInsert: false,
+      clientDefault: () => _uuid.v4());
+  final VerificationMeta _recipeMoorIdMeta =
+      const VerificationMeta('recipeMoorId');
+  @override
+  late final GeneratedColumn<String?> recipeMoorId = GeneratedColumn<String?>(
+      'recipe_moor_id', aliasedName, false,
+      type: const StringType(), requiredDuringInsert: true);
+  final VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String?> name = GeneratedColumn<String?>(
+      'name', aliasedName, false,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 50),
+      type: const StringType(),
+      requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [id, recipeMoorId, name];
+  @override
+  String get aliasedName => _alias ?? 'ingredients_moor';
+  @override
+  String get actualTableName => 'ingredients_moor';
+  @override
+  VerificationContext validateIntegrity(Insertable<IngredientMoor> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('recipe_moor_id')) {
+      context.handle(
+          _recipeMoorIdMeta,
+          recipeMoorId.isAcceptableOrUnknown(
+              data['recipe_moor_id']!, _recipeMoorIdMeta));
+    } else if (isInserting) {
+      context.missing(_recipeMoorIdMeta);
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  IngredientMoor map(Map<String, dynamic> data, {String? tablePrefix}) {
+    return IngredientMoor.fromData(data,
+        prefix: tablePrefix != null ? '$tablePrefix.' : null);
+  }
+
+  @override
+  $IngredientsMoorTable createAlias(String alias) {
+    return $IngredientsMoorTable(_db, alias);
+  }
+}
+
 abstract class _$AppDatabase extends GeneratedDatabase {
   _$AppDatabase(QueryExecutor e) : super(SqlTypeSystem.defaultInstance, e);
   late final $RecipesMoorTable recipesMoor = $RecipesMoorTable(this);
+  late final $IngredientsMoorTable ingredientsMoor =
+      $IngredientsMoorTable(this);
+  late final RecipeMoorDao recipeMoorDao = RecipeMoorDao(this as AppDatabase);
+  late final IngredientMoorDao ingredientMoorDao =
+      IngredientMoorDao(this as AppDatabase);
   @override
   Iterable<TableInfo> get allTables => allSchemaEntities.whereType<TableInfo>();
   @override
-  List<DatabaseSchemaEntity> get allSchemaEntities => [recipesMoor];
+  List<DatabaseSchemaEntity> get allSchemaEntities =>
+      [recipesMoor, ingredientsMoor];
+}
+
+// **************************************************************************
+// DaoGenerator
+// **************************************************************************
+
+mixin _$IngredientMoorDaoMixin on DatabaseAccessor<AppDatabase> {
+  $IngredientsMoorTable get ingredientsMoor => attachedDatabase.ingredientsMoor;
+}
+mixin _$RecipeMoorDaoMixin on DatabaseAccessor<AppDatabase> {
+  $RecipesMoorTable get recipesMoor => attachedDatabase.recipesMoor;
 }

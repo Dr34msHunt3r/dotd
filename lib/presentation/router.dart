@@ -24,6 +24,8 @@ class AppRouter {
     recipesCubit = RecipesCubit(recipe_repository: recipe_repository);
   }
 
+  get appDatabase => AppDatabase();
+
   Route generateRoute(RouteSettings settings){
     switch(settings.name){
       case "/":
