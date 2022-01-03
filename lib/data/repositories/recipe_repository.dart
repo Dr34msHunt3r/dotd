@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'package:dotd/data/network_services/analytics_services.dart';
 import 'package:dotd/data/network_services/recipe_drift_database/recipe_drift_database.dart';
 import 'package:dotd/data/network_services/recipe_network_service.dart';
 import 'package:dotd/flavor_config.dart';
 import 'package:drift/drift.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 import '../models/recipe_model/recipe_model.dart';
 
@@ -11,7 +13,6 @@ class RecipeRepository {
 
   final RecipeNetworkService networkService;
   final AppDatabase appDatabase;
-
 
   Future<List<Recipe>> fetchRecipes() async {
     if(FlavorConfig.instance.values.source == 'MOOR'){
