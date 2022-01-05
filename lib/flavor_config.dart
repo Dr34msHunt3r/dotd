@@ -1,19 +1,18 @@
 enum Flavor {
   RESTAPI,
-  MOOR
+  MOOR,
+  SECURE_STORAGE
 }
 
 class FlavorValues {
   FlavorValues({required this.source});
   final String source;
-//Add other flavor specific values, e.g database name
 }
 
 class FlavorConfig {
   final Flavor flavor;
   final FlavorValues values;
   final String appDisplayName;
-  // final int appInternalId;
   static late FlavorConfig _instance;
 
 
@@ -34,4 +33,6 @@ class FlavorConfig {
   static bool isRecipeFromRestApi() => _instance.flavor == Flavor.RESTAPI;
 
   static bool isRecipeFromMoor() => _instance.flavor == Flavor.MOOR;
+
+  static bool isRecipeFromSecureStorage() => _instance.flavor == Flavor.SECURE_STORAGE;
 }

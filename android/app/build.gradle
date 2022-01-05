@@ -68,6 +68,12 @@ android {
             versionCode 1
             versionName "1.0"
         }
+        app3 {
+            dimension "app"
+            applicationId "com.example.dotd.app3"
+            versionCode 1
+            versionName "1.0"
+        }
     }
 
     buildTypes {
