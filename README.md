@@ -1,4 +1,3 @@
-# DEMO  
 # Dish of The Day (tired of making decisions?)  
 
 It's Mobile Application that in the basic version will contain the functionality of  
@@ -8,7 +7,7 @@ recipes and assigning them to a schedule to help undecided consumers choose what
 ## How do I run the application?
 Requirements: Flutter 2.8.0 installed, Android Studio or any other preferred compilator  
 which is able to run Flutter Project  
-1) Set up Json Server:  
+1) Set up Json Server: (required only if you want to use rest api source)  
    follow instructions https://github.com/Dr34msHunt3r/dotd_js_server  
   
 2) Run the project on the emulator:  
@@ -17,6 +16,8 @@ which is able to run Flutter Project
    flutter run --flavor app1 -t lib/main_app1.dart  
    for Moor source  
    flutter run --flavor app2 -t lib/main_app2.dart  
+   for Secure storage source  
+   flutter run --flavor app3 -t lib/main_app3.dart  
    
 ## What there is?  
    Custom Icon App  
@@ -33,5 +34,5 @@ which is able to run Flutter Project
    Dio instead of http  
   
 ## What's new?  
-   Flavors app1 and app2  
-   
+   Flavors app1, app2 and app3 for different data sources  
+   Sqlite for app2 (drift package)  

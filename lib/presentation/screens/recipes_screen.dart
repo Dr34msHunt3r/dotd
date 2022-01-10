@@ -108,29 +108,29 @@ class RecipesScreen extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: 100,
             height: 100,
             child: ClipRRect(
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.0), topLeft: Radius.circular(15.0)),
                 child: Image(image: AssetImage(recipe.imageUrl)))
         ),
-        SizedBox(
-            width: 280,
-            height: 100,
-            child: Center(
-                child: ListTile(
-                  title: Text(
-                    recipe.recipeTitle,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
-                  subtitle: Text(
-                      recipe.recipeRecipe,
+        Expanded(
+          child: SizedBox(
+              height: 100,
+              child: Center(
+                  child: ListTile(
+                    title: Text(
+                      recipe.recipeTitle,
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
-                  ),
-                )
-            )
+                      maxLines: 1,
+                    ),
+                    subtitle: Text(
+                        recipe.recipeRecipe,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                    ),
+                  )
+              )
+          ),
         ),
       ],
     );
