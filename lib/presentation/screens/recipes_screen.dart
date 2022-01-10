@@ -1,7 +1,8 @@
 import 'package:dotd/constants/strings.dart';
 import 'package:dotd/cubit/recipe_cubits/recipes_cubit.dart';
-import 'package:dotd/data/models/recipe_model.dart';
+import 'package:dotd/data/models/recipe_model/recipe_model.dart';
 import 'package:dotd/data/models/screen_arguments.dart';
+import 'package:dotd/flavor_config.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,12 +10,15 @@ class RecipesScreen extends StatelessWidget {
   const RecipesScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     BlocProvider.of<RecipesCubit>(context).fetchRecipes();
+    return _buildApp(context);
+  }
 
+  Widget _buildApp(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Recipes"),
+        title: Text("Recipes from ${FlavorConfig.instance.appDisplayName.split('.').last}"),
         actions: [
           InkWell(
             onTap: () => Navigator.pushNamed(context, SETTINGS_APP_ROUTE),
@@ -104,29 +108,29 @@ class RecipesScreen extends StatelessWidget {
     return Row(
       children: [
         SizedBox(
-          width: 100,
             height: 100,
             child: ClipRRect(
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.0), topLeft: Radius.circular(15.0)),
                 child: Image(image: AssetImage(recipe.imageUrl)))
         ),
-        SizedBox(
-            width: 280,
-            height: 100,
-            child: Center(
-                child: ListTile(
-                  title: Text(
-                    recipe.recipeTitle,
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
-                  subtitle: Text(
-                      recipe.recipeRecipe,
+        Expanded(
+          child: SizedBox(
+              height: 100,
+              child: Center(
+                  child: ListTile(
+                    title: Text(
+                      recipe.recipeTitle,
                       overflow: TextOverflow.ellipsis,
-                      maxLines: 3,
-                  ),
-                )
-            )
+                      maxLines: 1,
+                    ),
+                    subtitle: Text(
+                        recipe.recipeRecipe,
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 3,
+                    ),
+                  )
+              )
+          ),
         ),
       ],
     );

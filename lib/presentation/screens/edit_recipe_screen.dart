@@ -1,5 +1,5 @@
 import 'package:dotd/cubit/recipe_cubits/edit_recipe_cubit.dart';
-import 'package:dotd/data/models/recipe_model.dart';
+import 'package:dotd/data/models/recipe_model/recipe_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';

@@ -2,8 +2,8 @@ import 'dart:convert';
 
 import 'package:bloc/bloc.dart';
 import 'package:dotd/cubit/recipe_cubits/recipes_cubit.dart';
-import 'package:dotd/data/models/recipe_model.dart';
-import 'package:dotd/data/repositories/recipe_repository.dart';
+import 'package:dotd/data/models/recipe_model/recipe_model.dart';
+import 'package:dotd/data/repositories/recipe_repository/recipe_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'edit_recipe_state.dart';
@@ -15,7 +15,7 @@ class EditRecipeCubit extends Cubit<EditRecipeState> {
   final RecipesCubit recipesCubit;
 
   void deleteRecipe(Recipe recipe) {
-    repository.deleteRecipe(recipe.id).then((isDeleted) {
+    repository.deleteRecipe(recipe.id!).then((isDeleted) {
       if(isDeleted){
         recipesCubit.deleteCubit(recipe);
         emit(RecipeEdited());

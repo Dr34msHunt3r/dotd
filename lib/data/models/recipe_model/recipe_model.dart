@@ -11,7 +11,7 @@ class Recipe {
   required this.imageUrl,
   required this.favourite,
   required this.ingredients,
-  required this.id
+   this.id
   });
 
   String recipeTitle;
@@ -19,7 +19,7 @@ class Recipe {
   String imageUrl;
   String favourite;
   List<Ingredient> ingredients;
-  String id;
+  String? id;
 
   factory Recipe.fromJson(Map<String,dynamic> json) =>
       _$RecipeFromJson(json);
@@ -30,10 +30,14 @@ class Recipe {
 class Ingredient {
 
   Ingredient({
-    required this.name
+    required this.name,
+    this.recipeId,
+    this.id
   });
 
   String name;
+  String? recipeId;
+  String? id;
 
   factory Ingredient.fromJson(Map<String,dynamic> json) =>
       _$IngredientFromJson(json);
