@@ -3,9 +3,9 @@ import 'package:dotd/cubit/recipe_cubits/add_recipe_cubit.dart';
 import 'package:dotd/cubit/recipe_cubits/edit_recipe_cubit.dart';
 import 'package:dotd/cubit/recipe_cubits/recipes_cubit.dart';
 import 'package:dotd/data/models/screen_arguments.dart';
-import 'package:dotd/data/network_services/analytics_services.dart';
 import 'package:dotd/data/network_services/recipe_drift_database/recipe_drift_database.dart';
 import 'package:dotd/data/network_services/recipe_network_service.dart';
+import 'package:dotd/data/network_services/recipe_secure_storage/recipe_secure_storage.dart';
 import 'package:dotd/data/repositories/recipe_repository/recipe_repository.dart';
 import 'package:dotd/presentation/screens/add_recipe_screen.dart';
 import 'package:dotd/presentation/screens/details_recipe_screen.dart';
@@ -21,7 +21,7 @@ class AppRouter {
   late RecipeRepository recipe_repository;
 
   AppRouter(){
-    recipe_repository = RecipeRepository(networkService: RecipeNetworkService(), appDatabase: AppDatabase());
+    recipe_repository = RecipeRepository(networkService: RecipeNetworkService(), appDatabase: AppDatabase(), recipeSecureStorage: RecipeSecureStorage());
     recipesCubit = RecipesCubit(recipe_repository: recipe_repository);
   }
 
@@ -43,7 +43,7 @@ class AppRouter {
       final argument = settings.arguments as ScreenArguments;
         return MaterialPageRoute(builder: (_) => BlocProvider.value(
           value: recipesCubit,
-          child: DetailsRecipeScreen(recipe: argument.recipe),
+          child: DetailsRecipeScreen(recipe: argument.recipe!),
         )
         );
       case EDIT_RECIPE_ROUTE:
@@ -58,7 +58,7 @@ class AppRouter {
                 ),
               ),
             ],
-            child: EditRecipeScreen(recipe: argument.recipe),
+            child: EditRecipeScreen(recipe: argument.recipe!),
           ),
         );
        case ADD_RECIPE_ROUTE:

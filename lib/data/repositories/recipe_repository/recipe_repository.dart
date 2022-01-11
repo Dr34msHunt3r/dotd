@@ -1,16 +1,18 @@
 import 'dart:convert';
 import 'package:dotd/data/network_services/recipe_drift_database/recipe_drift_database.dart';
 import 'package:dotd/data/network_services/recipe_network_service.dart';
+import 'package:dotd/data/network_services/recipe_secure_storage/recipe_secure_storage.dart';
 import 'package:dotd/data/repositories/recipe_repository/recipe_repository_helpers.dart';
 import 'package:dotd/flavor_config.dart';
 
 import '../../models/recipe_model/recipe_model.dart';
 
 class RecipeRepository {
-  RecipeRepository({ required this.appDatabase, required this.networkService});
+  RecipeRepository({ required this.recipeSecureStorage, required this.appDatabase, required this.networkService });
 
   final RecipeNetworkService networkService;
   final AppDatabase appDatabase;
+  final RecipeSecureStorage recipeSecureStorage;
 
   Future<List<Recipe>> fetchRecipes() async {
     if(FlavorConfig.instance.values.source == 'MOOR'){
@@ -18,6 +20,8 @@ class RecipeRepository {
       final ingredientsList = await appDatabase.ingredientMoorDao.getAllIngredients();
       return recipesList.map((e) =>
           toRecipeFromMoor(e, getCertainIngredientsListForRecipe(e.id, ingredientsList))).toList();
+    }else if(FlavorConfig.instance.values.source == 'SECURE_STORAGE'){
+      return await recipeSecureStorage.readAll();
     }else{
       final recipesRaw = await networkService.fetchRecipes();
       return recipesRaw.map((e) => Recipe.fromJson(e)).toList();
@@ -37,6 +41,8 @@ class RecipeRepository {
         );
       });
       return toRecipeFromMoor(recipeRow, recipe.ingredients);
+    }else if(FlavorConfig.instance.values.source == 'SECURE_STORAGE'){
+      return await recipeSecureStorage.writeRecipe(recipe);
     }else{
       final recipeObj = jsonEncode(recipe.toJson());
       final recipeMap = await networkService.addRecipe(recipeObj);
@@ -55,6 +61,8 @@ class RecipeRepository {
       }else{
         return false;
       }
+    }else if(FlavorConfig.instance.values.source == 'SECURE_STORAGE'){
+      return await recipeSecureStorage.deleteRecipe(id);
     }else{
       return await networkService.deleteRecipe(id);
     }
@@ -74,6 +82,11 @@ class RecipeRepository {
       }else{
         return false;
       }
+    }else if(FlavorConfig.instance.values.source == 'SECURE_STORAGE'){
+      return await recipeSecureStorage.editRecipe(
+          jsonEncode(updatedRecipe.toJson()),
+          updatedRecipe.id!
+      );
     }else{
       return await networkService.putRecipe(jsonEncode(updatedRecipe.toJson()));
     }

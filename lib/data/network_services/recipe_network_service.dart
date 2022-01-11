@@ -12,6 +12,7 @@ class RecipeNetworkService {
       if(response.statusCode ==200){}else{
         print(response.statusCode);
       }
+      print(response.data);
       return response.data;
     }catch(e){
       print(e);

@@ -10,12 +10,8 @@ class RecipesScreen extends StatelessWidget {
   const RecipesScreen({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     BlocProvider.of<RecipesCubit>(context).fetchRecipes();
-    return _buildApp(context);
-  }
-
-  Widget _buildApp(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Recipes from ${FlavorConfig.instance.appDisplayName.split('.').last}"),
