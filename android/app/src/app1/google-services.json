@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1008718591504",
+    "project_id": "dotd-app1",
+    "storage_bucket": "dotd-app1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1008718591504:android:a5fdbee118e560681d7c95",
+        "android_client_info": {
+          "package_name": "com.example.dotd.app1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1008718591504-0thk819gfrdfn8rsf8d1co3e3cq94t0h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2HNJaeS-OiENRasQKqeMvPw3Y21Lp3m4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1008718591504-0thk819gfrdfn8rsf8d1co3e3cq94t0h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

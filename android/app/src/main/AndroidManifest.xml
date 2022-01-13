@@ -29,6 +29,7 @@
               android:resource="@drawable/launch_background"
               android:name="firebase_analytics_collection_enabled"
               android:value="true" />
+            <meta-data android:name="google_analytics_automatic_screen_reporting_enabled" android:value="false" />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
