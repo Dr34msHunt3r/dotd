@@ -1,17 +1,17 @@
 import 'package:dotd/analytics/event_reporter.dart';
 import 'package:dotd/analytics/firebase_event_reporter.dart';
 import 'package:dotd/constants/strings.dart';
-import 'package:dotd/cubit/recipe_cubits/add_recipe_cubit.dart';
-import 'package:dotd/cubit/recipe_cubits/edit_recipe_cubit.dart';
-import 'package:dotd/cubit/recipe_cubits/recipes_cubit.dart';
+import 'package:dotd/repository/recipe_repository/recipe_repository.dart';
+import 'package:dotd/screens/add_recipe_screen/add_recipe_cubit.dart';
+import 'package:dotd/screens/add_recipe_screen/add_recipe_screen.dart';
+import 'package:dotd/screens/details_recipe_screen/details_recipe_screen.dart';
+import 'package:dotd/screens/edit_recipe_screen/edit_recipe_cubit.dart';
+import 'package:dotd/screens/edit_recipe_screen/edit_recipe_screen.dart';
+import 'package:dotd/screens/recipes_screen/recipes_cubit.dart';
 import 'package:dotd/data/models/screen_arguments.dart';
-import 'package:dotd/data/network_services/recipe_drift_database/recipe_drift_database.dart';
-import 'package:dotd/data/repositories/recipe_repository/recipe_repository.dart';
-import 'package:dotd/presentation/screens/add_recipe_screen.dart';
-import 'package:dotd/presentation/screens/details_recipe_screen.dart';
-import 'package:dotd/presentation/screens/edit_recipe_screen.dart';
-import 'package:dotd/presentation/screens/recipes_screen.dart';
-import 'package:dotd/presentation/screens/settings_app.dart';
+import 'package:dotd/db/config/recipe_drift_database.dart';
+import 'package:dotd/screens/recipes_screen/recipes_screen.dart';
+import 'package:dotd/screens/settings_screen/settings_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
