@@ -1,9 +1,10 @@
 import 'dart:convert';
 
-import 'package:dotd/data/models/recipe_model/recipe_model.dart';
-import 'package:dotd/data/network_services/recipe_network_service.dart';
-import 'package:dotd/data/repositories/recipe_repository/recipe_repository_helpers.dart';
-import 'package:dotd/data/repositories/recipe_repository/sources/source.dart';
+import 'package:dotd/api/model/recipe_model.dart';
+import 'package:dotd/api/recipe_network_service.dart';
+import 'package:dotd/repository/recipe_repository/sources/source.dart';
+
+import '../recipe_repository_helpers.dart';
 
 class RecipeRestApiSource implements Source {
 

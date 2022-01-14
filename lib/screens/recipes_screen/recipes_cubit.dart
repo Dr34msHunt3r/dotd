@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
-import 'package:dotd/data/models/recipe_model/recipe_model.dart';
-import 'package:dotd/data/repositories/recipe_repository/recipe_repository.dart';
+import 'package:dotd/api/model/recipe_model.dart';
+import 'package:dotd/repository/recipe_repository/recipe_repository.dart';
 import 'package:meta/meta.dart';
 
 part 'recipes_state.dart';

@@ -1,6 +1,6 @@
-import 'package:dotd/data/models/recipe_model/recipe_model.dart';
-import 'package:dotd/data/network_services/recipe_drift_database/recipe_drift_database.dart';
-import 'package:dotd/data/repositories/recipe_repository/sources/source.dart';
+import 'package:dotd/api/model/recipe_model.dart';
+import 'package:dotd/db/config/recipe_drift_database.dart';
+import 'package:dotd/repository/recipe_repository/sources/source.dart';
 
 import '../recipe_repository_helpers.dart';
 

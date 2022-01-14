@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:dotd/data/models/recipe_model/recipe_model.dart';
-import 'package:dotd/data/network_services/recipe_secure_storage/recipe_secure_storage.dart';
-import 'package:dotd/data/repositories/recipe_repository/sources/source.dart';
+import 'package:dotd/api/model/recipe_model.dart';
+import 'package:dotd/repository/recipe_repository/sources/source.dart';
+import 'package:dotd/secure_storage/recipe_secure_storage.dart';
 
 class RecipeSecureStorageSource implements Source {
 

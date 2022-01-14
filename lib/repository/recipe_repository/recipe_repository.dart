@@ -1,9 +1,9 @@
-import 'package:dotd/data/models/recipe_model/recipe_model.dart';
-import 'package:dotd/data/repositories/recipe_repository/sources/recipes_moor_source.dart';
-import 'package:dotd/data/repositories/recipe_repository/sources/recipes_rest_api_source.dart';
-import 'package:dotd/data/repositories/recipe_repository/sources/recipes_secure_storage_source.dart';
-import 'package:dotd/data/repositories/recipe_repository/sources/source.dart';
-import 'package:dotd/flavor_config.dart';
+import 'package:dotd/api/model/recipe_model.dart';
+import 'package:dotd/extensions/flavor_config.dart';
+import 'package:dotd/repository/recipe_repository/sources/recipes_moor_source.dart';
+import 'package:dotd/repository/recipe_repository/sources/recipes_rest_api_source.dart';
+import 'package:dotd/repository/recipe_repository/sources/recipes_secure_storage_source.dart';
+import 'package:dotd/repository/recipe_repository/sources/source.dart';
 
 class RecipeRepository {
 

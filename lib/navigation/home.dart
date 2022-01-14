@@ -1,4 +1,4 @@
-import 'package:dotd/presentation/router.dart';
+import 'package:dotd/navigation/router.dart';
 import 'package:flutter/material.dart';
 
 

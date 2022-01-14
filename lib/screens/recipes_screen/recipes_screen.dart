@@ -1,8 +1,8 @@
 import 'package:dotd/constants/strings.dart';
-import 'package:dotd/cubit/recipe_cubits/recipes_cubit.dart';
-import 'package:dotd/data/models/recipe_model/recipe_model.dart';
-import 'package:dotd/data/models/screen_arguments.dart';
-import 'package:dotd/flavor_config.dart';
+import 'package:dotd/extensions/flavor_config.dart';
+import 'package:dotd/screens/recipes_screen/recipes_cubit.dart';
+import 'package:dotd/api/model/recipe_model.dart';
+import 'package:dotd/navigation/screen_arguments.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
