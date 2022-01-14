@@ -15,7 +15,7 @@ class RecipesScreen extends StatelessWidget {
     BlocProvider.of<RecipesCubit>(context).fetchRecipes();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Recipes from ${FlavorConfig.instance.appDisplayName.split('.').last}"),
+        title: Text("Recipes from ${FlavorConfig.instance.values.source}"),
         actions: [
           InkWell(
             onTap: () => Navigator.pushNamed(context, SETTINGS_APP_ROUTE),

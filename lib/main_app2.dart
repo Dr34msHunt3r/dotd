@@ -5,9 +5,9 @@ import 'package:flutter/material.dart';
 import 'flavor_config.dart';
 
 void main() async {
-  FlavorConfig(flavor: Flavor.MOOR,
-  values: FlavorValues(source: "MOOR"));
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FlavorConfig(flavor: Flavor.MOOR,
+    values: FlavorValues(source: "Local Storage"));
   runApp(DoTD(router: AppRouter()));
 }

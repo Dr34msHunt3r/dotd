@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'flavor_config.dart';
 
 void main() async{
-  FlavorConfig(flavor: Flavor.RESTAPI,
-      values: FlavorValues(source: "RESTAPI"));
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  FlavorConfig(flavor: Flavor.RESTAPI,
+      values: FlavorValues(source: "Rest API"));
   runApp(DoTD(router: AppRouter()));
 }

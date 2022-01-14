@@ -1,6 +1,7 @@
 abstract class EventReporter {
   const EventReporter();
   Future<void> reportEvent(String eventName);
+  Future<void> reportScreenView(String screenName);
 
   static const HOME_SCREEN_VIEWED = "home_screen";
   static const ADD_RECIPE_SCREEN_VIEWED = "add_recipe_screen";

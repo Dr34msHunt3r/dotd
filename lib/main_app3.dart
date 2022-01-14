@@ -8,7 +8,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   FlavorConfig(flavor: Flavor.SECURE_STORAGE,
-  values: FlavorValues(source: "SECURE_STORAGE"));
-
+    values: FlavorValues(source: "Secure Storage"));
   runApp(DoTD(router: AppRouter()));
 }
