@@ -3,7 +3,6 @@ import 'package:dotd/extensions/flavor_config.dart';
 import 'package:dotd/screens/recipes_screen/recipes_cubit.dart';
 import 'package:dotd/api/model/recipe_model.dart';
 import 'package:dotd/navigation/screen_arguments.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -35,12 +34,8 @@ class RecipesScreen extends StatelessWidget {
             var recipes = [];
             if (RecipesState is RecipesLoaded){
               recipes = (RecipesState as RecipesLoaded).recipes;
-              FirebaseAnalytics.instance.logEvent(
-                  name:'recipes_loaded');
             } else if (RecipesState is RecipesEmpty){
               recipes = (RecipesState as RecipesEmpty).recipes;
-              FirebaseAnalytics.instance.logEvent(
-                  name:'recipes_empty');
               return ListView(
                 padding: const EdgeInsets.all(10.0),
                 children: [
