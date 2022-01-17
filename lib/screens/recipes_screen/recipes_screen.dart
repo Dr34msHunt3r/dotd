@@ -33,9 +33,9 @@ class RecipesScreen extends StatelessWidget {
             }
             var recipes = [];
             if (RecipesState is RecipesLoaded){
-              recipes = (RecipesState as RecipesLoaded).recipes;
+              recipes = (RecipesState).recipes;
             } else if (RecipesState is RecipesEmpty){
-              recipes = (RecipesState as RecipesEmpty).recipes;
+              recipes = (RecipesState).recipes;
               return ListView(
                 padding: const EdgeInsets.all(10.0),
                 children: [
