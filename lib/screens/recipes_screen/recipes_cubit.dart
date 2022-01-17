@@ -1,6 +1,8 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:dotd/analytics/event_reporter.dart';
+import 'package:dotd/analytics/firebase_event_reporter.dart';
 import 'package:dotd/api/model/recipe_model.dart';
 import 'package:dotd/repository/recipe_repository/recipe_repository.dart';
 import 'package:meta/meta.dart';
@@ -8,18 +10,21 @@ import 'package:meta/meta.dart';
 part 'recipes_state.dart';
 
 class RecipesCubit extends Cubit<RecipesState> {
-  RecipesCubit({required this.recipe_repository}) : super(RecipesInitial());
+  RecipesCubit({required this.recipeRepository, required this.firebaseEventReporter}) : super(RecipesInitial());
 
-  final RecipeRepository recipe_repository;
+  final RecipeRepository recipeRepository;
+  final FirebaseEventReporter firebaseEventReporter;
 
   void fetchRecipes() {
     Timer(const Duration(seconds: 1), (){
-      recipe_repository.fetchRecipes().then((recipes) {
+      recipeRepository.fetchRecipes().then((recipes) {
         if( recipes.isEmpty ){
           emit(RecipesEmpty(recipes: recipes));
           print("Recipes empty");
+          firebaseEventReporter.reportEvent(EventReporter.LOADED_RECIPES_EMPTY_LIST);
         } else {
           emit(RecipesLoaded(recipes: recipes));
+          firebaseEventReporter.reportEvent(EventReporter.LOADED_RECIPES_FILLED_LIST);
         }
       });
     });
@@ -31,6 +36,7 @@ class RecipesCubit extends Cubit<RecipesState> {
       final recipeList = currentState.recipes;
       recipeList.add(recipe);
       emit(RecipesLoaded(recipes: recipeList));
+      firebaseEventReporter.reportEvent(EventReporter.ADDED_NEW_RECIPE);
     }
   }
 
@@ -38,14 +44,16 @@ class RecipesCubit extends Cubit<RecipesState> {
     final currentState = state;
     if(currentState is RecipesLoaded){
       final recipeList = currentState.recipes.where((element) => element.id != recipe.id).toList();
+      firebaseEventReporter.reportEvent(EventReporter.DELETED_RECIPE);
       if (recipeList.isEmpty){
         print("list empty after delete");
         emit(RecipesEmpty(recipes: recipeList));
+        firebaseEventReporter.reportEvent(EventReporter.RECIPES_LIST_EMPTY_AFTER_DELETE);
       }else{
         print("list not empty after delete");
         emit(RecipesLoaded(recipes: recipeList));
+        firebaseEventReporter.reportEvent(EventReporter.RECIPES_LIST_NOT_EMPTY_AFTER_DELETE);
       }
-
     }
   }
 
@@ -53,6 +61,7 @@ class RecipesCubit extends Cubit<RecipesState> {
     final currentState = state;
     if(currentState is RecipesLoaded){
       emit(RecipesLoaded(recipes: currentState.recipes));
+      firebaseEventReporter.reportEvent(EventReporter.UPDATED_RECIPE);
     }
 
   }

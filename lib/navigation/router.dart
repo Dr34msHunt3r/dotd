@@ -17,11 +17,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppRouter {
   late RecipesCubit recipesCubit;
-  final RecipeRepository recipe_repository = RecipeRepository();
+  final RecipeRepository recipeRepository = RecipeRepository();
   final FirebaseEventReporter firebaseEventReporter = FirebaseEventReporter();
 
   AppRouter(){
-    recipesCubit = RecipesCubit(recipe_repository: recipe_repository);
+    recipesCubit = RecipesCubit(recipeRepository: recipeRepository, firebaseEventReporter: firebaseEventReporter);
   }
   get appDatabase => AppDatabase();
 
@@ -54,7 +54,7 @@ class AppRouter {
             providers: [
               BlocProvider(
                 create: (BuildContext context) => EditRecipeCubit(
-                  repository: recipe_repository,
+                  repository: recipeRepository,
                   recipesCubit: recipesCubit,
                 ),
               ),
@@ -69,7 +69,7 @@ class AppRouter {
             providers: [
               BlocProvider(
                       create: (BuildContext context) => AddRecipeCubit(
-                          repository: recipe_repository,
+                          repository: recipeRepository,
                           recipesCubit: recipesCubit
                       ),
               ),
