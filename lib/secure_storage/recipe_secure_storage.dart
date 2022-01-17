@@ -31,13 +31,21 @@ class RecipeSecureStorage {
   Future<Recipe> writeRecipe(Recipe recipe) async{
     try {
       final _key = _uuid.v4();
-      recipe.id = _key;
-      final recipeObj = jsonEncode(recipe.toJson());
+      final addedRecipe = Recipe(
+        recipeRecipe: recipe.recipeRecipe,
+        ingredients: recipe.ingredients,
+        recipeTitle: recipe.recipeTitle,
+        imageUrl: recipe.imageUrl,
+        favourite: recipe.favourite,
+        id: _key
+      );
+      // recipe.id = _key;
+      final recipeObj = jsonEncode(addedRecipe.toJson());
       await _storage.write(
           key: _key,
           value: recipeObj,
           aOptions: _getAndroidOptions());
-      return recipe;
+      return addedRecipe;
     } on Exception catch (e) {
       print(e);
       return throwExceptionObject();

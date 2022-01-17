@@ -57,10 +57,12 @@ class RecipesCubit extends Cubit<RecipesState> {
     }
   }
 
-  void updateRecipeList() {
+  void updateRecipeList(Recipe updatedRecipe) {
     final currentState = state;
+    final recipeList = currentState.recipes.where((element) => element.id != updatedRecipe.id).toList();
+    recipeList.add(updatedRecipe);
     if(currentState is RecipesLoaded){
-      emit(RecipesLoaded(recipes: currentState.recipes));
+      emit(RecipesLoaded(recipes: recipeList));
       firebaseEventReporter.reportEvent(EventReporter.UPDATED_RECIPE);
     }
 

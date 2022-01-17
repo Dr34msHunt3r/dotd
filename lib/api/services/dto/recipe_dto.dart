@@ -14,12 +14,12 @@ class Recipe {
    this.id
   });
 
-  String recipeTitle;
-  String recipeRecipe;
-  String imageUrl;
-  String favourite;
-  List<Ingredient> ingredients;
-  String? id;
+  final String recipeTitle;
+  final String recipeRecipe;
+  final String imageUrl;
+  final String favourite;
+  final List<Ingredient> ingredients;
+  final String? id;
 
   factory Recipe.fromJson(Map<String,dynamic> json) =>
       _$RecipeFromJson(json);

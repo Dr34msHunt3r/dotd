@@ -34,12 +34,7 @@ class EditRecipeCubit extends Cubit<EditRecipeState> {
 
     repository.updateRecipe(updatedRecipe).then((isEdited) {
       if(isEdited) {
-        recipe.recipeTitle = updatedRecipe.recipeTitle;
-        recipe.recipeRecipe = updatedRecipe.recipeRecipe;
-        recipe.favourite = updatedRecipe.favourite;
-        recipe.imageUrl = updatedRecipe.imageUrl;
-        recipe.ingredients = updatedRecipe.ingredients;
-        recipesCubit.updateRecipeList();
+        recipesCubit.updateRecipeList(updatedRecipe);
         emit(RecipeEdited());
       }
     });
