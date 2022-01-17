@@ -1,6 +1,5 @@
 import 'package:dotd/analytics/event_reporter.dart';
 import 'package:dotd/analytics/firebase_event_reporter.dart';
-import 'package:dotd/constants/strings.dart';
 import 'package:dotd/repository/recipe_repository/recipe_repository.dart';
 import 'package:dotd/screens/add_recipe_screen/add_recipe_cubit.dart';
 import 'package:dotd/screens/add_recipe_screen/add_recipe_screen.dart';
@@ -15,6 +14,8 @@ import 'package:dotd/screens/settings_screen/settings_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'core/screen_name.dart';
+
 class AppRouter {
   late RecipesCubit recipesCubit;
   final RecipeRepository recipeRepository = RecipeRepository();
@@ -27,7 +28,7 @@ class AppRouter {
 
   Route generateRoute(RouteSettings settings){
     switch(settings.name){
-      case HOME_ROUTE:
+      case ScreenName.HOME_ROUTE:
         firebaseEventReporter.reportScreenView(EventReporter.HOME_SCREEN_VIEWED);
         return MaterialPageRoute(
             builder: (BuildContext context) {
@@ -38,7 +39,7 @@ class AppRouter {
               );
             }
         );
-      case DETAILS_RECIPE_ROUTE:
+      case ScreenName.DETAILS_RECIPE_ROUTE:
         firebaseEventReporter.reportScreenView(EventReporter.DETAILS_RECIPE_SCREEN_VIEWED);
         final argument = settings.arguments as ScreenArguments;
         return MaterialPageRoute(builder: (_) => BlocProvider.value(
@@ -46,7 +47,7 @@ class AppRouter {
           child: DetailsRecipeScreen(recipe: argument.recipe!),
         )
         );
-      case EDIT_RECIPE_ROUTE:
+      case ScreenName.EDIT_RECIPE_ROUTE:
         firebaseEventReporter.reportScreenView(EventReporter.EDIT_RECIPE_SCREEN_VIEWED);
         final argument = settings.arguments as ScreenArguments;
         return MaterialPageRoute(
@@ -62,7 +63,7 @@ class AppRouter {
             child: EditRecipeScreen(recipe: argument.recipe!),
           ),
         );
-       case ADD_RECIPE_ROUTE:
+       case ScreenName.ADD_RECIPE_ROUTE:
          firebaseEventReporter.reportScreenView(EventReporter.ADD_RECIPE_SCREEN_VIEWED);
          return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
@@ -77,7 +78,7 @@ class AppRouter {
             child: AddRecipeScreen(),
           ),
         );
-       case SETTINGS_APP_ROUTE:
+       case ScreenName.SETTINGS_APP_ROUTE:
          firebaseEventReporter.reportScreenView(EventReporter.SETTINGS_SCREEN_VIEWED);
          return MaterialPageRoute(builder: (_) => const SettingsAppScreen());
       default:

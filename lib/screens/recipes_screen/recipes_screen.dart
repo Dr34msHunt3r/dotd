@@ -1,6 +1,6 @@
 import 'package:dotd/api/services/dto/recipe_dto.dart';
-import 'package:dotd/constants/strings.dart';
 import 'package:dotd/extensions/flavor_config.dart';
+import 'package:dotd/navigation/core/screen_name.dart';
 import 'package:dotd/screens/recipes_screen/recipes_cubit.dart';
 import 'package:dotd/navigation/screen_arguments.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +17,7 @@ class RecipesScreen extends StatelessWidget {
         title: Text("Recipes from ${FlavorConfig.instance.values.source}"),
         actions: [
           InkWell(
-            onTap: () => Navigator.pushNamed(context, SETTINGS_APP_ROUTE),
+            onTap: () => Navigator.pushNamed(context, ScreenName.SETTINGS_APP_ROUTE),
             child: const Padding(
               padding: EdgeInsets.all(10.0),
               child: Icon(Icons.settings),
@@ -66,7 +66,7 @@ class RecipesScreen extends StatelessWidget {
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: InkWell(
-        onTap: () => Navigator.pushNamed(context, ADD_RECIPE_ROUTE),
+        onTap: () => Navigator.pushNamed(context, ScreenName.ADD_RECIPE_ROUTE),
         child: SizedBox(
             width: MediaQuery.of(context).size.width,
             height: 100,
@@ -93,7 +93,7 @@ class RecipesScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(15.0),
         ),
         child: InkWell(
-            onTap: () => Navigator.pushNamed(context, DETAILS_RECIPE_ROUTE,
+            onTap: () => Navigator.pushNamed(context, ScreenName.DETAILS_RECIPE_ROUTE,
                 arguments:  ScreenArguments(recipe: recipe)),
             child: _recipeTile(recipe, context)
         )

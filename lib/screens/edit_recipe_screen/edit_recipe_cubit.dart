@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:dotd/api/services/dto/recipe_dto.dart';
+import 'package:dotd/config/app_strings.dart';
 import 'package:dotd/repository/recipe_repository/recipe_repository.dart';
 import 'package:dotd/screens/recipes_screen/recipes_cubit.dart';
 import 'package:meta/meta.dart';
@@ -23,10 +24,10 @@ class EditRecipeCubit extends Cubit<EditRecipeState> {
 
   void updateRecipe(Recipe recipe, Recipe updatedRecipe) {
     if (updatedRecipe.recipeTitle.isEmpty){
-      emit(EditRecipeError(error: "Recipe title is empty"));
+      emit(EditRecipeError(error: AppStrings.emptyRecipeTitle));
       return;
     }else if(updatedRecipe.recipeRecipe.isEmpty){
-      emit(EditRecipeError(error: "Recipe is empty"));
+      emit(EditRecipeError(error: AppStrings.emptyRecipeBody));
       return;
     }
 
