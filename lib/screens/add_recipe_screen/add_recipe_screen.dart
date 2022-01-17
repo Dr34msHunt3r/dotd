@@ -1,4 +1,5 @@
 import 'package:dotd/api/services/dto/recipe_dto.dart';
+import 'package:dotd/config/app_assets.dart';
 import 'package:dotd/screens/add_recipe_screen/add_recipe_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -140,10 +141,9 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
           final Recipe newRecipe = Recipe(
               recipeTitle: _controllerRecipeTitle.text,
               recipeRecipe: _controllerRecipeSubtitle.text,
-              imageUrl: "assets/default/recipe_default_image.png",
+              imageUrl: AppAssets.defaultRecipeImage,
               favourite: "false",
               ingredients: newIngredients,
-              id: ""
           );
           BlocProvider.of<AddRecipeCubit>(context).addRecipe(newRecipe);
         },
