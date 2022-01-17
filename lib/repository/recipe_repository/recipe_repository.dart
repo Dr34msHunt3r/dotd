@@ -1,4 +1,4 @@
-import 'package:dotd/api/model/recipe_model.dart';
+import 'package:dotd/api/services/dto/recipe_dto.dart';
 import 'package:dotd/extensions/flavor_config.dart';
 import 'package:dotd/repository/recipe_repository/sources/recipes_moor_source.dart';
 import 'package:dotd/repository/recipe_repository/sources/recipes_rest_api_source.dart';

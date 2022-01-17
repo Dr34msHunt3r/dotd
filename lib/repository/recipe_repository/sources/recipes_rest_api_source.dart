@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:dotd/api/model/recipe_model.dart';
-import 'package:dotd/api/recipe_network_service.dart';
+import 'package:dotd/api/services/dto/recipe_dto.dart';
+import 'package:dotd/api/services/recipe_network_service.dart';
 import 'package:dotd/repository/recipe_repository/sources/source.dart';
 
 import '../recipe_repository_helpers.dart';

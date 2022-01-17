@@ -1,4 +1,4 @@
-import 'package:dotd/api/model/recipe_model.dart';
+import 'package:dotd/api/services/dto/recipe_dto.dart';
 
 abstract class Source {
   const Source();

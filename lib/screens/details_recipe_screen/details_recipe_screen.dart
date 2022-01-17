@@ -1,7 +1,6 @@
+import 'package:dotd/api/services/dto/recipe_dto.dart';
 import 'package:dotd/constants/strings.dart';
-import 'package:dotd/api/model/recipe_model.dart';
 import 'package:dotd/navigation/screen_arguments.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class DetailsRecipeScreen extends StatelessWidget {

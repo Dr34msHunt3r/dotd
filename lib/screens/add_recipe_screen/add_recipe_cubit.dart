@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:dotd/api/services/dto/recipe_dto.dart';
 import 'package:dotd/repository/recipe_repository/recipe_repository.dart';
 import 'package:dotd/screens/recipes_screen/recipes_cubit.dart';
-import 'package:dotd/api/model/recipe_model.dart';
 import 'package:meta/meta.dart';
 
 part 'add_recipe_state.dart';

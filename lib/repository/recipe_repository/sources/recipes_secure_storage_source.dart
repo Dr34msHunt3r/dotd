@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:dotd/api/model/recipe_model.dart';
+import 'package:dotd/api/services/dto/recipe_dto.dart';
 import 'package:dotd/repository/recipe_repository/sources/source.dart';
 import 'package:dotd/secure_storage/recipe_secure_storage.dart';
 

@@ -1,4 +1,4 @@
-import 'package:dotd/api/model/recipe_model.dart';
+import 'package:dotd/api/services/dto/recipe_dto.dart';
 import 'package:dotd/db/config/recipe_drift_database.dart';
 import 'package:drift/drift.dart';
 
