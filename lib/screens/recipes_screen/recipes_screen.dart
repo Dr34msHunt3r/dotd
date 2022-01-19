@@ -1,4 +1,5 @@
 import 'package:dotd/api/services/dto/recipe_dto.dart';
+import 'package:dotd/base/firebase_remote_config.dart';
 import 'package:dotd/extensions/flavor_config.dart';
 import 'package:dotd/navigation/core/screen_name.dart';
 import 'package:dotd/screens/recipes_screen/recipes_cubit.dart';
@@ -11,10 +12,12 @@ class RecipesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseRemoteConfig _config = FirebaseRemoteConfig();
+    _config.initialise();
     BlocProvider.of<RecipesCubit>(context).fetchRecipes();
     return Scaffold(
       appBar: AppBar(
-        title: Text("Recipes from ${FlavorConfig.instance.values.source}"),
+        title: Text("Recipes from  ${FlavorConfig.instance.values.source}"),
         actions: [
           InkWell(
             onTap: () => Navigator.pushNamed(context, ScreenName.SETTINGS_APP_ROUTE),
