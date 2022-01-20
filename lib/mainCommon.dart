@@ -1,6 +1,6 @@
-import 'package:dotd/presentation/home.dart';
-import 'package:dotd/presentation/router.dart';
 import 'package:flutter/material.dart';
+import 'navigation/home.dart';
+import 'navigation/router.dart';
 
 void mainCommon() {
   runApp(  DoTD(router: AppRouter(),));

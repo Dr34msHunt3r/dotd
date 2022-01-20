@@ -54,23 +54,23 @@ android {
         versionName flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
-    flavorDimensions "app"
+    flavorDimensions "default"
     productFlavors {
         app1 {
-            dimension "app"
-            applicationId "com.example.dotd.app1"
+            dimension "default"
+            applicationIdSuffix ".app1"
             versionCode 1
             versionName "1.0"
         }
         app2 {
-            dimension "app"
-            applicationId "com.example.dotd.app2"
+            dimension "default"
+            applicationIdSuffix ".app2"
             versionCode 1
             versionName "1.0"
         }
         app3 {
-            dimension "app"
-            applicationId "com.example.dotd.app3"
+            dimension "default"
+            applicationIdSuffix ".app3"
             versionCode 1
             versionName "1.0"
         }
@@ -91,6 +91,6 @@ flutter {
 
 dependencies {
     implementation platform('com.google.firebase:firebase-bom:29.0.3')
-    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 }

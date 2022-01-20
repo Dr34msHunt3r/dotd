@@ -1,0 +1,7 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="main_app2.dart" type="FlutterRunConfigurationType" factoryName="Flutter" nameIsGenerated="true">
+    <option name="additionalArgs" value="--flavor app2 -t lib/main_app2.dart" />
+    <option name="filePath" value="$PROJECT_DIR$/lib/main_app2.dart" />
+    <method v="2" />
+  </configuration>
+</component>

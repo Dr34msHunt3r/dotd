@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "447224664192",
+    "project_id": "dotd-app3",
+    "storage_bucket": "dotd-app3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:447224664192:android:d9f7722d49a2d6692ad665",
+        "android_client_info": {
+          "package_name": "com.example.dotd.app3"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "447224664192-ei9o0lpdr8sim4d0lhcr6odiam18dacb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBn-anLeXTge9AC4VN_hN0gPT4jn-5DxK8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "447224664192-ei9o0lpdr8sim4d0lhcr6odiam18dacb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
