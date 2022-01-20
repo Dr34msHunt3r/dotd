@@ -1,5 +1,6 @@
 import 'package:dotd/api/services/dto/recipe_dto.dart';
 import 'package:dotd/base/firebase_remote_config.dart';
+import 'package:dotd/config/app_assets.dart';
 import 'package:dotd/extensions/flavor_config.dart';
 import 'package:dotd/navigation/core/screen_name.dart';
 import 'package:dotd/screens/recipes_screen/recipes_cubit.dart';
@@ -43,7 +44,7 @@ class RecipesScreen extends StatelessWidget {
                 padding: const EdgeInsets.all(10.0),
                 children: [
                   _addRecipe(context),
-                  Image(image: AssetImage('assets/default/empty_list.png')),
+                  Image(image: AssetImage(AppAssets.emptyRecipeListImage)),
                 ],
               );
             }
