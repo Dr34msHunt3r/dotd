@@ -1,10 +1,13 @@
 import 'package:dotd/api/services/dto/recipe_dto.dart';
 import 'package:dotd/base/firebase_remote_config.dart';
 import 'package:dotd/config/app_assets.dart';
+import 'package:dotd/config/app_colors.dart';
 import 'package:dotd/extensions/flavor_config.dart';
 import 'package:dotd/navigation/core/screen_name.dart';
 import 'package:dotd/screens/recipes_screen/recipes_cubit.dart';
 import 'package:dotd/navigation/screen_arguments.dart';
+import 'package:dotd/widgets/bottom_navigation_bar.dart';
+import 'package:dotd/widgets/crash_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -40,22 +43,54 @@ class RecipesScreen extends StatelessWidget {
               recipes = (RecipesState).recipes;
             } else if (RecipesState is RecipesEmpty){
               recipes = (RecipesState).recipes;
-              return ListView(
-                padding: const EdgeInsets.all(10.0),
+              return Column(
                 children: [
-                  _addRecipe(context),
-                  Image(image: AssetImage(AppAssets.emptyRecipeListImage)),
+                  Expanded(
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        ListView(
+                          padding: const EdgeInsets.all(10.0),
+                          children: [
+                            _addRecipe(context),
+                            Image(image: AssetImage(AppAssets.emptyRecipeListImage)),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: crashButton(context),
+                        ),
+                      ]
+                    ),
+                  ),
+                  bottomNavigationBar(context)
                 ],
               );
             }
 
-            return ListView(
-              padding: const EdgeInsets.all(10.0),
+            return Column(
               children: [
-                _addRecipe(context),
-                Column(
-                  children: recipes.map((e) => _recipe(e, context)).toList(),
+                Expanded(
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      ListView(
+                        padding: const EdgeInsets.all(10.0),
+                        children: [
+                          _addRecipe(context),
+                          Column(
+                            children: recipes.map((e) => _recipe(e, context)).toList(),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: crashButton(context),
+                      ),
+                    ]
+                  ),
                 ),
+                bottomNavigationBar(context)
               ],
             );
           },
