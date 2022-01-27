@@ -21,18 +21,16 @@ which is able to run Flutter Project
    
 ## What there is?  
    Custom Icon App  
-   Feel free to add new recipes, update them, delete them, read them. Now you can also add ingredients collection together with new recipe!  
-   Ingredients collection which you added with Recipe is available now to read in details screen  
-   Ingredients collection can be edited for each recipe  
-   Add new text field for incoming ingredients in add and edit recipe screen  
-   Delete unnecessary ingredient from the text fields list by pushing delete button  
+   BLoC  
+   Recipe CRUD  
    User is not forced to delete empty fields for ingredients while in add/edit mode, empty fields just won't be added to the ingredients collection  
    Ingredients fields are not required  
    Recipe title and body is required, if empty it will show toast with error message  
-   Data model has been changed from two to one, now recipes contains list of ingredients  
    Json serialization  
-   Dio instead of http  
-  
-## What's new?  
+   Dio instead of http for rest  API  
    Flavors app1, app2 and app3 for different data sources  
    Sqlite for app2 (drift package)  
+   Secure storage source for app3  
+  
+## What's new?  
+   Image picker allows to choose recipes image source (gallery/camera)  
