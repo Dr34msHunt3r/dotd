@@ -1,7 +1,9 @@
 import 'package:dotd/api/services/dto/recipe_dto.dart';
+import 'package:dotd/config/app_assets.dart';
 import 'package:dotd/navigation/core/screen_name.dart';
 import 'package:dotd/navigation/screen_arguments.dart';
 import 'package:flutter/material.dart';
+import 'dart:io';
 
 class DetailsRecipeScreen extends StatelessWidget {
   const DetailsRecipeScreen({Key? key, required this.recipe}) : super(key: key);
@@ -34,7 +36,12 @@ class DetailsRecipeScreen extends StatelessWidget {
   Widget _body(context) {
     return ListView(
       children: [
-        Image(image: AssetImage('assets/default/recipe_default_image.png')),
+        Stack(
+            alignment: Alignment.bottomRight,
+          children: [
+            recipe.imageUrl == AppAssets.defaultRecipeImage ?  Image(image: AssetImage(recipe.imageUrl), fit: BoxFit.cover,) : Image.file(File(recipe.imageUrl), fit: BoxFit.cover,),
+          ]
+        ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: Column(
