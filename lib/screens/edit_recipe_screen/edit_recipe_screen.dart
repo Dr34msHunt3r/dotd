@@ -1,8 +1,13 @@
 import 'package:dotd/api/services/dto/recipe_dto.dart';
+import 'package:dotd/config/app_assets.dart';
+import 'package:dotd/extensions/recipe_image_file_manager.dart';
 import 'package:dotd/screens/edit_recipe_screen/edit_recipe_cubit.dart';
+import 'package:dotd/widgets/recipe_image_section/recipe_image_section_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
+import 'dart:io';
 
 class EditRecipeScreen extends StatefulWidget {
   const EditRecipeScreen({Key? key, required this.recipe}) : super(key: key);
@@ -20,9 +25,16 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
   late int _count;
   List<TextEditingController> _controller = [];
 
+  File? image;
+  File? oldImage;
+
   @override
   void initState(){
     super.initState();
+    if(widget.recipe.imageUrl != AppAssets.defaultRecipeImage) {
+      image = File(widget.recipe.imageUrl);
+      oldImage = image;
+    }
     _controllerTitle.text = widget.recipe.recipeTitle;
     _controllerRecipe.text = widget.recipe.recipeRecipe;
     if(widget.recipe.ingredients.isEmpty){
@@ -35,7 +47,6 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
         _controller[i].text = widget.recipe.ingredients[i].name;
       }
     }
-
   }
 
   @override
@@ -55,6 +66,7 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
             actions: [
               InkWell(
                 onTap: (){
+                  this.image?.delete();
                   BlocProvider.of<EditRecipeCubit>(context).deleteRecipe(widget.recipe);
                 },
                 child: const Padding(
@@ -73,45 +85,58 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
 
   Widget _body(context){
     return ListView(
-      padding: const EdgeInsets.all(30.0),
       children: [
-        const SizedBox(height: 100.0,),
-        const Text("Edit your future image here :)   📝️️", style: TextStyle(fontSize: 20),),
-        const SizedBox(height: 100.0,),
-        Text("Recipe:"),
-        TextField(
-          controller: _controllerTitle,
-          autocorrect: true,
-          style: const TextStyle(fontSize: 20),
-          decoration: const InputDecoration(labelText: "Enter title"),
+        RecipesImageSection(
+            image: image,
+            onImageChanged: (ImageSource source) async{
+              final newImage = await selectImageSource(source, this.image);
+              setState(() {
+                this.image = newImage;
+              });
+            }
         ),
-        const SizedBox(height: 25.0,),
-        TextField(
-          controller: _controllerRecipe,
-          autocorrect: true,
-          keyboardType: TextInputType.multiline,
-          maxLines: null,
-          decoration: const InputDecoration(labelText: "Enter recipe"),
-        ),
-        const SizedBox(height: 25.0,),
-        Text("Ingredients:"),
-        _ingredientsList(context),
-        TextButton(
-          style: TextButton.styleFrom(
-            textStyle: const TextStyle(fontSize: 20),
-          ),
-          onPressed: () {
-            setState(() {
-              _count++;
-              _controller.add(TextEditingController());
-            });
-          },
+        Padding(
+          padding: const EdgeInsets.all(25.0),
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              SizedBox(height: 25,),
-              const Text('Add Ingredient'),
-              const SizedBox(height: 15.0,),
-              _editRecipeBtn(context)
+              Text("Recipe:"),
+              TextField(
+                controller: _controllerTitle,
+                autocorrect: true,
+                style: const TextStyle(fontSize: 20),
+                decoration: const InputDecoration(labelText: "Enter title"),
+              ),
+              const SizedBox(height: 25.0,),
+              TextField(
+                controller: _controllerRecipe,
+                autocorrect: true,
+                keyboardType: TextInputType.multiline,
+                maxLines: null,
+                decoration: const InputDecoration(labelText: "Enter recipe"),
+              ),
+              const SizedBox(height: 25.0,),
+              Text("Ingredients:"),
+              _ingredientsList(context),
+              TextButton(
+                style: TextButton.styleFrom(
+                  textStyle: const TextStyle(fontSize: 20),
+                ),
+                onPressed: () {
+                  setState(() {
+                    _count++;
+                    _controller.add(TextEditingController());
+                  });
+                },
+                child: Column(
+                  children: [
+                    SizedBox(height: 25,),
+                    const Text('Add Ingredient'),
+                    const SizedBox(height: 15.0,),
+                    _editRecipeBtn(context)
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -158,18 +183,19 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
           borderRadius: BorderRadius.circular(10.0)
       ),
       child: InkWell(
-        onTap: () {
+        onTap: () async{
           List<Ingredient> updatedIngredients = [];
           _controller.forEach((element) {if(element.text !="") updatedIngredients.add(Ingredient(name: element.text));});
+          image = await setImage(image?.path, oldImage);
           final Recipe updatedRecipe = Recipe(
               recipeTitle: _controllerTitle.text,
               recipeRecipe: _controllerRecipe.text,
-              imageUrl: widget.recipe.imageUrl,
+              imageUrl: image != null ? image!.path : AppAssets.defaultRecipeImage,
               favourite: widget.recipe.favourite,
               ingredients: updatedIngredients,
               id: widget.recipe.id
           );
-          BlocProvider.of<EditRecipeCubit>(context).updateRecipe(widget.recipe, updatedRecipe);
+          BlocProvider.of<EditRecipeCubit>(context).updateRecipe(updatedRecipe);
         },
         child: BlocBuilder<EditRecipeCubit, EditRecipeState>(
           builder: (context, state) {
@@ -195,6 +221,5 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
       ),
     );
   }
-
 
 }

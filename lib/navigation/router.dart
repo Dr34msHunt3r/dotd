@@ -8,7 +8,6 @@ import 'package:dotd/screens/edit_recipe_screen/edit_recipe_cubit.dart';
 import 'package:dotd/screens/edit_recipe_screen/edit_recipe_screen.dart';
 import 'package:dotd/screens/recipes_screen/recipes_cubit.dart';
 import 'package:dotd/navigation/screen_arguments.dart';
-import 'package:dotd/db/config/recipe_drift_database.dart';
 import 'package:dotd/screens/recipes_screen/recipes_screen.dart';
 import 'package:dotd/screens/settings_screen/settings_app.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +23,6 @@ class AppRouter {
   AppRouter(){
     recipesCubit = RecipesCubit(recipeRepository: recipeRepository, firebaseEventReporter: firebaseEventReporter);
   }
-  get appDatabase => AppDatabase();
 
   Route generateRoute(RouteSettings settings){
     switch(settings.name){

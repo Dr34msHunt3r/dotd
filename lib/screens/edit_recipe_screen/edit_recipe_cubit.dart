@@ -22,7 +22,7 @@ class EditRecipeCubit extends Cubit<EditRecipeState> {
     });
   }
 
-  void updateRecipe(Recipe recipe, Recipe updatedRecipe) {
+  void updateRecipe(Recipe updatedRecipe) {
     if (updatedRecipe.recipeTitle.isEmpty){
       emit(EditRecipeError(error: AppStrings.emptyRecipeTitle));
       return;

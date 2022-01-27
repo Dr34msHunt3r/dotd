@@ -1,19 +1,20 @@
 import 'package:dotd/api/services/dto/recipe_dto.dart';
-import 'package:dotd/base/firebase_remote_config.dart';
+import 'package:dotd/config/app_assets.dart';
 import 'package:dotd/extensions/flavor_config.dart';
 import 'package:dotd/navigation/core/screen_name.dart';
 import 'package:dotd/screens/recipes_screen/recipes_cubit.dart';
 import 'package:dotd/navigation/screen_arguments.dart';
+import 'package:dotd/widgets/bottom_navigation_bar.dart';
+import 'package:dotd/widgets/crash_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'dart:io';
 
 class RecipesScreen extends StatelessWidget {
   const RecipesScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    FirebaseRemoteConfig _config = FirebaseRemoteConfig();
-    _config.initialise();
     BlocProvider.of<RecipesCubit>(context).fetchRecipes();
     return Scaffold(
       appBar: AppBar(
@@ -39,22 +40,54 @@ class RecipesScreen extends StatelessWidget {
               recipes = (RecipesState).recipes;
             } else if (RecipesState is RecipesEmpty){
               recipes = (RecipesState).recipes;
-              return ListView(
-                padding: const EdgeInsets.all(10.0),
+              return Column(
                 children: [
-                  _addRecipe(context),
-                  Image(image: AssetImage('assets/default/empty_list.png')),
+                  Expanded(
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        ListView(
+                          padding: const EdgeInsets.all(10.0),
+                          children: [
+                            _addRecipe(context),
+                            Image(image: AssetImage(AppAssets.emptyRecipeListImage)),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: crashButton(context),
+                        ),
+                      ]
+                    ),
+                  ),
+                  bottomNavigationBar(context)
                 ],
               );
             }
 
-            return ListView(
-              padding: const EdgeInsets.all(10.0),
+            return Column(
               children: [
-                _addRecipe(context),
-                Column(
-                  children: recipes.map((e) => _recipe(e, context)).toList(),
+                Expanded(
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      ListView(
+                        padding: const EdgeInsets.all(10.0),
+                        children: [
+                          _addRecipe(context),
+                          Column(
+                            children: recipes.map((e) => _recipe(e, context)).toList(),
+                          ),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: crashButton(context),
+                      ),
+                    ]
+                  ),
                 ),
+                bottomNavigationBar(context)
               ],
             );
           },
@@ -108,9 +141,13 @@ class RecipesScreen extends StatelessWidget {
       children: [
         SizedBox(
             height: 100,
+            width: 100,
             child: ClipRRect(
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.0), topLeft: Radius.circular(15.0)),
-                child: Image(image: AssetImage(recipe.imageUrl)))
+                child: recipe.imageUrl == AppAssets.defaultRecipeImage
+                    ?  Image(image: AssetImage(recipe.imageUrl), fit: BoxFit.cover,)
+                    : Image.file(File(recipe.imageUrl), fit: BoxFit.cover,)
+            )
         ),
         Expanded(
           child: SizedBox(
