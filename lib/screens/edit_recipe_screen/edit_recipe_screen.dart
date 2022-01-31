@@ -1,3 +1,5 @@
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:dotd/api/services/dto/recipe_dto.dart';
 import 'package:dotd/config/app_assets.dart';
 import 'package:dotd/extensions/recipe_image_file_manager.dart';
@@ -9,13 +11,16 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
-class EditRecipeScreen extends StatefulWidget {
-  const EditRecipeScreen({Key? key, required this.recipe}) : super(key: key);
+
+class EditRecipeScreen extends StatefulWidget{
+  const EditRecipeScreen({Key? key, required this.recipe, @PathParam() required this.recipeId}) : super(key: key);
 
   final Recipe recipe;
+  final String recipeId;
 
   @override
   State<EditRecipeScreen> createState() => _EditRecipeScreenState();
+
 }
 
 class _EditRecipeScreenState extends State<EditRecipeScreen> {
@@ -186,7 +191,9 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
         onTap: () async{
           List<Ingredient> updatedIngredients = [];
           _controller.forEach((element) {if(element.text !="") updatedIngredients.add(Ingredient(name: element.text));});
-          image = await setImage(image?.path, oldImage);
+          if(image?.path!=oldImage?.path){
+            image = await setImage(image?.path, oldImage);
+          }
           final Recipe updatedRecipe = Recipe(
               recipeTitle: _controllerTitle.text,
               recipeRecipe: _controllerRecipe.text,
@@ -199,7 +206,7 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
         },
         child: BlocBuilder<EditRecipeCubit, EditRecipeState>(
           builder: (context, state) {
-            if(state is RecipeEdited){
+            if(state is EditingRecipe){
               return const Center(
                 child: SizedBox(
                     height: 16.0,

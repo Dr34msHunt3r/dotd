@@ -1,16 +1,15 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:dotd/api/services/dto/recipe_dto.dart';
 import 'package:dotd/config/app_assets.dart';
 import 'package:dotd/extensions/flavor_config.dart';
-import 'package:dotd/navigation/core/screen_name.dart';
+import 'package:dotd/navigation/auto_router.gr.dart';
 import 'package:dotd/screens/recipes_screen/recipes_cubit.dart';
-import 'package:dotd/navigation/screen_arguments.dart';
-import 'package:dotd/widgets/bottom_navigation_bar.dart';
 import 'package:dotd/widgets/crash_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'dart:io';
 
-class RecipesScreen extends StatelessWidget {
+class RecipesScreen extends StatelessWidget{
   const RecipesScreen({Key? key}) : super(key: key);
 
   @override
@@ -21,7 +20,7 @@ class RecipesScreen extends StatelessWidget {
         title: Text("Recipes from  ${FlavorConfig.instance.values.source}"),
         actions: [
           InkWell(
-            onTap: () => Navigator.pushNamed(context, ScreenName.SETTINGS_APP_ROUTE),
+            onTap: () => context.router.push(SettingsAppScreen()),
             child: const Padding(
               padding: EdgeInsets.all(10.0),
               child: Icon(Icons.settings),
@@ -49,7 +48,7 @@ class RecipesScreen extends StatelessWidget {
                         ListView(
                           padding: const EdgeInsets.all(10.0),
                           children: [
-                            _addRecipe(context),
+                            _addRecipe(context, context.router),
                             Image(image: AssetImage(AppAssets.emptyRecipeListImage)),
                           ],
                         ),
@@ -60,7 +59,6 @@ class RecipesScreen extends StatelessWidget {
                       ]
                     ),
                   ),
-                  bottomNavigationBar(context)
                 ],
               );
             }
@@ -74,9 +72,9 @@ class RecipesScreen extends StatelessWidget {
                       ListView(
                         padding: const EdgeInsets.all(10.0),
                         children: [
-                          _addRecipe(context),
+                          _addRecipe(context, context.router),
                           Column(
-                            children: recipes.map((e) => _recipe(e, context)).toList(),
+                            children: recipes.map((e) => _recipe(e, context, context.router)).toList(),
                           ),
                         ],
                       ),
@@ -87,7 +85,6 @@ class RecipesScreen extends StatelessWidget {
                     ]
                   ),
                 ),
-                bottomNavigationBar(context)
               ],
             );
           },
@@ -96,13 +93,13 @@ class RecipesScreen extends StatelessWidget {
     );
   }
 
-  Widget _addRecipe(context) {
+  Widget _addRecipe(context, router) {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
       ),
       child: InkWell(
-        onTap: () => Navigator.pushNamed(context, ScreenName.ADD_RECIPE_ROUTE),
+        onTap: () => router.push(AddRecipeScreen()),
         child: SizedBox(
             width: MediaQuery.of(context).size.width,
             height: 100,
@@ -123,14 +120,13 @@ class RecipesScreen extends StatelessWidget {
     );
   }
 
-  Widget _recipe(Recipe recipe, context) {
+  Widget _recipe(Recipe recipe, context, router) {
     return Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15.0),
         ),
         child: InkWell(
-            onTap: () => Navigator.pushNamed(context, ScreenName.DETAILS_RECIPE_ROUTE,
-                arguments:  ScreenArguments(recipe: recipe)),
+            onTap: () => router.push(DetailsRecipeScreen(recipe: recipe, recipeId: recipe.id!)),
             child: _recipeTile(recipe, context)
         )
     );
@@ -171,4 +167,5 @@ class RecipesScreen extends StatelessWidget {
       ],
     );
   }
+
 }

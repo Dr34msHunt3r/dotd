@@ -1,14 +1,16 @@
+import 'package:auto_route/annotations.dart';
+import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:dotd/api/services/dto/recipe_dto.dart';
 import 'package:dotd/config/app_assets.dart';
-import 'package:dotd/navigation/core/screen_name.dart';
-import 'package:dotd/navigation/screen_arguments.dart';
+import 'package:dotd/navigation/auto_router.gr.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';
 
 class DetailsRecipeScreen extends StatelessWidget {
-  const DetailsRecipeScreen({Key? key, required this.recipe}) : super(key: key);
+  const DetailsRecipeScreen({Key? key, @PathParam() required this.recipeId, required this.recipe}) : super(key: key);
 
   final Recipe recipe;
+  final String recipeId;
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +21,7 @@ class DetailsRecipeScreen extends StatelessWidget {
             actions: [
               InkWell(
                 onTap: () {
-                  Navigator.pushNamed(
-                      context, ScreenName.EDIT_RECIPE_ROUTE,  arguments:  ScreenArguments(recipe: recipe));
+                  context.router.push(EditRecipeScreen(recipe: recipe, recipeId: recipe.id!));
                 },
                 child: const Padding(
                   padding: EdgeInsets.all(8.0),
