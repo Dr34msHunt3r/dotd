@@ -10,5 +10,5 @@ class EditRecipeError extends EditRecipeState {
   EditRecipeError({required this.error});
 
 }
-
+class EditingRecipe extends EditRecipeState {}
 class RecipeEdited extends EditRecipeState {}

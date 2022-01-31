@@ -34,3 +34,5 @@ which is able to run Flutter Project
   
 ## What's new?  
    Image picker allows to choose recipes image source (gallery/camera)  
+   Changed app navigation to auto router with auto_route package  
+   Changed bottom nav bar to salomon nav bar with salomon_bottom_bar package  
