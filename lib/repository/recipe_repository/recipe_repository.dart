@@ -1,5 +1,6 @@
 import 'package:dotd/api/services/dto/recipe_dto.dart';
 import 'package:dotd/extensions/flavor_config.dart';
+import 'package:dotd/repository/recipe_repository/sources/recipes_firebase_realtime_database_source.dart';
 import 'package:dotd/repository/recipe_repository/sources/recipes_moor_source.dart';
 import 'package:dotd/repository/recipe_repository/sources/recipes_rest_api_source.dart';
 import 'package:dotd/repository/recipe_repository/sources/recipes_secure_storage_source.dart';
@@ -12,7 +13,8 @@ class RecipeRepository {
   RecipeRepository(){
     switch(FlavorConfig.instance.flavor.name){
       case Source.REST_API:
-        _source = RecipeRestApiSource();
+        _source = RecipeRealtimeDatabaseSource();
+        // _source = RecipeRestApiSource();
         break;
       case Source.MOOR:
         _source = RecipeMoorSource();

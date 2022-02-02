@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "1008718591504",
+    "firebase_url": "https://dotd-app1-default-rtdb.europe-west1.firebasedatabase.app",
     "project_id": "dotd-app1",
     "storage_bucket": "dotd-app1.appspot.com"
   },

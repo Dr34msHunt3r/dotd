@@ -2,7 +2,7 @@ import 'package:dotd/api/services/dto/recipe_dto.dart';
 import 'package:dotd/db/config/recipe_drift_database.dart';
 import 'package:dotd/repository/recipe_repository/sources/source.dart';
 
-import '../recipe_repository_helpers.dart';
+import '../../../extensions/recipe_moor_converter.dart';
 
 class RecipeMoorSource implements Source {
 
