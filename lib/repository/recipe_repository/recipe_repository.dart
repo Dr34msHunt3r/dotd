@@ -27,19 +27,19 @@ class RecipeRepository {
   }
 
   Future<List<Recipe>> fetchRecipes() async {
-    return _source.loadRecipes();
+    return await _source.loadRecipes();
   }
 
   Future<Recipe> addRecipe(Recipe recipe) async {
-    return _source.addRecipe(recipe);
+    return await _source.addRecipe(recipe);
   }
 
-  Future<bool> deleteRecipe(String recipesId) async{
-    return _source.deleteRecipe(recipesId);
+  Future<bool> deleteRecipe(String recipesId) async {
+    return await _source.deleteRecipe(recipesId);
   }
 
   Future<bool> updateRecipe(Recipe updatedRecipe) async {
-    return _source.updateRecipe(updatedRecipe);
+    return await _source.updateRecipe(updatedRecipe);
   }
 
 }
