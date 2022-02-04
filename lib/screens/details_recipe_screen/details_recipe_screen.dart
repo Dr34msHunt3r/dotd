@@ -1,5 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/src/router/auto_router_x.dart';
+import 'package:dotd/analytics/event_reporter.dart';
+import 'package:dotd/analytics/firebase_event_reporter.dart';
 import 'package:dotd/config/app_assets.dart';
 import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 import 'package:dotd/navigation/auto_router.gr.dart';
@@ -14,7 +16,8 @@ class DetailsRecipeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
+    FirebaseEventReporter _firebaseEventReporter = FirebaseEventReporter();
+    _firebaseEventReporter.reportScreenView(EventReporter.DETAILS_RECIPE_SCREEN_VIEWED);
         return Scaffold(
           appBar: AppBar(
             title: Text(recipe.recipeTitle),

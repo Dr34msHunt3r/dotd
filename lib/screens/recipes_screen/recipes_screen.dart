@@ -1,4 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:dotd/analytics/event_reporter.dart';
+import 'package:dotd/analytics/firebase_event_reporter.dart';
 import 'package:dotd/config/app_assets.dart';
 import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 import 'package:dotd/extensions/flavor_config.dart';
@@ -15,6 +17,8 @@ class RecipesScreen extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<RecipesCubit>(context).fetchRecipes();
+    FirebaseEventReporter _firebaseEventReporter = FirebaseEventReporter();
+    _firebaseEventReporter.reportScreenView(EventReporter.HOME_SCREEN_VIEWED);
     return Scaffold(
       appBar: AppBar(
         title: Text("Recipes from  ${FlavorConfig.instance.values.source}"),
