@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "830455679574",
+    "firebase_url": "https,://dotd-app4-default-rtdb.europe-west1.firebasedatabase.app/",
+    "project_id": "dotd-app4",
+    "storage_bucket": "dotd-app4.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:830455679574:android:b1bd2e8ffa2d95b1b689f7",
+        "android_client_info": {
+          "package_name": "com.example.dotd.app4"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "830455679574-8epdmp3s8vmg1odjd04f2imj5t7groj6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyANxLQQ2oQHukH8HmZsiI9V98xgkczMaOw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "830455679574-8epdmp3s8vmg1odjd04f2imj5t7groj6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

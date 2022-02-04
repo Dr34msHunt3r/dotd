@@ -13,14 +13,16 @@ class RecipeRepository {
   RecipeRepository(){
     switch(FlavorConfig.instance.flavor.name){
       case Source.REST_API:
-        _source = RecipeRealtimeDatabaseSource();
-        // _source = RecipeRestApiSource();
+        _source = RecipeRestApiSource();
         break;
       case Source.MOOR:
         _source = RecipeMoorSource();
         break;
       case Source.SECURE_STORAGE:
         _source = RecipeSecureStorageSource();
+        break;
+      case Source.RTDB:
+        _source = RecipeRealtimeDatabaseSource();
         break;
       default: _source = RecipeMoorSource();
     }
