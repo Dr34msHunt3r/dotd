@@ -1,5 +1,5 @@
 import 'dart:convert';
-import 'package:dotd/api/services/dto/recipe_dto.dart';
+import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 import 'package:dotd/extensions/recipe_moor_converter.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:uuid/uuid.dart';

@@ -1,7 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/src/router/auto_router_x.dart';
-import 'package:dotd/api/services/dto/recipe_dto.dart';
 import 'package:dotd/config/app_assets.dart';
+import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 import 'package:dotd/navigation/auto_router.gr.dart';
 import 'package:flutter/material.dart';
 import 'dart:io';

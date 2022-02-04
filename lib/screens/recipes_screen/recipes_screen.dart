@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:dotd/api/services/dto/recipe_dto.dart';
 import 'package:dotd/config/app_assets.dart';
+import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 import 'package:dotd/extensions/flavor_config.dart';
 import 'package:dotd/navigation/auto_router.gr.dart';
 import 'package:dotd/screens/recipes_screen/recipes_cubit.dart';

@@ -1,4 +1,4 @@
-import 'package:dotd/api/services/dto/recipe_dto.dart';
+import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 
 Recipe recipeFromRTDB(dynamic data, List<Ingredient> ingredients) {
   return Recipe(

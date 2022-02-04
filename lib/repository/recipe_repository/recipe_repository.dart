@@ -1,4 +1,4 @@
-import 'package:dotd/api/services/dto/recipe_dto.dart';
+import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 import 'package:dotd/extensions/flavor_config.dart';
 import 'package:dotd/repository/recipe_repository/sources/recipes_firebase_realtime_database_source.dart';
 import 'package:dotd/repository/recipe_repository/sources/recipes_moor_source.dart';

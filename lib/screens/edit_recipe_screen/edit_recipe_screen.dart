@@ -1,7 +1,7 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:dotd/api/services/dto/recipe_dto.dart';
 import 'package:dotd/config/app_assets.dart';
+import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 import 'package:dotd/extensions/recipe_image_file_manager.dart';
 import 'package:dotd/screens/edit_recipe_screen/edit_recipe_cubit.dart';
 import 'package:dotd/widgets/recipe_image_section/recipe_image_section_widget.dart';
