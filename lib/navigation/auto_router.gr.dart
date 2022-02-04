@@ -13,7 +13,6 @@
 import 'package:auto_route/auto_route.dart' as _i2;
 import 'package:flutter/material.dart' as _i9;
 
-import '../api/services/dto/recipe_dto.dart' as _i10;
 import '../base/home_page.dart' as _i1;
 import '../screens/add_recipe_screen/add_recipe_screen.dart' as _i4;
 import '../screens/details_recipe_screen/details_recipe_screen.dart' as _i5;
@@ -180,7 +179,7 @@ class AddRecipeScreenArgs {
 /// [_i5.DetailsRecipeScreen]
 class DetailsRecipeScreen extends _i2.PageRouteInfo<DetailsRecipeScreenArgs> {
   DetailsRecipeScreen(
-      {_i9.Key? key, required String recipeId, required _i10.Recipe recipe})
+      {_i9.Key? key, required String recipeId, required dynamic recipe})
       : super(DetailsRecipeScreen.name,
             path: 'details:recipeId',
             args: DetailsRecipeScreenArgs(
@@ -198,7 +197,7 @@ class DetailsRecipeScreenArgs {
 
   final String recipeId;
 
-  final _i10.Recipe recipe;
+  final dynamic recipe;
 
   @override
   String toString() {
@@ -210,11 +209,12 @@ class DetailsRecipeScreenArgs {
 /// [_i6.EditRecipeScreen]
 class EditRecipeScreen extends _i2.PageRouteInfo<EditRecipeScreenArgs> {
   EditRecipeScreen(
-      {_i9.Key? key, required _i10.Recipe recipe, required String recipeId})
+      {_i9.Key? key, required dynamic recipe, required String recipeId})
       : super(EditRecipeScreen.name,
             path: 'edit:recipeId',
             args: EditRecipeScreenArgs(
-                key: key, recipe: recipe, recipeId: recipeId));
+                key: key, recipe: recipe, recipeId: recipeId),
+            rawPathParams: {'recipeId': recipeId});
 
   static const String name = 'EditRecipeScreen';
 }
@@ -225,7 +225,7 @@ class EditRecipeScreenArgs {
 
   final _i9.Key? key;
 
-  final _i10.Recipe recipe;
+  final dynamic recipe;
 
   final String recipeId;
 

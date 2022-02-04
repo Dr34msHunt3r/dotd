@@ -1,6 +1,8 @@
 import 'dart:io';
-import 'package:dotd/api/services/dto/recipe_dto.dart';
+import 'package:dotd/analytics/event_reporter.dart';
+import 'package:dotd/analytics/firebase_event_reporter.dart';
 import 'package:dotd/config/app_assets.dart';
+import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 import 'package:dotd/extensions/recipe_image_file_manager.dart';
 import 'package:dotd/screens/add_recipe_screen/add_recipe_cubit.dart';
 import 'package:dotd/widgets/recipe_image_section/recipe_image_section_widget.dart';
@@ -36,6 +38,8 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseEventReporter _firebaseEventReporter = FirebaseEventReporter();
+    _firebaseEventReporter.reportScreenView(EventReporter.ADD_RECIPE_SCREEN_VIEWED);
     return Scaffold(
         appBar: AppBar(
           title: const Text("Add Recipe"),

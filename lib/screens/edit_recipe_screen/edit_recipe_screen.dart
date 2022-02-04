@@ -1,7 +1,9 @@
 import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:dotd/api/services/dto/recipe_dto.dart';
+import 'package:dotd/analytics/event_reporter.dart';
+import 'package:dotd/analytics/firebase_event_reporter.dart';
 import 'package:dotd/config/app_assets.dart';
+import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 import 'package:dotd/extensions/recipe_image_file_manager.dart';
 import 'package:dotd/screens/edit_recipe_screen/edit_recipe_cubit.dart';
 import 'package:dotd/widgets/recipe_image_section/recipe_image_section_widget.dart';
@@ -56,7 +58,8 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
+    FirebaseEventReporter _firebaseEventReporter = FirebaseEventReporter();
+    _firebaseEventReporter.reportScreenView(EventReporter.EDIT_RECIPE_SCREEN_VIEWED);
     return BlocListener<EditRecipeCubit, EditRecipeState>(
       listener: (context, state) {
         if (state is RecipeEdited){

@@ -54,6 +54,7 @@ android {
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     flavorDimensions "default"
     productFlavors {
@@ -72,6 +73,12 @@ android {
         app3 {
             dimension "default"
             applicationIdSuffix ".app3"
+            versionCode 1
+            versionName "1.0"
+        }
+        app4 {
+            dimension "default"
+            applicationIdSuffix ".app4"
             versionCode 1
             versionName "1.0"
         }

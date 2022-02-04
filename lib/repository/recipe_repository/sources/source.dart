@@ -1,4 +1,4 @@
-import 'package:dotd/api/services/dto/recipe_dto.dart';
+import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 
 abstract class Source {
   const Source();
@@ -11,4 +11,5 @@ abstract class Source {
   static const REST_API = "RESTAPI";
   static const MOOR = "MOOR";
   static const SECURE_STORAGE = "SECURE_STORAGE";
+  static const RTDB = "RTDB";
 }

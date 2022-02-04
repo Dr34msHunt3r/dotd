@@ -9,6 +9,7 @@ abstract class EventReporter {
   static const DETAILS_RECIPE_SCREEN_VIEWED = "details_recipe_screen";
   static const EDIT_RECIPE_SCREEN_VIEWED = "edit_recipe_screen";
   static const SETTINGS_SCREEN_VIEWED = "settings_screen";
+  static const RANDOM_MEAL_SCREEN_VIEWED = "random_meal_screen";
 
   /// Events
   static const LOADED_RECIPES_EMPTY_LIST = "loaded_empty_recipes_list";

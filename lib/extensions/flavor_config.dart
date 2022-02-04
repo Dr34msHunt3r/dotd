@@ -1,7 +1,8 @@
 enum Flavor {
   RESTAPI,
   MOOR,
-  SECURE_STORAGE
+  SECURE_STORAGE,
+  RTDB
 }
 
 class FlavorValues {
@@ -35,4 +36,7 @@ class FlavorConfig {
   static bool isRecipeFromMoor() => _instance.flavor == Flavor.MOOR;
 
   static bool isRecipeFromSecureStorage() => _instance.flavor == Flavor.SECURE_STORAGE;
+
+  static bool isRecipeFromRTDB() => _instance.flavor == Flavor.RTDB;
+
 }
