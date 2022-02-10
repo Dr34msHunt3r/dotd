@@ -43,13 +43,13 @@ class FirebaseRemoteConfig {
 
   late AppThemeConfigDto _appThemeConfigDto;
   AppThemeConfigDto get appThemeConfigDto {
-    _throwIfNotInitialized();
+    _setDefaultIfNotInitialized();
     return _appThemeConfigDto;
   }
 
-  void _throwIfNotInitialized(){
-    if(_isInitialized == null) {
-      throw "'FirebaseRemoteConfig' needs setup";
+  AppThemeConfigDto? _setDefaultIfNotInitialized(){
+    if(_isInitialized == false) {
+      return _appThemeConfigDto = AppThemeConfigDto();
     }
   }
 

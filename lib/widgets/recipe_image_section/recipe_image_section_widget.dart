@@ -1,12 +1,11 @@
-import 'package:dotd/config/app_assets.dart';
+import 'package:dotd/widgets/image_source_differentiater_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 
 class RecipesImageSection extends StatelessWidget {
-  RecipesImageSection({Key? key, required this.image, required this.onImageChanged}) : super(key:  key);
+  RecipesImageSection({Key? key, required this.imageUrl, required this.onImageChanged}) : super(key:  key);
 
-  final File? image;
+  final String? imageUrl;
   final Function(ImageSource) onImageChanged;
 
   @override
@@ -14,7 +13,7 @@ class RecipesImageSection extends StatelessWidget {
     return Stack(
         alignment: Alignment.bottomRight,
         children: [
-          image != null ? Image.file(image!, key: UniqueKey()) : Image(image: AssetImage(AppAssets.defaultRecipeImage)),
+          imageSourceDifferentiater(imageUrl),
           Padding(
             padding: const EdgeInsets.only(bottom: 20.0, right: 20.0),
             child: FloatingActionButton(

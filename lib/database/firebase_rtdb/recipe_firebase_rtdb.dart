@@ -1,3 +1,5 @@
+import 'package:dotd/config/app_assets.dart';
+import 'package:dotd/database/cloud_firestore/image_cloud_firestore.dart';
 import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 import 'package:dotd/extensions/recipe_rtbd_converter.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -7,14 +9,22 @@ class RecipeRealtimeDatabase {
   FirebaseDatabase database = FirebaseDatabase.instance;
   DatabaseReference _refRecipe = FirebaseDatabase.instance.ref('recipes');
 
+  ImageCloudStorage _imageCloudStorage = ImageCloudStorage();
+
+
   Future<Recipe> addRecipe(Recipe recipe) async{
     try {
       final key = await _refRecipe.push();
-      key.set(recipeToRTDB(recipe, key.key as String));
+      String? imageUrl = null;
+      if(recipe.imageUrl != AppAssets.defaultRecipeImage)
+      {
+         imageUrl = await _imageCloudStorage.uploadFile(recipe.imageUrl, key.key as String);
+      }
+      key.set(recipeToRTDB(recipe, key.key as String, imageUrl));
       await _refRecipe.child(key.key as String).child('ingredients').set(ingredientsToRTDB(recipe.ingredients));
       return await Recipe(
           favourite: recipe.favourite,
-          imageUrl: recipe.imageUrl,
+          imageUrl: imageUrl ?? recipe.imageUrl,
           ingredients: recipe.ingredients,
           recipeTitle: recipe.recipeTitle,
           recipeRecipe: recipe.recipeRecipe,
@@ -50,7 +60,12 @@ class RecipeRealtimeDatabase {
 
   Future<bool> updateRecipe(Recipe updatedRecipe) async{
     try {
-      _refRecipe.child("${updatedRecipe.id}").set(recipeToRTDB(updatedRecipe, null));
+      String? imageUrl = null;
+      if(updatedRecipe.imageUrl != AppAssets.defaultRecipeImage)
+      {
+        imageUrl = await _imageCloudStorage.uploadFile(updatedRecipe.imageUrl, updatedRecipe.id!);
+      }
+      _refRecipe.child("${updatedRecipe.id}").set(recipeToRTDB(updatedRecipe, updatedRecipe.id, imageUrl));
       return true;
     } on Exception catch (e) {
       throw Exception("Firebase Realtime Database unable to update recipe: ${e}");

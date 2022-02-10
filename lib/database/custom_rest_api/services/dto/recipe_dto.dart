@@ -11,7 +11,7 @@ class Recipe {
   required this.imageUrl,
   required this.favourite,
   required this.ingredients,
-   this.id
+    this.id
   });
 
   final String recipeTitle;
@@ -46,7 +46,7 @@ class Ingredient {
 
 String getImageUrl(String? imageUrl){
   if(imageUrl == null){
-    return "assets/default/recipe_default_image.png";
+    return "assets/default/recipe_default_image.jpg";
   }else{
     return imageUrl.toString();
   }

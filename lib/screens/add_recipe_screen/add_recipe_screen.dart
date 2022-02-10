@@ -26,7 +26,7 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
   late int _count;
   late List<TextEditingController> _controller;
 
-  File? image;
+  String? imageUrl;
   File? oldImage;
 
   @override
@@ -70,11 +70,11 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
     return ListView(
       children: [
         RecipesImageSection(
-          image: image,
+          imageUrl: imageUrl,
             onImageChanged: (ImageSource source) async{
-              final newImage = await selectImageSource(source, this.image);
+              final newImage = await selectImageSource(source, this.imageUrl);
               setState(() {
-                this.image = newImage;
+                this.imageUrl = newImage;
               });
             }
         ),
@@ -163,11 +163,11 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         onTap: () async{
           final List<Ingredient> newIngredients = [];
           _controller.forEach((element) {if(element.text !="") newIngredients.add(Ingredient(name: element.text));});
-          image = await setImage(image?.path, oldImage);
+          imageUrl = await setImage(imageUrl, oldImage?.path);
           final Recipe newRecipe = Recipe(
               recipeTitle: _controllerRecipeTitle.text,
               recipeRecipe: _controllerRecipeSubtitle.text,
-              imageUrl: image != null ? image!.path : AppAssets.defaultRecipeImage,
+              imageUrl: imageUrl != null ? imageUrl! : AppAssets.defaultRecipeImage,
               favourite: "false",
               ingredients: newIngredients,
           );

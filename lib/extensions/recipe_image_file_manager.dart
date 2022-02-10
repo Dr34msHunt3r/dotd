@@ -4,24 +4,24 @@ import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/material.dart';
 
-Future<File?> selectImageSource(ImageSource source, File? oldImage) async{
+Future<String?> selectImageSource(ImageSource source, String? oldImage) async{
   try {
     final newImage = await ImagePicker().pickImage(source: source);
     if (newImage == null){
       return oldImage;
     }else{
-      return File(newImage.path);
+      return newImage.path;
     }
   } catch (e) {
     throw Exception('Failed to pick image: ${e}');
   }
 }
 
-Future<File> saveNewImage(String imagePath, File? image) async{
+Future<File> saveNewImage(String imagePath) async{
   try {
     final directory = await getApplicationDocumentsDirectory();
     final name = basename(imagePath);
-    image = File('${directory.path}/${name}');
+    File image = File('${directory.path}/${name}');
     return File(imagePath).copy(image.path);
   } catch (e) {
     throw Exception('Failed to save new image: ${e}');
@@ -39,14 +39,14 @@ Future<File> replaceImage(String imagePath, File? image) async{
   }
 }
 
-Future<File?> setImage(String? path, File? oldImage) async{
+Future<String?> setImage(String? path, String? oldImageUrl) async{
   try {
-    if(path!=null && oldImage!=null){
+    if(path!=null && oldImageUrl!=null){
       imageCache!.clearLiveImages();
       imageCache!.clear();
-      return await replaceImage(path, oldImage);
-    }else if(path!=null && oldImage==null){
-      return await saveNewImage(path, oldImage);
+      return (await replaceImage(path, File(oldImageUrl))).path;
+    }else if(path!=null && oldImageUrl==null){
+      return (await saveNewImage(path)).path;
     }
   } catch (e) {
     throw Exception('Failed to preset image: ${e}');

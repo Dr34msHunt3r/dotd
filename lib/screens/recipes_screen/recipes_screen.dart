@@ -7,9 +7,9 @@ import 'package:dotd/extensions/flavor_config.dart';
 import 'package:dotd/navigation/auto_router.gr.dart';
 import 'package:dotd/screens/recipes_screen/recipes_cubit.dart';
 import 'package:dotd/widgets/crash_button.dart';
+import 'package:dotd/widgets/image_source_differentiater_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'dart:io';
 
 class RecipesScreen extends StatelessWidget{
   const RecipesScreen({Key? key}) : super(key: key);
@@ -144,9 +144,7 @@ class RecipesScreen extends StatelessWidget{
             width: 100,
             child: ClipRRect(
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.0), topLeft: Radius.circular(15.0)),
-                child: recipe.imageUrl == AppAssets.defaultRecipeImage
-                    ?  Image(image: AssetImage(recipe.imageUrl), fit: BoxFit.cover,)
-                    : Image.file(File(recipe.imageUrl), fit: BoxFit.cover,)
+                child: imageSourceDifferentiater(recipe.imageUrl)
             )
         ),
         Expanded(

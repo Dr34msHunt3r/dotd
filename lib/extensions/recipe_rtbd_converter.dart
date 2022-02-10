@@ -19,9 +19,9 @@ List<Ingredient> ingredientsFromRTDB(List data) {
   return ingredients;
 }
 
-Map<String, dynamic> recipeToRTDB(Recipe recipe, String? id) {
+Map<String, dynamic> recipeToRTDB(Recipe recipe, String? id, String? imageUrl) {
   return {
-    'imageUrl' : recipe.imageUrl,
+    'imageUrl' : imageUrl ?? recipe.imageUrl,
     'favourite' : recipe.favourite,
     'recipeRecipe' : recipe.recipeRecipe,
     'recipeTitle' : recipe.recipeTitle,

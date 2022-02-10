@@ -11,7 +11,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
-import 'dart:io';
 
 
 class EditRecipeScreen extends StatefulWidget{
@@ -32,15 +31,15 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
   late int _count;
   List<TextEditingController> _controller = [];
 
-  File? image;
-  File? oldImage;
+  String? imageUrl;
+  String? oldImageUrl;
 
   @override
   void initState(){
     super.initState();
     if(widget.recipe.imageUrl != AppAssets.defaultRecipeImage) {
-      image = File(widget.recipe.imageUrl);
-      oldImage = image;
+      imageUrl = widget.recipe.imageUrl;
+      oldImageUrl = imageUrl;
     }
     _controllerTitle.text = widget.recipe.recipeTitle;
     _controllerRecipe.text = widget.recipe.recipeRecipe;
@@ -74,7 +73,7 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
             actions: [
               InkWell(
                 onTap: (){
-                  this.image?.delete();
+                  // File(this.imageUrl!).delete();
                   BlocProvider.of<EditRecipeCubit>(context).deleteRecipe(widget.recipe);
                 },
                 child: const Padding(
@@ -95,11 +94,11 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
     return ListView(
       children: [
         RecipesImageSection(
-            image: image,
+            imageUrl: imageUrl,
             onImageChanged: (ImageSource source) async{
-              final newImage = await selectImageSource(source, this.image);
+              final newImage = await selectImageSource(source, this.imageUrl);
               setState(() {
-                this.image = newImage;
+                this.imageUrl = newImage;
               });
             }
         ),
@@ -194,13 +193,13 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
         onTap: () async{
           List<Ingredient> updatedIngredients = [];
           _controller.forEach((element) {if(element.text !="") updatedIngredients.add(Ingredient(name: element.text));});
-          if(image?.path!=oldImage?.path){
-            image = await setImage(image?.path, oldImage);
+          if(imageUrl!=oldImageUrl){
+            imageUrl = await setImage(imageUrl, oldImageUrl);
           }
           final Recipe updatedRecipe = Recipe(
               recipeTitle: _controllerTitle.text,
               recipeRecipe: _controllerRecipe.text,
-              imageUrl: image != null ? image!.path : AppAssets.defaultRecipeImage,
+              imageUrl: imageUrl != null ? imageUrl! : AppAssets.defaultRecipeImage,
               favourite: widget.recipe.favourite,
               ingredients: updatedIngredients,
               id: widget.recipe.id

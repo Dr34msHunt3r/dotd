@@ -62,7 +62,7 @@ Recipe throwExceptionObject(){
     recipeTitle: "Ups!",
     recipeRecipe: "Something gone wrong :(",
     favourite: "false",
-    imageUrl: "assets/default/recipe_default_image.png",
+    imageUrl: "assets/default/recipe_default_image.jpg",
     id: "",
     ingredients: [],
   );

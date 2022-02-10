@@ -21,7 +21,7 @@ class DoTDConfig extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final RecipesCubit recipesCubit = RecipesCubit(recipeRepository: recipeRepository, firebaseEventReporter: firebaseEventReporter);
-    final primaryColor = config.appThemeConfigDto.primaryColor?.toColor();
+    final primaryColor = config.appThemeConfigDto.primaryColor?.toColor() ?? AppColors.primaryColor;
     return MultiBlocProvider(
         providers: [
           BlocProvider.value(value: recipesCubit),

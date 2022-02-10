@@ -2,11 +2,10 @@ import 'package:auto_route/annotations.dart';
 import 'package:auto_route/src/router/auto_router_x.dart';
 import 'package:dotd/analytics/event_reporter.dart';
 import 'package:dotd/analytics/firebase_event_reporter.dart';
-import 'package:dotd/config/app_assets.dart';
 import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 import 'package:dotd/navigation/auto_router.gr.dart';
+import 'package:dotd/widgets/image_source_differentiater_widget.dart';
 import 'package:flutter/material.dart';
-import 'dart:io';
 
 class DetailsRecipeScreen extends StatelessWidget {
   const DetailsRecipeScreen({Key? key, @PathParam() required this.recipeId, required this.recipe}) : super(key: key);
@@ -43,7 +42,7 @@ class DetailsRecipeScreen extends StatelessWidget {
         Stack(
             alignment: Alignment.bottomRight,
           children: [
-            recipe.imageUrl == AppAssets.defaultRecipeImage ?  Image(image: AssetImage(recipe.imageUrl), fit: BoxFit.cover,) : Image.file(File(recipe.imageUrl), fit: BoxFit.cover,),
+            imageSourceDifferentiater(recipe.imageUrl)
           ]
         ),
         Padding(
