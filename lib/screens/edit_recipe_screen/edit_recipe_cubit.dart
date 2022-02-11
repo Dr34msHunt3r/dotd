@@ -15,7 +15,7 @@ class EditRecipeCubit extends Cubit<EditRecipeState> {
 
   void deleteRecipe(Recipe recipe) {
     emit(EditingRecipe());
-    repository.deleteRecipe(recipe.id!).then((isDeleted) {
+    repository.deleteRecipe(recipe).then((isDeleted) {
       if(isDeleted){
         recipesCubit.deleteCubit(recipe);
         emit(RecipeEdited());

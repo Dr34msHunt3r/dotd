@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dotd/config/app_assets.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -39,14 +40,18 @@ Future<File> replaceImage(String imagePath, File? image) async{
   }
 }
 
-Future<String?> setImage(String? path, String? oldImageUrl) async{
+Future<String> setImage(String path, String oldImageUrl) async{
   try {
-    if(path!=null && oldImageUrl!=null){
+    if(path != oldImageUrl && oldImageUrl != AppAssets.defaultRecipeImage){
       imageCache!.clearLiveImages();
       imageCache!.clear();
       return (await replaceImage(path, File(oldImageUrl))).path;
-    }else if(path!=null && oldImageUrl==null){
+    }else if(oldImageUrl == AppAssets.defaultRecipeImage){
+      imageCache!.clearLiveImages();
+      imageCache!.clear();
       return (await saveNewImage(path)).path;
+    }else{
+      throw Exception('Failed to preset image: Image was null');
     }
   } catch (e) {
     throw Exception('Failed to preset image: ${e}');

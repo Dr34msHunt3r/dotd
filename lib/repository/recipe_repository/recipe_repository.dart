@@ -36,8 +36,8 @@ class RecipeRepository {
     return await _source.addRecipe(recipe);
   }
 
-  Future<bool> deleteRecipe(String recipesId) async {
-    return await _source.deleteRecipe(recipesId);
+  Future<bool> deleteRecipe(Recipe recipe) async {
+    return await _source.deleteRecipe(recipe);
   }
 
   Future<bool> updateRecipe(Recipe updatedRecipe) async {

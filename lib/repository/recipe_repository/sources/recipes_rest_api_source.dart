@@ -27,8 +27,8 @@ class RecipeRestApiSource implements Source {
   }
 
   @override
-  Future<bool> deleteRecipe(String recipesId) async{
-    return await _recipeNetworkService.deleteRecipe(recipesId);
+  Future<bool> deleteRecipe(Recipe recipe) async{
+    return await _recipeNetworkService.deleteRecipe(recipe.id!);
   }
 
   @override

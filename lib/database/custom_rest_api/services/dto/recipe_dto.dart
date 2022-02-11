@@ -9,6 +9,7 @@ class Recipe {
   required this.recipeTitle,
   required this.recipeRecipe,
   required this.imageUrl,
+    this.imageCacheUrl,
   required this.favourite,
   required this.ingredients,
     this.id
@@ -17,6 +18,8 @@ class Recipe {
   final String recipeTitle;
   final String recipeRecipe;
   final String imageUrl;
+  @JsonKey(ignore: true)
+  final String? imageCacheUrl;
   final String favourite;
   final List<Ingredient> ingredients;
   final String? id;

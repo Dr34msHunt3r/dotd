@@ -163,11 +163,11 @@ class _AddRecipeScreenState extends State<AddRecipeScreen> {
         onTap: () async{
           final List<Ingredient> newIngredients = [];
           _controller.forEach((element) {if(element.text !="") newIngredients.add(Ingredient(name: element.text));});
-          imageUrl = await setImage(imageUrl, oldImage?.path);
           final Recipe newRecipe = Recipe(
               recipeTitle: _controllerRecipeTitle.text,
               recipeRecipe: _controllerRecipeSubtitle.text,
-              imageUrl: imageUrl != null ? imageUrl! : AppAssets.defaultRecipeImage,
+              imageUrl: AppAssets.defaultRecipeImage,
+              imageCacheUrl: imageUrl,
               favourite: "false",
               ingredients: newIngredients,
           );

@@ -14,10 +14,10 @@ import 'package:image_picker/image_picker.dart';
 
 
 class EditRecipeScreen extends StatefulWidget{
-  const EditRecipeScreen({Key? key, required this.recipe, @PathParam() required this.recipeId}) : super(key: key);
+  const EditRecipeScreen({Key? key, required this.recipe, @PathParam() this.recipeId}) : super(key: key);
 
   final Recipe recipe;
-  final String recipeId;
+  final String? recipeId;
 
   @override
   State<EditRecipeScreen> createState() => _EditRecipeScreenState();
@@ -73,7 +73,6 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
             actions: [
               InkWell(
                 onTap: (){
-                  // File(this.imageUrl!).delete();
                   BlocProvider.of<EditRecipeCubit>(context).deleteRecipe(widget.recipe);
                 },
                 child: const Padding(
@@ -193,13 +192,11 @@ class _EditRecipeScreenState extends State<EditRecipeScreen> {
         onTap: () async{
           List<Ingredient> updatedIngredients = [];
           _controller.forEach((element) {if(element.text !="") updatedIngredients.add(Ingredient(name: element.text));});
-          if(imageUrl!=oldImageUrl){
-            imageUrl = await setImage(imageUrl, oldImageUrl);
-          }
           final Recipe updatedRecipe = Recipe(
               recipeTitle: _controllerTitle.text,
               recipeRecipe: _controllerRecipe.text,
-              imageUrl: imageUrl != null ? imageUrl! : AppAssets.defaultRecipeImage,
+              imageUrl: widget.recipe.imageUrl,
+              imageCacheUrl: imageUrl,
               favourite: widget.recipe.favourite,
               ingredients: updatedIngredients,
               id: widget.recipe.id

@@ -5,7 +5,7 @@ abstract class Source {
 
   Future<List<Recipe>> loadRecipes();
   Future<Recipe> addRecipe(Recipe recipe);
-  Future<bool> deleteRecipe(String recipesId);
+  Future<bool> deleteRecipe(Recipe recipe);
   Future<bool> updateRecipe(Recipe updatedRecipe);
 
   static const REST_API = "RESTAPI";

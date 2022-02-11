@@ -18,8 +18,8 @@ class RecipeSecureStorageSource implements Source {
   }
 
   @override
-  Future<bool> deleteRecipe(String recipesId) async{
-    return await _recipeSecureStorage.deleteRecipe(recipesId);
+  Future<bool> deleteRecipe(Recipe recipe) async{
+    return await _recipeSecureStorage.deleteRecipe(recipe.id!);
   }
 
   @override
