@@ -21,13 +21,8 @@ class RecipeMoorSource implements Source {
 
   @override
   Future<Recipe> addRecipe(Recipe recipe) async{
-    String? imageUrl;
-    if(recipe.imageCacheUrl!=null && recipe.imageUrl != recipe.imageCacheUrl) {
-      imageUrl =
-      await setImage(recipe.imageCacheUrl!, recipe.imageUrl);
-    }
     final RecipeMoor recipeRow = await _appDatabase.recipeMoorDao.insertRecipe(
-        await toMoorCompanionFromRecipe(recipe, imageUrl)
+        toMoorCompanionFromRecipe(await setRecipeImage(recipe))
     );
     await _appDatabase.batch((batch) {
       batch.insertAll(
@@ -53,13 +48,10 @@ class RecipeMoorSource implements Source {
 
   @override
   Future<bool> updateRecipe(Recipe updatedRecipe) async{
-    String? imageUrl;
-    if(updatedRecipe.imageCacheUrl!=null && updatedRecipe.imageUrl != updatedRecipe.imageCacheUrl) {
-      imageUrl =
-          await setImage(updatedRecipe.imageCacheUrl!, updatedRecipe.imageUrl);
-    }
-    if(await _appDatabase.recipeMoorDao.updateRecipe(toMoorFromRecipe(updatedRecipe, imageUrl)) == true
-        && await _appDatabase.ingredientMoorDao.deleteIngredientsWhereRecipeId(updatedRecipe.id!) >= 0){
+    if(await _appDatabase.recipeMoorDao.updateRecipe(
+        toMoorFromRecipe(await setRecipeImage(updatedRecipe))) == true
+        && await _appDatabase.ingredientMoorDao.deleteIngredientsWhereRecipeId(
+            updatedRecipe.id!) >= 0){
       await _appDatabase.batch((batch) {
         batch.insertAll(
             _appDatabase.ingredientsMoor,

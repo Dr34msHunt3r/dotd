@@ -1,4 +1,3 @@
-import 'package:dotd/config/app_assets.dart';
 import 'package:dotd/database/cloud_firestore/image_cloud_firestore.dart';
 import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 import 'package:dotd/extensions/recipe_rtbd_converter.dart';
@@ -16,9 +15,9 @@ class RecipeRealtimeDatabase {
     try {
       final key = await _refRecipe.push();
       String? imageUrl = null;
-      if(recipe.imageUrl != AppAssets.defaultRecipeImage)
+      if(recipe.imageCacheUrl != null)
       {
-         imageUrl = await _imageCloudStorage.uploadFile(recipe.imageUrl, key.key as String);
+         imageUrl = await _imageCloudStorage.uploadFile(recipe.imageCacheUrl!, key.key as String);
       }
       key.set(recipeToRTDB(recipe, key.key as String, imageUrl));
       await _refRecipe.child(key.key as String).child('ingredients').set(ingredientsToRTDB(recipe.ingredients));
@@ -37,7 +36,8 @@ class RecipeRealtimeDatabase {
 
   Future<bool> deleteRecipe(String recipesId) async{
     try {
-      _refRecipe.child("${recipesId}").remove();
+      await _imageCloudStorage.deleteFile(recipesId);
+      await _refRecipe.child("${recipesId}").remove();
       return true;
     } on Exception catch (e) {
       throw Exception("Firebase Realtime Database unable to delete recipe: ${e}");
@@ -61,9 +61,9 @@ class RecipeRealtimeDatabase {
   Future<bool> updateRecipe(Recipe updatedRecipe) async{
     try {
       String? imageUrl = null;
-      if(updatedRecipe.imageUrl != AppAssets.defaultRecipeImage)
+      if(updatedRecipe.imageCacheUrl != null)
       {
-        imageUrl = await _imageCloudStorage.uploadFile(updatedRecipe.imageUrl, updatedRecipe.id!);
+        imageUrl = await _imageCloudStorage.uploadFile(updatedRecipe.imageCacheUrl!, updatedRecipe.id!);
       }
       _refRecipe.child("${updatedRecipe.id}").set(recipeToRTDB(updatedRecipe, updatedRecipe.id, imageUrl));
       return true;

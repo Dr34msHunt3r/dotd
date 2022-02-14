@@ -39,7 +39,6 @@ class RecipeSecureStorage {
         favourite: recipe.favourite,
         id: _key
       );
-      // recipe.id = _key;
       final recipeObj = jsonEncode(addedRecipe.toJson());
       await _storage.write(
           key: _key,

@@ -108,4 +108,12 @@ class ImageCloudStorage {
       throw Exception('Failed to upload image: $e');
     }
   }
+  Future<bool> deleteFile(String filePath) async{
+    try {
+      await storage.refFromURL(filePath).delete();
+      return true;
+    } on Exception catch (e) {
+      throw Exception('Failed to delete image: $e');
+    }
+  }
 }

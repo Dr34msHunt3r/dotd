@@ -13,20 +13,20 @@ Recipe toRecipeFromMoor(RecipeMoor recipeMoor, List<Ingredient> ingredients){
   );
 }
 
-RecipesMoorCompanion toMoorCompanionFromRecipe(Recipe recipe, String? imageUrl) {
+RecipesMoorCompanion toMoorCompanionFromRecipe(Recipe recipe) {
   return RecipesMoorCompanion(
       recipeTitle: Value(recipe.recipeTitle),
       recipeRecipe: Value(recipe.recipeRecipe),
-      imageUrl: Value(imageUrl ?? recipe.imageUrl),
+      imageUrl: Value(recipe.imageUrl),
       favourite: Value(recipe.favourite)
   );
 }
 
-RecipeMoor toMoorFromRecipe(Recipe recipe, String? imageUrl){
+RecipeMoor toMoorFromRecipe(Recipe recipe){
   return RecipeMoor(
       recipeTitle: recipe.recipeTitle,
       recipeRecipe: recipe.recipeRecipe,
-      imageUrl: imageUrl ?? recipe.imageUrl,
+      imageUrl: recipe.imageUrl,
       favourite: recipe.favourite,
       id: recipe.id!
   );

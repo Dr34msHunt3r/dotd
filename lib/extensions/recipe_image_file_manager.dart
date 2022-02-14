@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:dotd/config/app_assets.dart';
+import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';
@@ -40,7 +41,7 @@ Future<File> replaceImage(String imagePath, File? image) async{
   }
 }
 
-Future<String> setImage(String path, String oldImageUrl) async{
+Future<String> setImageUrl(String path, String oldImageUrl) async{
   try {
     if(path != oldImageUrl && oldImageUrl != AppAssets.defaultRecipeImage){
       imageCache!.clearLiveImages();
@@ -57,3 +58,33 @@ Future<String> setImage(String path, String oldImageUrl) async{
     throw Exception('Failed to preset image: ${e}');
   }
 }
+
+Future<Recipe> setRecipeImage(Recipe recipe)async{
+  final String? imageUrl;
+  if(recipe.imageCacheUrl!=null && recipe.imageUrl != recipe.imageCacheUrl) {
+    imageUrl =
+        await setImageUrl(recipe.imageCacheUrl!, recipe.imageUrl);
+  }else{
+    imageUrl = null;
+  }
+  return Recipe(
+      recipeRecipe: recipe.recipeRecipe,
+      ingredients: recipe.ingredients,
+      recipeTitle: recipe.recipeTitle,
+      imageUrl: imageUrl ?? recipe.imageUrl,
+      favourite: recipe.favourite,
+      id: recipe.id
+  );
+}
+
+bool deleteRecipeImage(Recipe recipe){
+  try {
+    if(recipe.imageUrl != AppAssets.defaultRecipeImage) {
+      File(recipe.imageUrl).delete();
+    }
+    return true;
+  } on Exception catch (e) {
+    throw Exception('Failed to delete recipe image: ${e}');
+  }
+}
+
