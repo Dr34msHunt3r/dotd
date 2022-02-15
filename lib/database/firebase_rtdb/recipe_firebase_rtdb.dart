@@ -34,10 +34,10 @@ class RecipeRealtimeDatabase {
     }
   }
 
-  Future<bool> deleteRecipe(String recipesId) async{
+  Future<bool> deleteRecipe(Recipe recipe) async{
     try {
-      await _imageCloudStorage.deleteFile(recipesId);
-      await _refRecipe.child("${recipesId}").remove();
+      await _imageCloudStorage.deleteFile(recipe.imageUrl);
+      await _refRecipe.child("${recipe.id}").remove();
       return true;
     } on Exception catch (e) {
       throw Exception("Firebase Realtime Database unable to delete recipe: ${e}");
@@ -61,7 +61,7 @@ class RecipeRealtimeDatabase {
   Future<bool> updateRecipe(Recipe updatedRecipe) async{
     try {
       String? imageUrl = null;
-      if(updatedRecipe.imageCacheUrl != null)
+      if(updatedRecipe.imageCacheUrl != null && updatedRecipe.imageUrl != updatedRecipe.imageCacheUrl)
       {
         imageUrl = await _imageCloudStorage.uploadFile(updatedRecipe.imageCacheUrl!, updatedRecipe.id!);
       }

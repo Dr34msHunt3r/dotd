@@ -32,6 +32,10 @@ class EditRecipeCubit extends Cubit<EditRecipeState> {
       return;
     }
     emit(EditingRecipe());
+    // TODO musi zwracać edytowany obiekt bo zmiany są dokonywane bardzo głęboko
+    // TODO lub można nadać imageUrl z cache ale nie wiem jak to się odbije na innych źródłach :( po restarcie urle by się już zgadzały
+    // TODO lub napisać oddzielny BLoC i Cubity dla obrazu, ale to dużo roboty i nie wiem jak to połączyć później
+    // TODO w czym jest problem: nie zadziała w przypadku zmiany url z assets na http czy innej modyfikacji z takiego poziomu
     repository.updateRecipe(updatedRecipe).then((isEdited) {
       if(isEdited) {
         recipesCubit.updateRecipeList(updatedRecipe);

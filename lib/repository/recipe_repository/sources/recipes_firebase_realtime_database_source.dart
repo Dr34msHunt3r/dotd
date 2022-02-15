@@ -13,7 +13,7 @@ class RecipeRealtimeDatabaseSource implements Source {
 
   @override
   Future<bool> deleteRecipe(Recipe recipe) async{
-    return await _recipeRealtimeDatabase.deleteRecipe(recipe.id!);
+    return await _recipeRealtimeDatabase.deleteRecipe(recipe);
   }
 
   @override

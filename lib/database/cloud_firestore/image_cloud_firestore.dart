@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:dotd/config/app_assets.dart';
 import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 class ImageCloudStorage {
@@ -21,7 +22,8 @@ class ImageCloudStorage {
   }
   Future<bool> deleteFile(String filePath) async{
     try {
-      await storage.refFromURL(filePath).delete();
+      if(filePath!=AppAssets.defaultRecipeImage)
+        await storage.refFromURL(filePath).delete();
       return true;
     } on Exception catch (e) {
       throw Exception('Failed to delete image: $e');
