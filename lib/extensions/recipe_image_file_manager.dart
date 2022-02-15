@@ -1,6 +1,6 @@
 import 'dart:io';
 import 'package:dotd/config/app_assets.dart';
-import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
+import 'package:dotd/repository/recipe_repository/model/dto/recipe_dto.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart';
 import 'package:path_provider/path_provider.dart';

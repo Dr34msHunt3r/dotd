@@ -1,7 +1,7 @@
-import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
+import 'package:dotd/repository/recipe_repository/model/dto/recipe_dto.dart';
 
-abstract class Source {
-  const Source();
+abstract class RecipeSource {
+  const RecipeSource();
 
   Future<List<Recipe>> loadRecipes();
   Future<Recipe> addRecipe(Recipe recipe);

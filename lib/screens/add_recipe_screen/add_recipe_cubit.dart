@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:dotd/config/app_strings.dart';
-import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
+import 'package:dotd/repository/recipe_repository/model/dto/recipe_dto.dart';
 import 'package:dotd/repository/recipe_repository/recipe_repository.dart';
 import 'package:dotd/screens/recipes_screen/recipes_cubit.dart';
 import 'package:meta/meta.dart';

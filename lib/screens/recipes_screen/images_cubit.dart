@@ -5,4 +5,8 @@ part 'images_state.dart';
 
 class ImagesCubit extends Cubit<ImagesState> {
   ImagesCubit() : super(ImagesInitial());
+
+  void fetchImages() {
+
+  }
 }

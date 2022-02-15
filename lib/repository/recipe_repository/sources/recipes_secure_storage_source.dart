@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 import 'package:dotd/database/secure_storage/recipe_secure_storage.dart';
 import 'package:dotd/extensions/recipe_image_file_manager.dart';
-import 'package:dotd/repository/recipe_repository/sources/source.dart';
+import 'package:dotd/repository/recipe_repository/model/dto/recipe_dto.dart';
+import 'package:dotd/repository/recipe_repository/sources/recipe_source.dart';
 
-class RecipeSecureStorageSource implements Source {
+class RecipeSecureStorageSource implements RecipeSource {
 
   final RecipeSecureStorage _recipeSecureStorage = RecipeSecureStorage();
 

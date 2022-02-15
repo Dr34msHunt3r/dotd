@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:dotd/analytics/event_reporter.dart';
 import 'package:dotd/analytics/firebase_event_reporter.dart';
-import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
+import 'package:dotd/repository/recipe_repository/model/dto/recipe_dto.dart';
 import 'package:dotd/repository/recipe_repository/recipe_repository.dart';
 import 'package:meta/meta.dart';
 

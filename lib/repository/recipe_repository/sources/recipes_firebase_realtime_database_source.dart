@@ -1,8 +1,8 @@
-import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 import 'package:dotd/database/firebase_rtdb/recipe_firebase_rtdb.dart';
-import 'package:dotd/repository/recipe_repository/sources/source.dart';
+import 'package:dotd/repository/recipe_repository/model/dto/recipe_dto.dart';
+import 'package:dotd/repository/recipe_repository/sources/recipe_source.dart';
 
-class RecipeRealtimeDatabaseSource implements Source {
+class RecipeRealtimeDatabaseSource implements RecipeSource {
 
   RecipeRealtimeDatabase _recipeRealtimeDatabase = RecipeRealtimeDatabase();
 

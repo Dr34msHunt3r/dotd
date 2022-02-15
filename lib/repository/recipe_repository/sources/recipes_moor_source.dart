@@ -1,13 +1,13 @@
 import 'package:dotd/config/app_assets.dart';
-import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 import 'package:dotd/database/drift/config/recipe_drift_database.dart';
 import 'package:dotd/extensions/recipe_image_file_manager.dart';
-import 'package:dotd/repository/recipe_repository/sources/source.dart';
+import 'package:dotd/repository/recipe_repository/model/dto/recipe_dto.dart';
+import 'package:dotd/repository/recipe_repository/sources/recipe_source.dart';
 import 'dart:io';
 
 import '../../../extensions/recipe_moor_converter.dart';
 
-class RecipeMoorSource implements Source {
+class RecipeMoorSource implements RecipeSource {
 
   AppDatabase _appDatabase = AppDatabase();
 

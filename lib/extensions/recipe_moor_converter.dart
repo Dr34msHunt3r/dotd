@@ -1,5 +1,5 @@
-import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 import 'package:dotd/database/drift/config/recipe_drift_database.dart';
+import 'package:dotd/repository/recipe_repository/model/dto/recipe_dto.dart';
 import 'package:drift/drift.dart';
 
 Recipe toRecipeFromMoor(RecipeMoor recipeMoor, List<Ingredient> ingredients){

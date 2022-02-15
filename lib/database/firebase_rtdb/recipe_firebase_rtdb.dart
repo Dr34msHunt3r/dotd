@@ -1,6 +1,6 @@
 import 'package:dotd/database/cloud_firestore/image_cloud_firestore.dart';
-import 'package:dotd/database/custom_rest_api/services/dto/recipe_dto.dart';
 import 'package:dotd/extensions/recipe_rtbd_converter.dart';
+import 'package:dotd/repository/recipe_repository/model/dto/recipe_dto.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class RecipeRealtimeDatabase {

@@ -14,7 +14,7 @@ import 'package:auto_route/auto_route.dart' as _i2;
 import 'package:flutter/material.dart' as _i9;
 
 import '../base/home_page.dart' as _i1;
-import '../database/custom_rest_api/services/dto/recipe_dto.dart' as _i10;
+import '../repository/recipe_repository/model/dto/recipe_dto.dart' as _i10;
 import '../screens/add_recipe_screen/add_recipe_screen.dart' as _i4;
 import '../screens/details_recipe_screen/details_recipe_screen.dart' as _i5;
 import '../screens/draw_meal_screen/draw_meal_screen.dart' as _i8;
