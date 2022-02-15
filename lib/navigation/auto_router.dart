@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:dotd/base/home_page.dart';
-import 'package:dotd/screens/add_recipe_screen/add_recipe_screen.dart';
-import 'package:dotd/screens/details_recipe_screen/details_recipe_screen.dart';
-import 'package:dotd/screens/draw_meal_screen/draw_meal_screen.dart';
-import 'package:dotd/screens/edit_recipe_screen/edit_recipe_screen.dart';
-import 'package:dotd/screens/recipes_screen/recipes_screen.dart';
-import 'package:dotd/screens/settings_screen/settings_app.dart';
+import 'package:dotd/presentation/screens/add_recipe_screen/add_recipe_screen.dart';
+import 'package:dotd/presentation/screens/details_recipe_screen/details_recipe_screen.dart';
+import 'package:dotd/presentation/screens/draw_meal_screen/draw_meal_screen.dart';
+import 'package:dotd/presentation/screens/edit_recipe_screen/edit_recipe_screen.dart';
+import 'package:dotd/presentation/screens/recipes_screen/recipes_screen.dart';
+import 'package:dotd/presentation/screens/settings_screen/settings_app.dart';
 
 @MaterialAutoRouter(replaceInRouteName: 'Page,Route', routes: [
   AutoRoute(

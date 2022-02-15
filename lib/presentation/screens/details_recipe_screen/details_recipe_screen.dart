@@ -4,7 +4,7 @@ import 'package:dotd/analytics/event_reporter.dart';
 import 'package:dotd/analytics/firebase_event_reporter.dart';
 import 'package:dotd/navigation/auto_router.gr.dart';
 import 'package:dotd/repository/recipe_repository/model/dto/recipe_dto.dart';
-import 'package:dotd/widgets/image_source_differentiater_widget.dart';
+import 'package:dotd/presentation/widgets/image_source_differentiater_widget.dart';
 import 'package:flutter/material.dart';
 
 class DetailsRecipeScreen extends StatelessWidget {

@@ -1,4 +1,4 @@
-import 'package:dotd/widgets/image_source_differentiater_widget.dart';
+import 'package:dotd/presentation/widgets/image_source_differentiater_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
