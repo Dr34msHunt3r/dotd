@@ -5,7 +5,7 @@ import 'package:dotd/config/app_assets.dart';
 import 'package:dotd/extensions/flavor_config.dart';
 import 'package:dotd/navigation/auto_router.gr.dart';
 import 'package:dotd/repository/recipe_repository/model/dto/recipe_dto.dart';
-import 'package:dotd/presentation/screens/recipes_screen/recipes_cubit.dart';
+import 'package:dotd/presentation/screens/recipes_screen/bloc/recipe/recipes_cubit.dart';
 import 'package:dotd/presentation/widgets/crash_button.dart';
 import 'package:dotd/presentation/widgets/image_source_differentiater_widget.dart';
 import 'package:flutter/material.dart';
