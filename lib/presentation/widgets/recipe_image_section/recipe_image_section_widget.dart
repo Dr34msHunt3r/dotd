@@ -13,7 +13,7 @@ class RecipesImageSection extends StatelessWidget {
     return Stack(
         alignment: Alignment.bottomRight,
         children: [
-          imageSourceDifferentiater(imageUrl),
+          imageSourceDisplayer(imageUrl),
           Padding(
             padding: const EdgeInsets.only(bottom: 20.0, right: 20.0),
             child: FloatingActionButton(

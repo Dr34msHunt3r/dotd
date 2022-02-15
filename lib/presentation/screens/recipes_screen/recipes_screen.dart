@@ -144,7 +144,7 @@ class RecipesScreen extends StatelessWidget{
             width: 100,
             child: ClipRRect(
               borderRadius: BorderRadius.only(bottomLeft: Radius.circular(15.0), topLeft: Radius.circular(15.0)),
-                child: imageSourceDifferentiater(recipe.imageUrl)
+                child: imageSourceDisplayer(recipe.imageUrl)
             )
         ),
         Expanded(

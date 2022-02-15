@@ -42,7 +42,7 @@ class DetailsRecipeScreen extends StatelessWidget {
         Stack(
             alignment: Alignment.bottomRight,
           children: [
-            imageSourceDifferentiater(recipe.imageUrl)
+            imageSourceDisplayer(recipe.imageUrl)
           ]
         ),
         Padding(
