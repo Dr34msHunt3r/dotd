@@ -14,13 +14,16 @@ import 'package:auto_route/auto_route.dart' as _i2;
 import 'package:flutter/material.dart' as _i9;
 
 import '../base/home_page.dart' as _i1;
-import '../repository/recipe_repository/model/dto/recipe_dto.dart' as _i10;
-import '../presentation/screens/add_recipe_screen/add_recipe_screen.dart' as _i4;
-import '../presentation/screens/details_recipe_screen/details_recipe_screen.dart' as _i5;
+import '../presentation/screens/add_recipe_screen/add_recipe_screen.dart'
+    as _i4;
+import '../presentation/screens/details_recipe_screen/details_recipe_screen.dart'
+    as _i5;
 import '../presentation/screens/draw_meal_screen/draw_meal_screen.dart' as _i8;
-import '../presentation/screens/edit_recipe_screen/edit_recipe_screen.dart' as _i6;
+import '../presentation/screens/edit_recipe_screen/edit_recipe_screen.dart'
+    as _i6;
 import '../presentation/screens/recipes_screen/recipes_screen.dart' as _i3;
 import '../presentation/screens/settings_screen/settings_app.dart' as _i7;
+import '../repository/recipe_repository/model/dto/recipe_dto.dart' as _i10;
 
 class AppRouter extends _i2.RootStackRouter {
   AppRouter([_i9.GlobalKey<_i9.NavigatorState>? navigatorKey])
