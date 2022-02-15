@@ -14,10 +14,10 @@ import 'package:image_picker/image_picker.dart';
 
 
 class EditRecipeScreen extends StatefulWidget{
-  const EditRecipeScreen({Key? key, required this.recipe, @PathParam() this.recipeId}) : super(key: key);
+  const EditRecipeScreen({Key? key, required this.recipe, @PathParam() required this.recipeId}) : super(key: key);
 
   final Recipe recipe;
-  final String? recipeId;
+  final String recipeId;
 
   @override
   State<EditRecipeScreen> createState() => _EditRecipeScreenState();
