@@ -16,17 +16,15 @@ class RecipesCubit extends Cubit<RecipesState> {
   final FirebaseEventReporter firebaseEventReporter;
 
   void fetchRecipes() {
-    Timer(const Duration(seconds: 1), (){
-      recipeRepository.fetchRecipes().then((recipes) {
-        if( recipes.isEmpty ){
-          emit(RecipesEmpty(recipes: recipes));
-          print("Recipes empty");
-          firebaseEventReporter.reportEvent(EventReporter.LOADED_RECIPES_EMPTY_LIST);
-        } else {
-          emit(RecipesLoaded(recipes: recipes));
-          firebaseEventReporter.reportEvent(EventReporter.LOADED_RECIPES_FILLED_LIST);
-        }
-      });
+    recipeRepository.fetchRecipes().then((recipes) {
+      if( recipes.isEmpty ){
+        emit(RecipesEmpty(recipes: recipes));
+        print("Recipes empty");
+        firebaseEventReporter.reportEvent(EventReporter.LOADED_RECIPES_EMPTY_LIST);
+      } else {
+        emit(RecipesLoaded(recipes: recipes));
+        firebaseEventReporter.reportEvent(EventReporter.LOADED_RECIPES_FILLED_LIST);
+      }
     });
   }
 
@@ -40,7 +38,7 @@ class RecipesCubit extends Cubit<RecipesState> {
     }
   }
 
-  void deleteCubit(Recipe recipe) {
+  void deleteRecipe(Recipe recipe) {
     final currentState = state;
     if(currentState is RecipesLoaded){
       final recipeList = currentState.recipes.where((element) => element.id != recipe.id).toList();
