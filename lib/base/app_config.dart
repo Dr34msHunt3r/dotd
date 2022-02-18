@@ -3,7 +3,7 @@ import 'package:dotd/config/app_colors.dart';
 import 'package:dotd/navigation/auto_router.gr.dart' as router;
 import 'package:dotd/repository/recipe_repository/recipe_repository.dart';
 import 'package:dotd/presentation/screens/add_recipe_screen/add_recipe_cubit.dart';
-import 'package:dotd/presentation/screens/edit_recipe_screen/edit_recipe_cubit.dart';
+import 'package:dotd/presentation/screens/edit_recipe_screen/bloc/edit_recipe/edit_recipe_cubit.dart';
 import 'package:dotd/presentation/screens/recipes_screen/bloc/recipe/recipes_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

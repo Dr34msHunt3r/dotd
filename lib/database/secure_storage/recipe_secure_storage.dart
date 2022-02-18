@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:dotd/config/app_errors_messages.dart';
 import 'package:dotd/extensions/recipe_moor_converter.dart';
 import 'package:dotd/repository/recipe_repository/model/dto/recipe_dto.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -8,6 +9,8 @@ class RecipeSecureStorage {
   var _uuid = Uuid();
 
   static final _storage = FlutterSecureStorage();
+
+  AppErrorMessages _appErrorMessages = AppErrorMessages();
 
   List<Recipe> _recipes = [];
 
@@ -23,8 +26,7 @@ class RecipeSecureStorage {
           .toList();
       return _recipes;
     } on Exception catch (e) {
-      print(e);
-      return [];
+      return _appErrorMessages.loadingRecipesError(e);
     }
   }
 
@@ -46,8 +48,7 @@ class RecipeSecureStorage {
           aOptions: _getAndroidOptions());
       return addedRecipe;
     } on Exception catch (e) {
-      print(e);
-      return throwExceptionObject();
+      return _appErrorMessages.addingRecipeError(e);
     }
   }
 
@@ -58,8 +59,7 @@ class RecipeSecureStorage {
           aOptions: _getAndroidOptions());
       return true;
     } on Exception catch (e) {
-      print(e);
-      return false;
+      return _appErrorMessages.deletingRecipeError(e);
     }
   }
 
@@ -71,8 +71,7 @@ class RecipeSecureStorage {
           aOptions: _getAndroidOptions());
       return true;
     } on Exception catch (e) {
-      print(e);
-      return false;
+      return _appErrorMessages.updatingRecipeError(e);
     }
   }
 

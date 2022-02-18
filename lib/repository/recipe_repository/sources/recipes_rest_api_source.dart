@@ -34,9 +34,11 @@ class RecipeRestApiSource implements RecipeSource {
   }
 
   @override
-  Future<bool> updateRecipe(Recipe updatedRecipe) async{
-    return await _recipeNetworkService.putRecipe(jsonEncode(
-        (await setRecipeImage(updatedRecipe)).toJson()));
+  Future<Recipe> updateRecipe(Recipe updatedRecipe) async{
+    final Recipe recipe = await setRecipeImage(updatedRecipe);
+    await _recipeNetworkService.putRecipe(jsonEncode(
+        recipe.toJson()));
+    return recipe;
   }
 
 }

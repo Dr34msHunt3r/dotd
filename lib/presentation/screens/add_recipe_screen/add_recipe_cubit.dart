@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:dotd/config/app_strings.dart';
 import 'package:dotd/repository/recipe_repository/model/dto/recipe_dto.dart';
@@ -24,13 +22,11 @@ class AddRecipeCubit extends Cubit<AddRecipeState> {
       return;
     }
     emit(AddingRecipe());
-    Timer(const Duration(seconds: 2), () {
-      repository.addRecipe(recipe).then((recipe) {
-        if(recipe != null){
-          recipesCubit.addRecipe(recipe);
-          emit(RecipeAdded(recipe: recipe));
-        }
-      });
+    repository.addRecipe(recipe).then((recipe) {
+      if(recipe != null){
+        recipesCubit.addRecipe(recipe);
+        emit(RecipeAdded(recipe: recipe));
+      }
     });
   }
 }

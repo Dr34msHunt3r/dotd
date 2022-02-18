@@ -22,7 +22,7 @@ class RecipeRealtimeDatabaseSource implements RecipeSource {
   }
 
   @override
-  Future<bool> updateRecipe(Recipe updatedRecipe) async{
+  Future<Recipe> updateRecipe(Recipe updatedRecipe) async{
     return await _recipeRealtimeDatabase.updateRecipe(updatedRecipe);
   }
 

@@ -25,8 +25,7 @@ class RecipeNetworkService {
       final response = await dio.post(baseUrl + "/recipes/add", data: {"recipe":recipeObj});
       return response.data;
     }catch(e){
-      print(e);
-      return {};
+      throw Exception('Adding recipe failed: ${e}');
     }
   }
 
@@ -35,8 +34,7 @@ class RecipeNetworkService {
       await dio.delete(baseUrl + "/recipes/delete:id", data: {"id": id});
       return true;
     }catch(e){
-      print(e);
-      return false;
+      throw Exception('Deleting recipe failed: ${e}');
     }
   }
 
@@ -45,8 +43,7 @@ class RecipeNetworkService {
       await dio.put(baseUrl + "/recipes/put:id", data: {"recipe": putObj});
       return true;
     }catch(e){
-      print(e);
-      return false;
+      throw Exception('Updating recipe failed: ${e}');
     }
   }
 

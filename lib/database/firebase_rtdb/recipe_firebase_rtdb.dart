@@ -1,3 +1,4 @@
+import 'package:dotd/config/app_errors_messages.dart';
 import 'package:dotd/database/cloud_storage/image_cloud_storage.dart';
 import 'package:dotd/extensions/recipe_rtbd_converter.dart';
 import 'package:dotd/repository/recipe_repository/model/dto/recipe_dto.dart';
@@ -9,6 +10,7 @@ class RecipeRealtimeDatabase {
   DatabaseReference _refRecipe = FirebaseDatabase.instance.ref('recipes');
 
   ImageCloudStorage _imageCloudStorage = ImageCloudStorage();
+  AppErrorMessages _appErrorMessages = AppErrorMessages();
 
 
   Future<Recipe> addRecipe(Recipe recipe) async{
@@ -30,7 +32,7 @@ class RecipeRealtimeDatabase {
           id: key.key
       );
     } on Exception catch (e) {
-      throw Exception("Firebase Realtime Database unable to save recipe: ${e}");
+      return _appErrorMessages.addingRecipeError(e);
     }
   }
 
@@ -40,7 +42,7 @@ class RecipeRealtimeDatabase {
       await _refRecipe.child("${recipe.id}").remove();
       return true;
     } on Exception catch (e) {
-      throw Exception("Firebase Realtime Database unable to delete recipe: ${e}");
+      return _appErrorMessages.deletingRecipeError(e);
     }
   }
 
@@ -54,11 +56,11 @@ class RecipeRealtimeDatabase {
       });
       return _recipeList;
     } on Exception catch (e) {
-      throw Exception("Firebase Realtime Database unable to load recipes: ${e}");
+      return _appErrorMessages.loadingRecipesError(e);
     }
   }
 
-  Future<bool> updateRecipe(Recipe updatedRecipe) async{
+  Future<Recipe> updateRecipe(Recipe updatedRecipe) async{
     try {
       String? imageUrl = null;
       if(updatedRecipe.imageCacheUrl != null && updatedRecipe.imageUrl != updatedRecipe.imageCacheUrl)
@@ -66,9 +68,16 @@ class RecipeRealtimeDatabase {
         imageUrl = await _imageCloudStorage.uploadFile(updatedRecipe.imageCacheUrl!, updatedRecipe.id!);
       }
       _refRecipe.child("${updatedRecipe.id}").set(recipeToRTDB(updatedRecipe, updatedRecipe.id, imageUrl));
-      return true;
+      return Recipe(
+          recipeRecipe: updatedRecipe.recipeRecipe,
+          ingredients: updatedRecipe.ingredients,
+          recipeTitle: updatedRecipe.recipeTitle,
+          imageUrl: imageUrl ?? updatedRecipe.imageUrl,
+          favourite: updatedRecipe.favourite,
+          id: updatedRecipe.id
+      );
     } on Exception catch (e) {
-      throw Exception("Firebase Realtime Database unable to update recipe: ${e}");
+      return _appErrorMessages.updatingRecipeError(e);
     }
   }
 

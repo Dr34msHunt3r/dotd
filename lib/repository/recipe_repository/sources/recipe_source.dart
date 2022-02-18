@@ -6,7 +6,7 @@ abstract class RecipeSource {
   Future<List<Recipe>> loadRecipes();
   Future<Recipe> addRecipe(Recipe recipe);
   Future<bool> deleteRecipe(Recipe recipe);
-  Future<bool> updateRecipe(Recipe updatedRecipe);
+  Future<Recipe> updateRecipe(Recipe updatedRecipe);
 
   static const REST_API = "RESTAPI";
   static const MOOR = "MOOR";
